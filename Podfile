@@ -8,4 +8,10 @@ target 'COOKBOOK' do
   # Pods for COOKBOOK
 pod 'Alamofire'
 pod 'Kingfisher'
+pod 'IQKeyboardManager'
+pod 'Material'
+pod 'Firebase/Analytics'
+pod 'Firebase/Auth'
+pod 'CFAlertViewController'
+pod 'FBSDKLoginKit'
 end

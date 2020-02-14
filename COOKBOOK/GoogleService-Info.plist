@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>546990943534-n0pfnaqfgs1ar539u9tu8vu77bggih56.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.546990943534-n0pfnaqfgs1ar539u9tu8vu77bggih56</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDFPxhFM4iZOV9xrllFUJ3cp5AsW1TrvCc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>546990943534</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.101techie.COOKBOOK</string>
+	<key>PROJECT_ID</key>
+	<string>cookbook-5a8f7</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cookbook-5a8f7.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:546990943534:ios:afcb1f84b624754cd0debf</string>
+	<key>DATABASE_URL</key>
+	<string>https://cookbook-5a8f7.firebaseio.com</string>
+</dict>
+</plist>
