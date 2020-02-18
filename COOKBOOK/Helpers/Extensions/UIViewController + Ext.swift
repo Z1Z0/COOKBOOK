@@ -27,4 +27,13 @@ extension UIViewController {
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}")
         return passwordTest.evaluate(with: testStr)
     }
+    
+    func setupNavigation() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        backItem.tintColor = .CustomGreen()
+        navigationItem.backBarButtonItem = backItem
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.CustomGreen()]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+    }
 }

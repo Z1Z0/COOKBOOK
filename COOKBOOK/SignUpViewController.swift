@@ -9,6 +9,8 @@
 import UIKit
 import Material
 import Firebase
+import FacebookLogin
+import FacebookCore
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     
@@ -205,25 +207,26 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         if error == nil {
                             self.indicator.stopAnimating()
                             Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
-                                self.correctSignupAlert(title: "Yaaaaaaay", message: "Signup", actionTitle: "To signin")
+                                
                             })
                             print("Success")
+                            Alert.showAlert(title: "Email created", subtitle: "You have created your account", leftView: UIImageView(image: #imageLiteral(resourceName: "isSuccessIcon")), style: .success)
                         } else {
                             self.indicator.stopAnimating()
-                            self.errorAlert(title: "Error", message: error!.localizedDescription, actionTitle: "Cancel")
+                            Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                     }
                 } else {
                     self.indicator.stopAnimating()
-                    self.errorAlert(title: "Error", message: "Password doesn't match", actionTitle: "Cancel")
+                    Alert.showAlert(title: "Error", subtitle: "Password doesn't match", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                 }
             } else {
                 self.indicator.stopAnimating()
-                self.errorAlert(title: "Error", message: "Password should contain at least 8 charachters", actionTitle: "Cancel")
+                Alert.showAlert(title: "Error", subtitle: "Weak password", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             }
         } else {
             self.indicator.stopAnimating()
-            self.errorAlert(title: "Error", message: "Invalid email", actionTitle: "Cancel")
+            Alert.showAlert(title: "Error", subtitle: "Not valid email", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
         }
     }
     
@@ -253,11 +256,38 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         facebookButton.setImage(UIImage(named: "facebook"), for: .normal)
         facebookButton.backgroundColor = #colorLiteral(red: 0.1803921569, green: 0.2705882353, blue: 0.5294117647, alpha: 1)
         facebookButton.layer.cornerRadius = 8.0
+        facebookButton.addTarget(self, action: #selector(signinFacebook), for: .touchUpInside)
         return facebookButton
     }()
     
     func setupFacebookButtonConstraints() {
         facebookBtn.heightAnchor.constraint(equalToConstant: view.frame.width / 6).isActive = true
+    }
+    
+    @objc func signinFacebook() {
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: [.publicProfile, .email], viewController: self) { (result) in
+            switch result {
+            case .success(granted: _, declined: _, token: _):
+                self.signIntoFirebase()
+            case .failed(let error):
+                print(error)
+            case .cancelled:
+                print("cancelled")
+            }
+        }
+    }
+    
+    fileprivate func signIntoFirebase() {
+        let authenticationToken = AccessToken.current?.tokenString
+        let credential = FacebookAuthProvider.credential(withAccessToken: authenticationToken!)
+        Auth.auth().signIn(with: credential) { (user, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            self.indicator.stopAnimating()
+        }
     }
     
     let twitterBtn: UIButton = {
@@ -308,15 +338,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
-    }
-    
-    fileprivate func setupNavigation() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        backItem.tintColor = .CustomGreen()
-        navigationItem.backBarButtonItem = backItem
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.CustomGreen()]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
     
     func checkTxtFields() {

@@ -1,4 +1,4 @@
-framework module Pods_COOKBOOK {
+module Pods_COOKBOOK {
   umbrella header "Pods-COOKBOOK-umbrella.h"
 
   export *

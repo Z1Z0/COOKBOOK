@@ -3,7 +3,8 @@
 
 target 'COOKBOOK' do
   # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
+  # use_frameworks!
+  use_modular_headers!
 
   # Pods for COOKBOOK
 pod 'Alamofire'
@@ -12,6 +13,8 @@ pod 'IQKeyboardManager'
 pod 'Material'
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
-pod 'CFAlertViewController'
-pod 'FBSDKLoginKit'
+pod 'NotificationBannerSwift', '~> 3.0.0'
+pod 'FacebookCore'
+pod 'FacebookLogin'
+pod 'GoogleSignIn'
 end

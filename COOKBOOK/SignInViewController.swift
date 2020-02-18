@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import Alamofire
 import Material
 import Firebase
-import CFAlertViewController
-import FBSDKCoreKit
-import FBSDKLoginKit
+import FacebookLogin
+import FacebookCore
+import GoogleSignIn
 
 class SignInViewController: UIViewController {
     
@@ -26,7 +25,6 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         setupLoginStackView()
         setupViewName()
         setupEmailConstraints()
@@ -39,6 +37,8 @@ class SignInViewController: UIViewController {
         setupForgetPasswordButtonConstraints()
         checkTxtFields()
         view.backgroundColor = .white
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().signIn()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,13 +166,13 @@ class SignInViewController: UIViewController {
                             print("send email success")
                         } else {
                             self.indicator.stopAnimating()
-                            print("Email error")
+                            Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                     })
                 }
             } else {
                 self.indicator.stopAnimating()
-                self.errorAlert(title: "Error", message: error!.localizedDescription, actionTitle: "Cancel")
+                Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             }
         }
     }
@@ -224,7 +224,7 @@ class SignInViewController: UIViewController {
         facebookButton.setImage(UIImage(named: "facebook"), for: .normal)
         facebookButton.backgroundColor = #colorLiteral(red: 0.1803921569, green: 0.2705882353, blue: 0.5294117647, alpha: 1)
         facebookButton.layer.cornerRadius = 8.0
-        facebookButton.addTarget(self, action: #selector(facebookLogin), for: .touchUpInside)
+        facebookButton.addTarget(self, action: #selector(signinFacebook), for: .touchUpInside)
         return facebookButton
     }()
     
@@ -232,12 +232,12 @@ class SignInViewController: UIViewController {
         facebookBtn.heightAnchor.constraint(equalToConstant: view.frame.width / 6).isActive = true
     }
     
-    @objc func facebookLogin(_ sender: Any) {
+    @objc func signinFacebook() {
         let loginManager = LoginManager()
-        loginManager.logIn(permissions: [.publicProfile, .email], from: self) { (result) in
+        loginManager.logIn(permissions: [.publicProfile, .email], viewController: self) { (result) in
             switch result {
             case .success(granted: _, declined: _, token: _):
-                self.signIntoFirebase()
+                self.signIntoFirebaseWithFacebook()
             case .failed(let error):
                 print(error)
             case .cancelled:
@@ -246,7 +246,7 @@ class SignInViewController: UIViewController {
         }
     }
     
-    fileprivate func signIntoFirebase() {
+    fileprivate func signIntoFirebaseWithFacebook() {
         let authenticationToken = AccessToken.current?.tokenString
         let credential = FacebookAuthProvider.credential(withAccessToken: authenticationToken!)
         Auth.auth().signIn(with: credential) { (user, error) in
@@ -254,6 +254,7 @@ class SignInViewController: UIViewController {
                 print(err)
                 return
             }
+            self.indicator.stopAnimating()
         }
     }
     
@@ -262,6 +263,7 @@ class SignInViewController: UIViewController {
         twitterButton.setImage(UIImage(named: "twitter"), for: .normal)
         twitterButton.backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.5568627451, blue: 0.9333333333, alpha: 1)
         twitterButton.layer.cornerRadius = 8.0
+        twitterButton.addTarget(self, action: #selector(signinTwitter), for: .touchUpInside)
         return twitterButton
     }()
     
@@ -269,6 +271,26 @@ class SignInViewController: UIViewController {
         twitterBtn.heightAnchor.constraint(equalToConstant: view.frame.width / 6).isActive = true
     }
     
+    @objc func signinTwitter() {
+        func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+            if let error = error {
+                print(error)
+            } else {
+                print(user.profile.name)
+            }
+            guard let auth = user.authentication else {return}
+            let credential = GoogleAuthProvider.credential(withIDToken: auth.idToken, accessToken: auth.accessToken)
+            
+            Auth.auth().signIn(with: credential) { (result, error) in
+                if let err = error {
+                    print(err)
+                    return
+                }
+                print("Success")
+            }
+        }
+    }
+
     let appleBtn: UIButton = {
         let appleButton = UIButton()
         appleButton.setImage(UIImage(named: "apple"), for: .normal)
@@ -328,15 +350,6 @@ class SignInViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    fileprivate func setupNavigation() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        backItem.tintColor = .CustomGreen()
-        navigationItem.backBarButtonItem = backItem
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.CustomGreen()]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
-    }
-    
     func checkTxtFields() {
         loginButton.isEnabled = false
         loginButton.alpha = 0.4
@@ -376,6 +389,8 @@ class SignInViewController: UIViewController {
     }
     
 }
+
+
 
 extension SignInViewController: TextFieldDelegate {
     public func textFieldDidEndEditing(_ textField: UITextField) {
