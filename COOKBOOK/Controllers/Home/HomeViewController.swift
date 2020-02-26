@@ -80,6 +80,7 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
         leftMenuNavigationController.presentationStyle = .viewSlideOut
         leftMenuNavigationController.allowPushOfSameClassTwice = false
         leftMenuNavigationController.menuWidth = view.frame.width * (3/4)
+        leftMenuNavigationController.navigationBar.isHidden = true
         self.present(leftMenuNavigationController, animated: true, completion: nil)
     }
     
