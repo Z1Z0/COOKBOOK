@@ -17,4 +17,6 @@ pod 'NotificationBannerSwift', '~> 3.0.0'
 pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'GoogleSignIn'
+pod 'lottie-ios'
+pod 'SideMenu'
 end

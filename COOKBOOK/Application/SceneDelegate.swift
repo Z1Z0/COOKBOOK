@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let nav = UINavigationController(rootViewController: SplashViewController())
+        let nav = UINavigationController(rootViewController: HomeViewController())
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
     }

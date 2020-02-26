@@ -112,6 +112,7 @@ PODS:
   - Kingfisher (5.13.1):
     - Kingfisher/Core (= 5.13.1)
   - Kingfisher/Core (5.13.1)
+  - lottie-ios (3.1.6)
   - MarqueeLabel (4.0.2)
   - Material (3.1.8):
     - Material/Core (= 3.1.8)
@@ -129,6 +130,7 @@ PODS:
     - MarqueeLabel (~> 4.0.0)
     - SnapKit (~> 5.0.0)
   - PromisesObjC (1.2.8)
+  - SideMenu (6.4.7)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
@@ -140,8 +142,10 @@ DEPENDENCIES:
   - GoogleSignIn
   - IQKeyboardManager
   - Kingfisher
+  - lottie-ios
   - Material
   - NotificationBannerSwift (~> 3.0.0)
+  - SideMenu
 
 SPEC REPOS:
   trunk:
@@ -169,12 +173,14 @@ SPEC REPOS:
     - GTMSessionFetcher
     - IQKeyboardManager
     - Kingfisher
+    - lottie-ios
     - MarqueeLabel
     - Material
     - Motion
     - nanopb
     - NotificationBannerSwift
     - PromisesObjC
+    - SideMenu
     - SnapKit
 
 SPEC CHECKSUMS:
@@ -202,14 +208,16 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   Kingfisher: f33a848445e33c543620812158dc5d47f6bf90df
+  lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
   Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NotificationBannerSwift: 713e20f21b6105f4a36a00e5d9fa414a930d3d8e
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  SideMenu: 928a015669c3afc201e1fe3a87f1b0bc8993a664
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 67d3df09703415dc86dc9c1247c822bca4bd0a3a
+PODFILE CHECKSUM: eaa6d25a6e2542cc8e45366b2f79265f063cdb94
 
 COCOAPODS: 1.8.4

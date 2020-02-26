@@ -19,7 +19,6 @@ class SplashViewController: UIViewController, SplashViewDelegate {
     override func loadView() {
         super.loadView()
         view = mainView
-//        mainView.delegate = self
     }
 
     override func viewDidLoad() {

@@ -8,8 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		B3F18CDBBCAC5A1034587BFC /* libPods-COOKBOOK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58E067D65A23B12CA1717C /* libPods-COOKBOOK.a */; };
+		CC039F0523FD1031002ED7F3 /* ForgetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC039F0423FD1031002ED7F3 /* ForgetPasswordView.swift */; };
 		CC1A390223FC1EB3000AAF3A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A390123FC1EB3000AAF3A /* SplashView.swift */; };
-		CC3C845E23FB003B00CAEAA7 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C845D23FB003B00CAEAA7 /* Services.swift */; };
+		CC1A390723FC54ED000AAF3A /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A390623FC54ED000AAF3A /* SignInView.swift */; };
+		CC25A43B240087A400F67182 /* CGRect + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC25A43A240087A400F67182 /* CGRect + Ext.swift */; };
+		CC2752E123FDA33D00BE56A5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2752E023FDA33D00BE56A5 /* HomeView.swift */; };
+		CC33256E23FCF88D00F8A6F2 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC33256D23FCF88D00F8A6F2 /* SignupView.swift */; };
+		CC410FB82406C41500F4A82D /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC410FB72406C41500F4A82D /* SideMenuTableViewController.swift */; };
+		CC410FBB2406C44500F4A82D /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC410FBA2406C44500F4A82D /* SideMenuTableViewCell.swift */; };
+		CC74E77F23FF6B4E000625DF /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74E77E23FF6B4E000625DF /* ActivityIndicator.swift */; };
+		CCA170492402A96A008126C1 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA170482402A96A008126C1 /* HomeTableViewCell.swift */; };
+		CCF790052401BE6C006FC3A6 /* ImageView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF790042401BE6C006FC3A6 /* ImageView + Ext.swift */; };
 		CCF945B023FA2BE6002734F6 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF945AF23FA2BE6002734F6 /* Alert.swift */; };
 		E12AB4BC23E23EEE00DD15D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4BB23E23EEE00DD15D4 /* AppDelegate.swift */; };
 		E12AB4BE23E23EEE00DD15D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4BD23E23EEE00DD15D4 /* SceneDelegate.swift */; };
@@ -31,8 +40,17 @@
 		46AC84310F488B5144B5F439 /* Pods-COOKBOOK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COOKBOOK.debug.xcconfig"; path = "Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK.debug.xcconfig"; sourceTree = "<group>"; };
 		7134C9C1A9803BBB2ADB35D2 /* Pods-COOKBOOK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COOKBOOK.release.xcconfig"; path = "Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK.release.xcconfig"; sourceTree = "<group>"; };
 		BD58E067D65A23B12CA1717C /* libPods-COOKBOOK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-COOKBOOK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC039F0423FD1031002ED7F3 /* ForgetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordView.swift; sourceTree = "<group>"; };
 		CC1A390123FC1EB3000AAF3A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		CC3C845D23FB003B00CAEAA7 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		CC1A390623FC54ED000AAF3A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		CC25A43A240087A400F67182 /* CGRect + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect + Ext.swift"; sourceTree = "<group>"; };
+		CC2752E023FDA33D00BE56A5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		CC33256D23FCF88D00F8A6F2 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		CC410FB72406C41500F4A82D /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
+		CC410FBA2406C44500F4A82D /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
+		CC74E77E23FF6B4E000625DF /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		CCA170482402A96A008126C1 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		CCF790042401BE6C006FC3A6 /* ImageView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView + Ext.swift"; sourceTree = "<group>"; };
 		CCF945AF23FA2BE6002734F6 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		E12AB4B823E23EEE00DD15D4 /* COOKBOOK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COOKBOOK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E12AB4BB23E23EEE00DD15D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +99,155 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CC039F0223FD1004002ED7F3 /* ForgetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				CC039F0423FD1031002ED7F3 /* ForgetPasswordView.swift */,
+			);
+			path = ForgetPassword;
+			sourceTree = "<group>";
+		};
+		CC039F0323FD101C002ED7F3 /* ForgetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				E133302A23F4359A008B46FC /* ForgetPasswordViewController.swift */,
+			);
+			path = ForgetPassword;
+			sourceTree = "<group>";
+		};
+		CC1A390323FC50A1000AAF3A /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E12AB4BB23E23EEE00DD15D4 /* AppDelegate.swift */,
+				E12AB4BD23E23EEE00DD15D4 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		CC1A390423FC50E9000AAF3A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E12AB4C423E23EEF00DD15D4 /* Assets.xcassets */,
+				E12AB4C623E23EEF00DD15D4 /* LaunchScreen.storyboard */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		CC1A390523FC5217000AAF3A /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				E12AB4C923E23EEF00DD15D4 /* Info.plist */,
+				E1D4EC7223F4C035006E6CB4 /* GoogleService-Info.plist */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		CC33256F23FCF8DE00F8A6F2 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				E15FB4D023F19FA2001FAB47 /* SplashViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		CC33257023FCF8E900F8A6F2 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				E12AB4BF23E23EEE00DD15D4 /* SignInViewController.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		CC33257123FCF8F900F8A6F2 /* SingUp */ = {
+			isa = PBXGroup;
+			children = (
+				E133302823F4286C008B46FC /* SignUpViewController.swift */,
+			);
+			path = SingUp;
+			sourceTree = "<group>";
+		};
+		CC33257223FCF90B00F8A6F2 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				CC1A390123FC1EB3000AAF3A /* SplashView.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		CC33257323FCF91800F8A6F2 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				CC1A390623FC54ED000AAF3A /* SignInView.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		CC33257423FCF92400F8A6F2 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				CC33256D23FCF88D00F8A6F2 /* SignupView.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		CC410FB62406C35400F4A82D /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				CC410FB72406C41500F4A82D /* SideMenuTableViewController.swift */,
+				CC410FB92406C42C00F4A82D /* TableViewCell */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		CC410FB92406C42C00F4A82D /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CC410FBA2406C44500F4A82D /* SideMenuTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		CC74E77D23FF6B33000625DF /* ActivityIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				CC74E77E23FF6B4E000625DF /* ActivityIndicator.swift */,
+			);
+			path = ActivityIndicator;
+			sourceTree = "<group>";
+		};
+		CCA170462402A926008126C1 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				CC2752E023FDA33D00BE56A5 /* HomeView.swift */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		CCA170472402A940008126C1 /* HomeTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				CCA170482402A96A008126C1 /* HomeTableViewCell.swift */,
+			);
+			path = HomeTableCell;
+			sourceTree = "<group>";
+		};
+		CCF9CB062402A60800567724 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E12AB4CF23E2421700DD15D4 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CCF9CB072402A61A00567724 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CCA170462402A926008126C1 /* HomeView */,
+				CCA170472402A940008126C1 /* HomeTableCell */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		E12AB4AF23E23EEE00DD15D4 = {
 			isa = PBXGroup;
 			children = (
@@ -102,21 +269,13 @@
 		E12AB4BA23E23EEE00DD15D4 /* COOKBOOK */ = {
 			isa = PBXGroup;
 			children = (
+				CC1A390323FC50A1000AAF3A /* Application */,
 				E19555D923F233530001C480 /* Helpers */,
 				E1FAAC8423F16B2A000B0A3E /* Models */,
 				E1FAAC8623F16B48000B0A3E /* Views */,
 				E1FAAC8523F16B35000B0A3E /* Controllers */,
-				E12AB4BB23E23EEE00DD15D4 /* AppDelegate.swift */,
-				E12AB4BD23E23EEE00DD15D4 /* SceneDelegate.swift */,
-				E15FB4D023F19FA2001FAB47 /* SplashViewController.swift */,
-				E12AB4BF23E23EEE00DD15D4 /* SignInViewController.swift */,
-				E133302823F4286C008B46FC /* SignUpViewController.swift */,
-				E133302A23F4359A008B46FC /* ForgetPasswordViewController.swift */,
-				E12AB4CF23E2421700DD15D4 /* HomeViewController.swift */,
-				E12AB4C423E23EEF00DD15D4 /* Assets.xcassets */,
-				E12AB4C623E23EEF00DD15D4 /* LaunchScreen.storyboard */,
-				E12AB4C923E23EEF00DD15D4 /* Info.plist */,
-				E1D4EC7223F4C035006E6CB4 /* GoogleService-Info.plist */,
+				CC1A390423FC50E9000AAF3A /* Assets */,
+				CC1A390523FC5217000AAF3A /* Others */,
 			);
 			path = COOKBOOK;
 			sourceTree = "<group>";
@@ -124,8 +283,8 @@
 		E147ADC423F5CA96004D1074 /* CustomClasses */ = {
 			isa = PBXGroup;
 			children = (
+				CC74E77D23FF6B33000625DF /* ActivityIndicator */,
 				E147ADC523F5CAA0004D1074 /* Alert */,
-				CC3C845D23FB003B00CAEAA7 /* Services.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -153,6 +312,8 @@
 				E19555DA23F2336B0001C480 /* Colors + Ext.swift */,
 				E1CDA91A23F36D43002BCDD8 /* UIView + Ext.swift */,
 				E1D4EC7423F4D6E0006E6CB4 /* UIViewController + Ext.swift */,
+				CC25A43A240087A400F67182 /* CGRect + Ext.swift */,
+				CCF790042401BE6C006FC3A6 /* ImageView + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -168,6 +329,11 @@
 		E1FAAC8523F16B35000B0A3E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CC33256F23FCF8DE00F8A6F2 /* Splash */,
+				CC33257023FCF8E900F8A6F2 /* SignIn */,
+				CC33257123FCF8F900F8A6F2 /* SingUp */,
+				CC039F0323FD101C002ED7F3 /* ForgetPassword */,
+				CCF9CB062402A60800567724 /* Home */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -175,7 +341,12 @@
 		E1FAAC8623F16B48000B0A3E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CC1A390123FC1EB3000AAF3A /* SplashView.swift */,
+				CC410FB62406C35400F4A82D /* SideMenu */,
+				CC33257223FCF90B00F8A6F2 /* Splash */,
+				CC33257323FCF91800F8A6F2 /* SignIn */,
+				CC33257423FCF92400F8A6F2 /* SignUp */,
+				CC039F0223FD1004002ED7F3 /* ForgetPassword */,
+				CCF9CB072402A61A00567724 /* Home */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -296,20 +467,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC3C845E23FB003B00CAEAA7 /* Services.swift in Sources */,
 				E133302923F4286C008B46FC /* SignUpViewController.swift in Sources */,
 				E12AB4D023E2421700DD15D4 /* HomeViewController.swift in Sources */,
 				E12AB4C023E23EEE00DD15D4 /* SignInViewController.swift in Sources */,
 				E1CDA91B23F36D43002BCDD8 /* UIView + Ext.swift in Sources */,
 				E1D4EC7523F4D6E0006E6CB4 /* UIViewController + Ext.swift in Sources */,
+				CC2752E123FDA33D00BE56A5 /* HomeView.swift in Sources */,
 				E12AB4BC23E23EEE00DD15D4 /* AppDelegate.swift in Sources */,
+				CC410FBB2406C44500F4A82D /* SideMenuTableViewCell.swift in Sources */,
 				CCF945B023FA2BE6002734F6 /* Alert.swift in Sources */,
 				E19555DB23F2336B0001C480 /* Colors + Ext.swift in Sources */,
+				CCA170492402A96A008126C1 /* HomeTableViewCell.swift in Sources */,
+				CC25A43B240087A400F67182 /* CGRect + Ext.swift in Sources */,
+				CC039F0523FD1031002ED7F3 /* ForgetPasswordView.swift in Sources */,
+				CC1A390723FC54ED000AAF3A /* SignInView.swift in Sources */,
+				CC33256E23FCF88D00F8A6F2 /* SignupView.swift in Sources */,
 				E12AB4BE23E23EEE00DD15D4 /* SceneDelegate.swift in Sources */,
+				CCF790052401BE6C006FC3A6 /* ImageView + Ext.swift in Sources */,
 				E12AB4D623E2487800DD15D4 /* RecipeModel.swift in Sources */,
 				E15FB4D123F19FA2001FAB47 /* SplashViewController.swift in Sources */,
 				E133302B23F4359A008B46FC /* ForgetPasswordViewController.swift in Sources */,
+				CC74E77F23FF6B4E000625DF /* ActivityIndicator.swift in Sources */,
 				CC1A390223FC1EB3000AAF3A /* SplashView.swift in Sources */,
+				CC410FB82406C41500F4A82D /* SideMenuTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,7 +629,7 @@
 				CODE_SIGN_ENTITLEMENTS = COOKBOOK/COOKBOOK.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57RA7SGH3Y;
-				INFOPLIST_FILE = COOKBOOK/Info.plist;
+				INFOPLIST_FILE = COOKBOOK/Others/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -469,7 +649,7 @@
 				CODE_SIGN_ENTITLEMENTS = COOKBOOK/COOKBOOK.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57RA7SGH3Y;
-				INFOPLIST_FILE = COOKBOOK/Info.plist;
+				INFOPLIST_FILE = COOKBOOK/Others/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
