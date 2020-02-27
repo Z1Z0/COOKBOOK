@@ -28,8 +28,12 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    }
+    
+    
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,6 +85,7 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
         leftMenuNavigationController.allowPushOfSameClassTwice = false
         leftMenuNavigationController.menuWidth = view.frame.width * (3/4)
         leftMenuNavigationController.navigationBar.isHidden = true
+        leftMenuNavigationController.navigationBar.prefersLargeTitles = true
         self.present(leftMenuNavigationController, animated: true, completion: nil)
     }
     
