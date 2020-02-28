@@ -45,6 +45,7 @@ class UserTableViewCell: UITableViewCell {
         let username = UILabel()
         username.textColor = .white
         username.text = "Ahmed Abd Elaziz"
+        username.font = UIFont(name: "AvenirNext-DemiBold", size: 20)
         username.translatesAutoresizingMaskIntoConstraints = false
         return username
     }()

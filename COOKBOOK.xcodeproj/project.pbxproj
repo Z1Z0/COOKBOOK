@@ -204,8 +204,8 @@
 		CC410FB92406C42C00F4A82D /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				CC410FBA2406C44500F4A82D /* SideMenuTableViewCell.swift */,
 				E111617824089FCA00865872 /* UserTableViewCell.swift */,
+				CC410FBA2406C44500F4A82D /* SideMenuTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
