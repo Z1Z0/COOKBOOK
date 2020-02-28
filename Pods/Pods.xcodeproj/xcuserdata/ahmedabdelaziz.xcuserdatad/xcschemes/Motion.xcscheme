@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9312109646DF39EBE725AD8F96A8C18B"
-               BuildableName = "Motion.framework"
+               BuildableName = "libMotion.a"
                BlueprintName = "Motion"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

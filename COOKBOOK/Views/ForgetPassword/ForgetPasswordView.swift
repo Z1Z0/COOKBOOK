@@ -19,7 +19,6 @@ class ForgetPasswordView: UIView {
     let forgetPasswordStackView = UIStackView()
     fileprivate let widthConstant: CGFloat = 1.3
     fileprivate let height: CGFloat = 55
-    let indicator = UIActivityIndicatorView()
     
     weak var delegate: forgetPasswordDelegate!
         
@@ -123,30 +122,12 @@ class ForgetPasswordView: UIView {
     }
     
     func layoutUI() {
-        addSubview(indicator)
         setupForgetPasswordStackView()
         setupViewNameConstraints()
         setupEmailConstraints()
         setupForgetPasswordConstraints()
         dismissKeyboard()
         checkTxtFields()
-        setupIndicatorConstraints()
-    }
-    
-    func setupIndicator() {
-        indicator.style = .medium
-        indicator.center = self.center
-        indicator.color = .white
-        indicator.backgroundColor = .clear
-        indicator.startAnimating()
-        indicator.hidesWhenStopped = true
-    }
-    
-    func setupIndicatorConstraints() {
-        NSLayoutConstraint.activate([
-            indicator.centerXAnchor.constraint(equalTo: centerXAnchor),
-            indicator.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
     }
     
     func dismissKeyboard() {

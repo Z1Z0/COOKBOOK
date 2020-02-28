@@ -10,7 +10,7 @@ import UIKit
 import SideMenu
 
 class SideMenuTableViewCell: UITableViewCell {
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutUI()
@@ -22,6 +22,13 @@ class SideMenuTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    lazy var containerView: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = .clear
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }()
+    
     lazy var viewTitle: UILabel = {
         let viewTitle = UILabel()
         viewTitle.font = UIFont(name: "AvenirNext-Regular", size: 20)
@@ -31,19 +38,30 @@ class SideMenuTableViewCell: UITableViewCell {
         return viewTitle
     }()
     
+    func setupContainerViewConstraints() {
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
     func setupFoodTitle() {
         NSLayoutConstraint.activate([
-            viewTitle.centerYAnchor.constraint(equalTo: centerYAnchor),
-            viewTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+            viewTitle.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            viewTitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16)
         ])
     }
     
     func addSubview() {
-        addSubview(viewTitle)
+        addSubview(containerView)
+        containerView.addSubview(viewTitle)
     }
     
     func layoutUI() {
         addSubview()
+        setupContainerViewConstraints()
         setupFoodTitle()
     }
 

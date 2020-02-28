@@ -7,11 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -19,11 +19,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window?.windowScene = windowScene
-        let nav = UINavigationController(rootViewController: HomeViewController())
-        window?.rootViewController = nav
-        window?.makeKeyAndVisible()
+        if Auth.auth().currentUser != nil {
+          // User is signed in.
+          window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+          window?.windowScene = windowScene
+          let nav = UINavigationController(rootViewController: HomeViewController())
+          window?.rootViewController = nav
+          window?.makeKeyAndVisible()
+        } else {
+          // No user is signed in.
+          window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+          window?.windowScene = windowScene
+          let nav = UINavigationController(rootViewController: SplashViewController())
+          window?.rootViewController = nav
+          window?.makeKeyAndVisible()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

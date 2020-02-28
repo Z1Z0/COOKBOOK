@@ -38,6 +38,10 @@ class SignInViewController: UIViewController, SignInDelegate {
                     self.view.alpha = 1.0
                     self.indicator.hideIndicatorView()
                     print("Logined")
+                    
+                    let homeVC = HomeViewController()
+                    self.show(homeVC, sender: nil)
+                    
                 } else {
                     Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
                         if error == nil {
@@ -102,6 +106,11 @@ class SignInViewController: UIViewController, SignInDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +120,7 @@ class SignInViewController: UIViewController, SignInDelegate {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         setupNavigation()
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

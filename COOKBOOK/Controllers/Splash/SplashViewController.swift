@@ -20,6 +20,10 @@ class SplashViewController: UIViewController, SplashViewDelegate {
         super.loadView()
         view = mainView
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,7 @@ class SplashViewController: UIViewController, SplashViewDelegate {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         setupNavigation()
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     func registerButtonTapped() {

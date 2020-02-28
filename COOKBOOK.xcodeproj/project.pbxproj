@@ -20,6 +20,7 @@
 		CCA170492402A96A008126C1 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA170482402A96A008126C1 /* HomeTableViewCell.swift */; };
 		CCF790052401BE6C006FC3A6 /* ImageView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF790042401BE6C006FC3A6 /* ImageView + Ext.swift */; };
 		CCF945B023FA2BE6002734F6 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF945AF23FA2BE6002734F6 /* Alert.swift */; };
+		E111617924089FCA00865872 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111617824089FCA00865872 /* UserTableViewCell.swift */; };
 		E12AB4BC23E23EEE00DD15D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4BB23E23EEE00DD15D4 /* AppDelegate.swift */; };
 		E12AB4BE23E23EEE00DD15D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4BD23E23EEE00DD15D4 /* SceneDelegate.swift */; };
 		E12AB4C023E23EEE00DD15D4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4BF23E23EEE00DD15D4 /* SignInViewController.swift */; };
@@ -52,6 +53,7 @@
 		CCA170482402A96A008126C1 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		CCF790042401BE6C006FC3A6 /* ImageView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView + Ext.swift"; sourceTree = "<group>"; };
 		CCF945AF23FA2BE6002734F6 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		E111617824089FCA00865872 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		E12AB4B823E23EEE00DD15D4 /* COOKBOOK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COOKBOOK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E12AB4BB23E23EEE00DD15D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E12AB4BD23E23EEE00DD15D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				CC410FBA2406C44500F4A82D /* SideMenuTableViewCell.swift */,
+				E111617824089FCA00865872 /* UserTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				E12AB4D023E2421700DD15D4 /* HomeViewController.swift in Sources */,
 				E12AB4C023E23EEE00DD15D4 /* SignInViewController.swift in Sources */,
 				E1CDA91B23F36D43002BCDD8 /* UIView + Ext.swift in Sources */,
+				E111617924089FCA00865872 /* UserTableViewCell.swift in Sources */,
 				E1D4EC7523F4D6E0006E6CB4 /* UIViewController + Ext.swift in Sources */,
 				CC2752E123FDA33D00BE56A5 /* HomeView.swift in Sources */,
 				E12AB4BC23E23EEE00DD15D4 /* AppDelegate.swift in Sources */,
@@ -626,7 +630,6 @@
 			baseConfigurationReference = 46AC84310F488B5144B5F439 /* Pods-COOKBOOK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = COOKBOOK/COOKBOOK.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57RA7SGH3Y;
 				INFOPLIST_FILE = COOKBOOK/Others/Info.plist;
@@ -646,7 +649,6 @@
 			baseConfigurationReference = 7134C9C1A9803BBB2ADB35D2 /* Pods-COOKBOOK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = COOKBOOK/COOKBOOK.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57RA7SGH3Y;
 				INFOPLIST_FILE = COOKBOOK/Others/Info.plist;

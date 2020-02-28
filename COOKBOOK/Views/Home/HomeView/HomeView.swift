@@ -57,7 +57,7 @@ class HomeView: UIView {
         
         addSubview()
         setupFoodTableView()
-        fetchData()
+//        fetchData()
     }
     
     func fetchData() {
