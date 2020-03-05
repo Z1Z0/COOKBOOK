@@ -14,6 +14,7 @@ class HomeTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutUI()
         selectionStyle = .none
+        self.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
@@ -24,10 +25,6 @@ class HomeTableViewCell: UITableViewCell {
         let containerView = UIView()
         containerView.backgroundColor = .white
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.layer.shadowColor = UIColor.black.cgColor
-        containerView.layer.shadowOpacity = 1
-        containerView.layer.shadowOffset = .init(width: 2, height: 2)
-        containerView.layer.shadowRadius = 7.0
         containerView.layer.cornerRadius = 8.0
 //        containerView.clipsToBounds = true
         return containerView
@@ -36,16 +33,25 @@ class HomeTableViewCell: UITableViewCell {
     lazy var foodImage: UIImageView = {
         let foodImage = UIImageView()
         foodImage.translatesAutoresizingMaskIntoConstraints = false
-        foodImage.contentMode = .scaleAspectFill
+        foodImage.contentMode = .scaleToFill
         foodImage.clipsToBounds = true
         foodImage.layer.cornerRadius = 8.0
         return foodImage
+    }()
+    
+    lazy var favouriteButton: UIButton = {
+        var favouriteButton = UIButton(type: .system)
+        favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        favouriteButton.tintColor = .CustomGreen()
+        favouriteButton.translatesAutoresizingMaskIntoConstraints = false
+        return favouriteButton
     }()
     
     lazy var foodTitle: UILabel = {
         let foodTitle = UILabel()
         foodTitle.textColor = .CustomGreen()
         foodTitle.numberOfLines = 0
+        foodTitle.font = UIFont(name: "AvenirNext-Regular", size: 16)
         foodTitle.translatesAutoresizingMaskIntoConstraints = false
         return foodTitle
     }()
@@ -56,26 +62,37 @@ class HomeTableViewCell: UITableViewCell {
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-//            containerView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
     
     func setupFoodImage() {
         NSLayoutConstraint.activate([
             foodImage.topAnchor.constraint(equalTo: containerView.topAnchor),
-//            foodImage.bottomAnchor.constraint(equalTo: foodTitle.topAnchor, constant: 16),
             foodImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             foodImage.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            foodImage.heightAnchor.constraint(equalToConstant: 250)
+            foodImage.heightAnchor.constraint(equalToConstant: self.bounds.width / 1.8)
         ])
     }
     
     func setupFoodTitle() {
+        
         NSLayoutConstraint.activate([
             foodTitle.topAnchor.constraint(equalTo: foodImage.bottomAnchor, constant: 16),
             foodTitle.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
             foodTitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            foodTitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+            foodTitle.trailingAnchor.constraint(lessThanOrEqualTo: favouriteButton.leadingAnchor, constant: -16),
+            
+        ])
+        foodTitle.setContentHuggingPriority(.init(240.0), for: .horizontal)
+        foodTitle.setContentCompressionResistancePriority(.init(740.0), for: .horizontal)
+    }
+    
+    func setupFavouriteButtonConstraints() {
+        NSLayoutConstraint.activate([
+            favouriteButton.centerYAnchor.constraint(equalTo: foodTitle.centerYAnchor),
+            favouriteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+//            favouriteButton.widthAnchor.constraint(equalTo: favouriteButton.widthAnchor),
+//            favouriteButton.heightAnchor.constraint(equalTo: favouriteButton.heightAnchor)
         ])
     }
     
@@ -83,6 +100,7 @@ class HomeTableViewCell: UITableViewCell {
         addSubview(containerView)
         containerView.addSubview(foodImage)
         containerView.addSubview(foodTitle)
+        containerView.addSubview(favouriteButton)
     }
     
     func layoutUI() {
@@ -90,6 +108,7 @@ class HomeTableViewCell: UITableViewCell {
         setupContainerView()
         setupFoodImage()
         setupFoodTitle()
+        setupFavouriteButtonConstraints()
     }
     
 }

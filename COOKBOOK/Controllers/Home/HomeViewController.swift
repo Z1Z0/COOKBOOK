@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
         
     lazy var mainView: HomeView = {
         let view = HomeView(frame: self.view.frame)
-        view.backgroundColor = .white
+        
         return view
     }()
     
@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -79,7 +80,7 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "star"), style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(menuButtonTapped))
         navigationItem.leftBarButtonItem?.tintColor = .white
