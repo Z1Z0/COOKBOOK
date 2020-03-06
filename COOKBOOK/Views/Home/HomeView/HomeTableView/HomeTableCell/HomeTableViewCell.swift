@@ -26,16 +26,15 @@ class HomeTableViewCell: UITableViewCell {
         containerView.backgroundColor = .white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.layer.cornerRadius = 8.0
-//        containerView.clipsToBounds = true
+        containerView.clipsToBounds = true
         return containerView
     }()
     
     lazy var foodImage: UIImageView = {
         let foodImage = UIImageView()
         foodImage.translatesAutoresizingMaskIntoConstraints = false
-        foodImage.contentMode = .scaleToFill
+        foodImage.contentMode = .scaleAspectFill
         foodImage.clipsToBounds = true
-        foodImage.layer.cornerRadius = 8.0
         return foodImage
     }()
     

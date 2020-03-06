@@ -36,7 +36,7 @@ class SignInViewController: UIViewController, SignInDelegate {
             if error == nil {
                 if Auth.auth().currentUser?.isEmailVerified == true {
                     self.view.alpha = 1.0
-                    self.indicator.hideIndicatorView()
+                    self.indicator.hideIndicatorView(self.view)
                     print("Logined")
                     
                     let homeVC = HomeViewController()
@@ -46,18 +46,18 @@ class SignInViewController: UIViewController, SignInDelegate {
                     Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
                         if error == nil {
                             self.view.alpha = 1.0
-                            self.indicator.hideIndicatorView()
+                            self.indicator.hideIndicatorView(self.view)
                             Alert.showAlert(title: "Warning", subtitle: "You have not activate your account yet. We have sent you an email to activate it.", leftView: UIImageView(image: #imageLiteral(resourceName: "isWarningIcon")), style: .warning)
                         } else {
                             self.view.alpha = 1.0
-                            self.indicator.hideIndicatorView()
+                            self.indicator.hideIndicatorView(self.view)
                             Alert.showAlert(title: "Error", subtitle: "Incorrect email.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                     })
                 }
             } else {
                 self.view.alpha = 1.0
-                self.indicator.hideIndicatorView()
+                self.indicator.hideIndicatorView(self.view)
                 Alert.showAlert(title: "Error", subtitle: "Incorrect email or password.", leftView: UIImageView(assetIdentifier: AssetIdentifier.error)!, style: .danger)
             }
         }
@@ -98,7 +98,7 @@ class SignInViewController: UIViewController, SignInDelegate {
                 return
             }
             self.view.alpha = 1.0
-            self.indicator.hideIndicatorView()
+            self.indicator.hideIndicatorView(self.view)
         }
     }
     

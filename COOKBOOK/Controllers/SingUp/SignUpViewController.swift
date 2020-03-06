@@ -41,32 +41,32 @@ class SignUpViewController: UIViewController, SignupDelegate {
                     Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
                         if error == nil {
                             self.view.alpha = 1.0
-                            self.indicator.hideIndicatorView()
+                            self.indicator.hideIndicatorView(self.view)
                             Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
                                 
                             })
                             self.view.alpha = 1.0
-                            self.indicator.hideIndicatorView()
+                            self.indicator.hideIndicatorView(self.view)
                             Alert.showAlert(title: "Email created", subtitle: "You have created your account. Please check your email and activate the account", leftView: UIImageView(image: #imageLiteral(resourceName: "isSuccessIcon")), style: .success)
                         } else {
                             self.view.alpha = 1.0
-                            self.indicator.hideIndicatorView()
+                            self.indicator.hideIndicatorView(self.view)
                             Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                     }
                 } else {
                     self.view.alpha = 1.0
-                    self.indicator.hideIndicatorView()
+                    self.indicator.hideIndicatorView(self.view)
                     Alert.showAlert(title: "Error", subtitle: "Password doesn't match", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                 }
             } else {
                 self.view.alpha = 1.0
-                self.indicator.hideIndicatorView()
+                self.indicator.hideIndicatorView(self.view)
                 Alert.showAlert(title: "Error", subtitle: "Please enter password that contains at least one uppercase, at least one digit, at least one lowercase, 8 characters total.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             }
         } else {
             self.view.alpha = 1.0
-            self.indicator.hideIndicatorView()
+            self.indicator.hideIndicatorView(self.view)
             Alert.showAlert(title: "Error", subtitle: "Please enter a valid email", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
         }
     }

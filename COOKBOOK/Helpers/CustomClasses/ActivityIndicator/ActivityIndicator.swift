@@ -20,7 +20,7 @@ class ActivityIndicator {
     func setupIndicatorView(_ view: UIView, containerColor: UIColor, indicatorColor: UIColor) {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        
+        view.alpha = 0.5
         containerView.isHidden = false
         indicator.style = .large
         indicator.color = indicatorColor
@@ -61,8 +61,9 @@ class ActivityIndicator {
         setupIndicatorViewConstraints()
     }
     
-    func hideIndicatorView() {
+    func hideIndicatorView(_ view: UIView) {
         DispatchQueue.main.async {
+            view.alpha = 1.0
             self.indicator.stopAnimating()
             self.containerView.isHidden = true
             self.containerView.removeFromSuperview()

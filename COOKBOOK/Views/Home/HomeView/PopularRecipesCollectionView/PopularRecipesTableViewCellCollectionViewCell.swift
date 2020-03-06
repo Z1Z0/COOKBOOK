@@ -1,55 +1,52 @@
 //
-//  CategoriesCollectionViewCell.swift
+//  PopularRecipesTableViewCellCollectionViewCell.swift
 //  COOKBOOK
 //
-//  Created by Ahmed Abd Elaziz on 3/1/20.
+//  Created by Ahmed Abd Elaziz on 3/5/20.
 //  Copyright © 2020 Ahmed Abd Elaziz. All rights reserved.
 //
 
 import UIKit
+import Kingfisher
+import Alamofire
 
-class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
-
-    let categories = ["Main course",
-                      "Beef",
-                      "Chicken",
-                      "Seafood",
-                      "Vegetarian",
-                      "Breakfast",
-                      "Side dish",
-                      "Drink",
-                      "Sauce",
-                      "Soup",
-                      "Snacks",
-                      "Dessert"
-    ]
+class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
     
-    let categoriesImages: [UIImage] = [
-        UIImage(named: "maincourse")!,
-        UIImage(named: "beef")!,
-        UIImage(named: "chicken")!,
-        UIImage(named: "seafood")!,
-        UIImage(named: "vegetarian")!,
-        UIImage(named: "breakfast")!,
-        UIImage(named: "sidedish")!,
-        UIImage(named: "drink")!,
-        UIImage(named: "sauce")!,
-        UIImage(named: "soup")!,
-        UIImage(named: "snacks")!,
-        UIImage(named: "dessert")!
-    ]
+    var recipes: RecipesData?
+    var recipesDetails = [RecipeData]()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutUI()
-        selectionStyle = .none
+        fetchData()
         self.backgroundColor = .clear
+        selectionStyle = .none
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    func fetchData() {
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=db696760ce1043b08fc01d61d1ed0d35&number=10").responseJSON { (response) in
+            if let error = response.error {
+                print(error)
+            }
+            do {
+                if let data = response.data {
+                    self.recipes = try JSONDecoder().decode(RecipesData.self, from: data)
+                    self.recipesDetails = self.recipes?.recipes ?? []
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                }
+                
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.backgroundColor = .clear
@@ -59,7 +56,7 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
 
     lazy var categoriesNameLabel: UILabel = {
         let categoriesNameLabel = UILabel()
-        categoriesNameLabel.text = "Categories"
+        categoriesNameLabel.text = "Popular recipes"
         categoriesNameLabel.textColor = .customDarkGray()
         categoriesNameLabel.textAlignment = .left
         categoriesNameLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
@@ -90,7 +87,7 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: "CategoriesCollectionViewCell")
+        collectionView.register(PopularRecipesCollectionViewCell.self, forCellWithReuseIdentifier: "PopularRecipesCollectionViewCell")
         return collectionView
     }()
 
@@ -130,10 +127,8 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
     }
-
+    
     func addSubviews() {
-        // but categoriesNameLabel inside containerView
-        //addSubview(categoriesNameLabel)
         addSubview(containerView)
         containerView.addSubview(categoriesNameLabel)
         containerView.addSubview(seeAllCategoriesButton)
@@ -150,22 +145,23 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
 
 }
 
-
-extension CategoriesTableViewCellCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        return recipesDetails.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as! CategoriesCollectionViewCell
-        cell.categoriesImage.image = categoriesImages[indexPath.row]
-        cell.categoryName.text = categories[indexPath.row]
+        
+        let url = URL(string: recipesDetails[indexPath.row].image ?? "Error")
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularRecipesCollectionViewCell", for: indexPath) as! PopularRecipesCollectionViewCell
+        cell.popularRecipesImage.kf.setImage(with: url)
+        cell.recipesTitle.text = recipesDetails[indexPath.row].title
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let w: CGFloat = self.frame.width * 0.4
+        let w: CGFloat = self.frame.width * 0.7
         let h: CGFloat = collectionView.frame.size.height - 6.0
         return CGSize(width: w, height: h)
     }

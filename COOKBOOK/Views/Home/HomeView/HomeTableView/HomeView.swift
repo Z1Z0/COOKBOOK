@@ -35,6 +35,7 @@ class HomeView: UIView {
         foodTableView.delegate = self
         foodTableView.dataSource = self
         foodTableView.register(CategoriesTableViewCellCollectionViewCell.self, forCellReuseIdentifier: "CategoriesTableViewCellCollectionViewCell")
+        foodTableView.register(PopularRecipesTableViewCellCollectionViewCell.self, forCellReuseIdentifier: "PopularRecipesTableViewCellCollectionViewCell")
         foodTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "HomeTableViewCell")
         foodTableView.rowHeight = UITableView.automaticDimension
         foodTableView.estimatedRowHeight = 100
@@ -58,7 +59,7 @@ class HomeView: UIView {
     }
     
     func layoutUI() {
-        indicator.setupIndicatorView(self, containerColor: .customDarkGray(), indicatorColor: .white)
+        indicator.setupIndicatorView(self, containerColor: .white, indicatorColor: .customDarkGray())
         addSubview()
         setupFoodTableView()
         fetchData()
@@ -66,7 +67,7 @@ class HomeView: UIView {
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=db696760ce1043b08fc01d61d1ed0d35&number=10&tags=dessert").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=db696760ce1043b08fc01d61d1ed0d35&number=10").responseJSON { (response) in
             if let error = response.error {
                 print(error)
             }
@@ -82,7 +83,7 @@ class HomeView: UIView {
             } catch {
                 print(error)
             }
-            self.indicator.hideIndicatorView()
+            self.indicator.hideIndicatorView(self)
         }
     }
     
@@ -91,18 +92,28 @@ class HomeView: UIView {
 extension HomeView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return section == 0 ? 1 : recipesDetails.count
+        if section == 0 {
+            return 1
+        } else if section == 1 {
+            return 1
+        } else {
+            return recipesDetails.count
+        }
+//        return section == 0 ? 1 : recipesDetails.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableViewCellCollectionViewCell", for: indexPath) as! CategoriesTableViewCellCollectionViewCell
+            cell.collectionView.reloadData()
+            return cell
+        } else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PopularRecipesTableViewCellCollectionViewCell", for: indexPath) as! PopularRecipesTableViewCellCollectionViewCell
             cell.collectionView.reloadData()
             return cell
         } else {
@@ -116,7 +127,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
+        if section == 2 {
             return "Random recipes"
         } else {
             return ""
@@ -136,6 +147,8 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 130
+        } else if indexPath.section == 1 {
+            return 180
         } else {
             return UITableView.automaticDimension
         }

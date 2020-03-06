@@ -20,7 +20,8 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         
     lazy var categoriesImage: UIImageView = {
         let categoriesImage = UIImageView()
-        categoriesImage.contentMode = .scaleToFill
+        categoriesImage.contentMode = .scaleAspectFill
+        categoriesImage.clipsToBounds = true
         categoriesImage.layer.cornerRadius = 8.0
         categoriesImage.image = UIImage(named: "pizza")
         categoriesImage.layer.cornerRadius = 8.0

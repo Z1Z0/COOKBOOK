@@ -32,11 +32,11 @@ class ForgetPasswordViewController: UIViewController, forgetPasswordDelegate {
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error != nil {
                 self.view.alpha = 1.0
-                self.indicator.hideIndicatorView()
+                self.indicator.hideIndicatorView(self.view)
                 Alert.showAlert(title: "Error", subtitle: "Incorrect email.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 self.view.alpha = 1.0
-                self.indicator.hideIndicatorView()
+                self.indicator.hideIndicatorView(self.view)
                 Alert.showAlert(title: "Email sent", subtitle: "We have sent email to reset your password", leftView: UIImageView(image: #imageLiteral(resourceName: "isSuccessIcon")), style: .success)
             }
         }
