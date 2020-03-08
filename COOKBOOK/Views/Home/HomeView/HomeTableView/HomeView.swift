@@ -103,7 +103,6 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         } else {
             return recipesDetails.count
         }
-//        return section == 0 ? 1 : recipesDetails.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

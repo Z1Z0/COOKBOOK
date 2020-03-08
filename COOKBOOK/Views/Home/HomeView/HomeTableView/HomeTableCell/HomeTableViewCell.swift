@@ -9,6 +9,9 @@
 import UIKit
 
 class HomeTableViewCell: UITableViewCell {
+    
+    let titlesStackView = UIStackView()
+    let titlesInformationStackView = UIStackView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,6 +58,107 @@ class HomeTableViewCell: UITableViewCell {
         return foodTitle
     }()
     
+    lazy var cookingTimeLabel: UILabel = {
+        let cookingTimeLabel = UILabel()
+        cookingTimeLabel.text = "Cooking time"
+        cookingTimeLabel.adjustsFontSizeToFitWidth = true
+        cookingTimeLabel.minimumScaleFactor = 0.5
+        cookingTimeLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
+        cookingTimeLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        cookingTimeLabel.textAlignment = .center
+        cookingTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        return cookingTimeLabel
+    }()
+    
+    lazy var servesLabel: UILabel = {
+        let servesLabel = UILabel()
+        servesLabel.text = "Serves"
+        servesLabel.adjustsFontSizeToFitWidth = true
+        servesLabel.minimumScaleFactor = 0.5
+        servesLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
+        servesLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        servesLabel.textAlignment = .center
+        servesLabel.translatesAutoresizingMaskIntoConstraints = false
+        return servesLabel
+    }()
+    
+    lazy var priceLabel: UILabel = {
+        let priceLabel = UILabel()
+        priceLabel.text = "Price"
+        priceLabel.adjustsFontSizeToFitWidth = true
+        priceLabel.minimumScaleFactor = 0.5
+        priceLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
+        priceLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        priceLabel.textAlignment = .center
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        return priceLabel
+    }()
+    
+    func setupStackView() {
+        titlesStackView.axis = .horizontal
+        titlesStackView.distribution = .fillEqually
+        titlesStackView.alignment = .center
+        titlesStackView.spacing = 10
+        titlesStackView.translatesAutoresizingMaskIntoConstraints = false
+        setupStackViewConstraints()
+    }
+    
+    func setupStackViewConstraints() {
+        NSLayoutConstraint.activate([
+            titlesStackView.topAnchor.constraint(equalTo: foodTitle.bottomAnchor, constant: 16),
+            titlesStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            titlesStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+        ])
+    }
+    
+    lazy var cookingTimeInfoLabel: UILabel = {
+        let cookingTimeInfoLabel = UILabel()
+        cookingTimeInfoLabel.text = "45 Mins"
+        cookingTimeInfoLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
+        cookingTimeInfoLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        cookingTimeInfoLabel.textAlignment = .center
+        cookingTimeInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        return cookingTimeInfoLabel
+    }()
+    
+    lazy var servesInfoLabel: UILabel = {
+        let servesInfoLabel = UILabel()
+        servesInfoLabel.text = "4 People"
+        servesInfoLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
+        servesInfoLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        servesInfoLabel.textAlignment = .center
+        servesInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        return servesInfoLabel
+    }()
+    
+    lazy var priceInfoLabel: UILabel = {
+        let priceInfoLabel = UILabel()
+        priceInfoLabel.text = "$12 - $15"
+        priceInfoLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
+        priceInfoLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        priceInfoLabel.textAlignment = .center
+        priceInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        return priceInfoLabel
+    }()
+    
+    func setupInfoStackView() {
+        titlesInformationStackView.axis = .horizontal
+        titlesInformationStackView.distribution = .fillEqually
+        titlesInformationStackView.alignment = .center
+        titlesInformationStackView.spacing = 10
+        titlesInformationStackView.translatesAutoresizingMaskIntoConstraints = false
+        setupInfoStackViewConstraints()
+    }
+    
+    func setupInfoStackViewConstraints() {
+        NSLayoutConstraint.activate([
+            titlesInformationStackView.topAnchor.constraint(equalTo: titlesStackView.bottomAnchor, constant: 8),
+            titlesInformationStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
+            titlesInformationStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            titlesInformationStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+        ])
+    }
+    
     func setupContainerView() {
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
@@ -77,7 +181,6 @@ class HomeTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             foodTitle.topAnchor.constraint(equalTo: foodImage.bottomAnchor, constant: 16),
-            foodTitle.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
             foodTitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             foodTitle.trailingAnchor.constraint(lessThanOrEqualTo: favouriteButton.leadingAnchor, constant: -16),
             
@@ -90,8 +193,6 @@ class HomeTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             favouriteButton.centerYAnchor.constraint(equalTo: foodTitle.centerYAnchor),
             favouriteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-//            favouriteButton.widthAnchor.constraint(equalTo: favouriteButton.widthAnchor),
-//            favouriteButton.heightAnchor.constraint(equalTo: favouriteButton.heightAnchor)
         ])
     }
     
@@ -100,6 +201,14 @@ class HomeTableViewCell: UITableViewCell {
         containerView.addSubview(foodImage)
         containerView.addSubview(foodTitle)
         containerView.addSubview(favouriteButton)
+        containerView.addSubview(titlesStackView)
+        titlesStackView.addArrangedSubview(cookingTimeLabel)
+        titlesStackView.addArrangedSubview(servesLabel)
+        titlesStackView.addArrangedSubview(priceLabel)
+        containerView.addSubview(titlesInformationStackView)
+        titlesInformationStackView.addArrangedSubview(cookingTimeInfoLabel)
+        titlesInformationStackView.addArrangedSubview(servesInfoLabel)
+        titlesInformationStackView.addArrangedSubview(priceInfoLabel)
     }
     
     func layoutUI() {
@@ -108,6 +217,8 @@ class HomeTableViewCell: UITableViewCell {
         setupFoodImage()
         setupFoodTitle()
         setupFavouriteButtonConstraints()
+        setupStackView()
+        setupInfoStackView()
     }
     
 }

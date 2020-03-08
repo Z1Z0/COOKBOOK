@@ -17,4 +17,6 @@ struct Recipes: Codable {
 struct Recipe: Codable {
     let title: String?
     let image: String?
-    }
+    let pricePerServing: Double?
+    let readyInMinutes, servings: Int?
+}

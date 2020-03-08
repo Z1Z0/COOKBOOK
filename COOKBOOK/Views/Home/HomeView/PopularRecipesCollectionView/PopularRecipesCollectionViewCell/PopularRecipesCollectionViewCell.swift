@@ -34,14 +34,12 @@ class PopularRecipesCollectionViewCell: UICollectionViewCell {
         popularRecipesImage.contentMode = .scaleAspectFill
         popularRecipesImage.clipsToBounds = true
         popularRecipesImage.translatesAutoresizingMaskIntoConstraints = false
-//        popularRecipesImage.image = UIImage(named: "pizza")
         return popularRecipesImage
     }()
     
     lazy var recipesTitle: UILabel = {
         let recipesTitle = UILabel()
         recipesTitle.textColor = .customLightGray()
-//        recipesTitle.text = "Some recipes from API Some recipes from API Some recipes from API"
         recipesTitle.textAlignment = .left
         recipesTitle.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
         recipesTitle.translatesAutoresizingMaskIntoConstraints = false

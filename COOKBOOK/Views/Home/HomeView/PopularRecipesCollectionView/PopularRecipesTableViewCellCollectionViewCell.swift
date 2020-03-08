@@ -96,9 +96,6 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
             containerView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            // should not be constrained to categoriesNameLabel height
-            //containerView.heightAnchor.constraint(equalTo: categoriesNameLabel.heightAnchor)
-            // constrain 16-pts from bottom of cell
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
         ])
     }
@@ -106,7 +103,6 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     func setupCategoriesNameLabelConstraints() {
         NSLayoutConstraint.activate([
             categoriesNameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            // centerY to seeAllCategoriesButton
             categoriesNameLabel.centerYAnchor.constraint(equalTo: seeAllCategoriesButton.centerYAnchor)
         ])
     }
@@ -114,7 +110,6 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     func setupSeeAllCategoriesButtonConstraints() {
         NSLayoutConstraint.activate([
             seeAllCategoriesButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            // constrain top to containerView top
             seeAllCategoriesButton.topAnchor.constraint(equalTo: containerView.topAnchor)
         ])
     }
