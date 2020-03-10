@@ -16,11 +16,13 @@
 		CC2A98A92410ECEC002FD8B4 /* PopularRecipesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2A98A82410ECEC002FD8B4 /* PopularRecipesCollectionViewCell.swift */; };
 		CC2A98AC2410F839002FD8B4 /* PopularRecipesTableViewCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2A98AB2410F839002FD8B4 /* PopularRecipesTableViewCellCollectionViewCell.swift */; };
 		CC2A98AE241111ED002FD8B4 /* RecipesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2A98AD241111ED002FD8B4 /* RecipesModel.swift */; };
+		CC2BA6FB2415F3A00039B725 /* RecipesTableViewDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2BA6FA2415F3A00039B725 /* RecipesTableViewDetailsView.swift */; };
 		CC33256E23FCF88D00F8A6F2 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC33256D23FCF88D00F8A6F2 /* SignupView.swift */; };
 		CC410FB82406C41500F4A82D /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC410FB72406C41500F4A82D /* SideMenuTableViewController.swift */; };
 		CC410FBB2406C44500F4A82D /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC410FBA2406C44500F4A82D /* SideMenuTableViewCell.swift */; };
 		CC74E77F23FF6B4E000625DF /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74E77E23FF6B4E000625DF /* ActivityIndicator.swift */; };
 		CCA170492402A96A008126C1 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA170482402A96A008126C1 /* HomeTableViewCell.swift */; };
+		CCE19A3B2415FED50089F2CA /* RecipesTableViewDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE19A3A2415FED50089F2CA /* RecipesTableViewDetails.swift */; };
 		CCE8FC88240C7CD500005405 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE8FC87240C7CD500005405 /* CategoriesCollectionViewCell.swift */; };
 		CCF279E2240B186700EFEADE /* CategoriesTableViewCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF279E1240B186700EFEADE /* CategoriesTableViewCellCollectionViewCell.swift */; };
 		CCF790052401BE6C006FC3A6 /* ImageView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF790042401BE6C006FC3A6 /* ImageView + Ext.swift */; };
@@ -54,11 +56,13 @@
 		CC2A98A82410ECEC002FD8B4 /* PopularRecipesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRecipesCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC2A98AB2410F839002FD8B4 /* PopularRecipesTableViewCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRecipesTableViewCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC2A98AD241111ED002FD8B4 /* RecipesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesModel.swift; sourceTree = "<group>"; };
+		CC2BA6FA2415F3A00039B725 /* RecipesTableViewDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTableViewDetailsView.swift; sourceTree = "<group>"; };
 		CC33256D23FCF88D00F8A6F2 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		CC410FB72406C41500F4A82D /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		CC410FBA2406C44500F4A82D /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		CC74E77E23FF6B4E000625DF /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		CCA170482402A96A008126C1 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		CCE19A3A2415FED50089F2CA /* RecipesTableViewDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTableViewDetails.swift; sourceTree = "<group>"; };
 		CCE8FC87240C7CD500005405 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCF279E1240B186700EFEADE /* CategoriesTableViewCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCF790042401BE6C006FC3A6 /* ImageView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView + Ext.swift"; sourceTree = "<group>"; };
@@ -169,6 +173,14 @@
 				CC2A98A72410ECAF002FD8B4 /* PopularRecipesCollectionViewCell */,
 			);
 			path = PopularRecipesCollectionView;
+			sourceTree = "<group>";
+		};
+		CC2BA6F92415F33A0039B725 /* RecipesTableViewDetails */ = {
+			isa = PBXGroup;
+			children = (
+				CC2BA6FA2415F3A00039B725 /* RecipesTableViewDetailsView.swift */,
+			);
+			path = RecipesTableViewDetails;
 			sourceTree = "<group>";
 		};
 		CC2C566E24109CBD0011FF5D /* CategoriesCollectionView */ = {
@@ -289,6 +301,14 @@
 			path = HomeTableCell;
 			sourceTree = "<group>";
 		};
+		CCE19A392415FE9D0089F2CA /* RecipesTableViewDetails */ = {
+			isa = PBXGroup;
+			children = (
+				CCE19A3A2415FED50089F2CA /* RecipesTableViewDetails.swift */,
+			);
+			path = RecipesTableViewDetails;
+			sourceTree = "<group>";
+		};
 		CCF9CB062402A60800567724 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +412,7 @@
 				CC33257123FCF8F900F8A6F2 /* SingUp */,
 				CC039F0323FD101C002ED7F3 /* ForgetPassword */,
 				CCF9CB062402A60800567724 /* Home */,
+				CCE19A392415FE9D0089F2CA /* RecipesTableViewDetails */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -405,6 +426,7 @@
 				CC33257423FCF92400F8A6F2 /* SignUp */,
 				CC039F0223FD1004002ED7F3 /* ForgetPassword */,
 				CCF9CB072402A61A00567724 /* Home */,
+				CC2BA6F92415F33A0039B725 /* RecipesTableViewDetails */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -421,6 +443,7 @@
 				E12AB4B523E23EEE00DD15D4 /* Frameworks */,
 				E12AB4B623E23EEE00DD15D4 /* Resources */,
 				99DB80AEBCBFF968C0B337C1 /* [CP] Copy Pods Resources */,
+				CC3888622417F81100AC4345 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -518,6 +541,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CC3888622417F81100AC4345 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -541,7 +582,9 @@
 				CCF945B023FA2BE6002734F6 /* Alert.swift in Sources */,
 				E19555DB23F2336B0001C480 /* Colors + Ext.swift in Sources */,
 				CCA170492402A96A008126C1 /* HomeTableViewCell.swift in Sources */,
+				CC2BA6FB2415F3A00039B725 /* RecipesTableViewDetailsView.swift in Sources */,
 				CC25A43B240087A400F67182 /* CGRect + Ext.swift in Sources */,
+				CCE19A3B2415FED50089F2CA /* RecipesTableViewDetails.swift in Sources */,
 				CC039F0523FD1031002ED7F3 /* ForgetPasswordView.swift in Sources */,
 				CC1A390723FC54ED000AAF3A /* SignInView.swift in Sources */,
 				CC33256E23FCF88D00F8A6F2 /* SignupView.swift in Sources */,
@@ -604,7 +647,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

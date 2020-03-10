@@ -13,12 +13,16 @@ import SideMenu
 
 class HomeViewController: UIViewController {
     
+    var recipes: Recipes?
+    var recipesDetails = [Recipe]()
+    let indicator = ActivityIndicator()
+    
     let searchController = UISearchController(searchResultsController: nil)
     let leftMenuNavigationController = SideMenuNavigationController(rootViewController: SideMenuTableViewController())
         
     lazy var mainView: HomeView = {
         let view = HomeView(frame: self.view.frame)
-        
+        view.homeViewDidSelectActionDelegate = self
         return view
     }()
     
@@ -42,6 +46,7 @@ class HomeViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
         setupNavigationWithLargeTitle()
         setupLeftSideMenu()
+        setupNavigation()
     }
     
     func setupLeftSideMenu() {
@@ -58,7 +63,6 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
     func setupNavigationWithLargeTitle() {
-        
         navigationController?.navigationBar.prefersLargeTitles = true
         searchController.delegate = self
         searchController.searchBar.delegate = self
@@ -89,4 +93,38 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
         self.present(leftMenuNavigationController, animated: true, completion: nil)
     }
     
+    func fetchData(_ category: String) {
+        indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=e8d1d8ab81044fe491a35c7d370eb5ce&number=25&tags=\(category)").responseJSON { (response) in
+            if let error = response.error {
+                print(error)
+            }
+            do {
+                if let data = response.data {
+                    self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
+                    self.recipesDetails = self.recipes?.recipes ?? []
+                    DispatchQueue.main.async {
+                        self.mainView.foodTableView.reloadData()
+                    }
+                }
+                
+            } catch {
+                print(error)
+            }
+            self.indicator.hideIndicatorView(self.view)
+        }
+    }
+    
+}
+
+extension HomeViewController: HomeViewDidSelectActionDelegate {
+    
+    func recipesSelectionAction(indexPath: IndexPath, category: String) {
+        let vc = RecipesTableViewDetails()
+//        vc.mainView.fetchData(category)
+        fetchData(category)
+//        vc.mainView.foodTableView.reloadData()
+        self.show(vc, sender: nil)
+    }
+
 }

@@ -8,8 +8,14 @@
 
 import UIKit
 
-class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
+protocol RecipesDidselectActionDelegate: class {
+    func recipesSelectionAction(indexPath: IndexPath, category: String)
+}
 
+class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
+        
+    weak var recipesDidselectActionDelegate: RecipesDidselectActionDelegate?
+    
     let categories: [String] = [
         "Main course",
         "Beef",
@@ -23,6 +29,21 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
         "Soup",
         "Snacks",
         "Dessert"
+    ]
+    
+    let categoriesTitle: [String] = [
+        "maincourse",
+        "beef",
+        "chicken",
+        "seafood",
+        "vegetarian",
+        "breakfast",
+        "sidedish",
+        "drink",
+        "sauce",
+        "soup",
+        "snacks",
+        "dessert"
     ]
     
     let categoriesImages: [UIImage] = [
@@ -46,7 +67,7 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
         selectionStyle = .none
         self.backgroundColor = .clear
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -144,7 +165,6 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
 
 }
 
-
 extension CategoriesTableViewCellCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -156,6 +176,12 @@ extension CategoriesTableViewCellCollectionViewCell: UICollectionViewDelegate, U
         cell.categoriesImage.image = categoriesImages[indexPath.row]
         cell.categoryName.text = categories[indexPath.row]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        recipesDidselectActionDelegate?.recipesSelectionAction(indexPath: indexPath, category: categoriesTitle[indexPath.row])
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

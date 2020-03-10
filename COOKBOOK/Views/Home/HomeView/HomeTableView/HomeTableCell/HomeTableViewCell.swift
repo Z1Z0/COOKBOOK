@@ -53,7 +53,7 @@ class HomeTableViewCell: UITableViewCell {
         let foodTitle = UILabel()
         foodTitle.textColor = .CustomGreen()
         foodTitle.numberOfLines = 0
-        foodTitle.font = UIFont(name: "AvenirNext-Regular", size: 16)
+        foodTitle.font = UIFont(name: "AvenirNext-Bold", size: 16)
         foodTitle.translatesAutoresizingMaskIntoConstraints = false
         return foodTitle
     }()
@@ -114,8 +114,10 @@ class HomeTableViewCell: UITableViewCell {
     lazy var cookingTimeInfoLabel: UILabel = {
         let cookingTimeInfoLabel = UILabel()
         cookingTimeInfoLabel.text = "45 Mins"
+        cookingTimeInfoLabel.adjustsFontSizeToFitWidth = true
+        cookingTimeInfoLabel.minimumScaleFactor = 0.5
         cookingTimeInfoLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
-        cookingTimeInfoLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        cookingTimeInfoLabel.textColor = .customDarkGray()
         cookingTimeInfoLabel.textAlignment = .center
         cookingTimeInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         return cookingTimeInfoLabel
@@ -125,7 +127,7 @@ class HomeTableViewCell: UITableViewCell {
         let servesInfoLabel = UILabel()
         servesInfoLabel.text = "4 People"
         servesInfoLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
-        servesInfoLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        servesInfoLabel.textColor = .customDarkGray()
         servesInfoLabel.textAlignment = .center
         servesInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         return servesInfoLabel
@@ -135,7 +137,7 @@ class HomeTableViewCell: UITableViewCell {
         let priceInfoLabel = UILabel()
         priceInfoLabel.text = "$12 - $15"
         priceInfoLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)
-        priceInfoLabel.textColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        priceInfoLabel.textColor = .CustomGreen()
         priceInfoLabel.textAlignment = .center
         priceInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         return priceInfoLabel

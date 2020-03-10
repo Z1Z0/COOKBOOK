@@ -11,13 +11,17 @@ import UIKit
 import Alamofire
 import Kingfisher
 
+protocol HomeViewDidSelectActionDelegate: class {
+    func recipesSelectionAction(indexPath: IndexPath, category: String)
+}
+
 class HomeView: UIView {
     
     var recipes: Recipes?
     var recipesDetails = [Recipe]()
     let indicator = ActivityIndicator()
     
-    let categories = ["italian food", "chinese food", "korean food", "italian food", "chinese food", "korean food", "italian food", "chinese food", "korean food", "italian food", "chinese food", "korean food"]
+    weak var homeViewDidSelectActionDelegate: HomeViewDidSelectActionDelegate?
         
     override init( frame: CGRect) {
         super.init(frame: frame)
@@ -59,15 +63,17 @@ class HomeView: UIView {
     }
     
     func layoutUI() {
-        indicator.setupIndicatorView(self, containerColor: .white, indicatorColor: .customDarkGray())
+        indicator.setupIndicatorView(self, containerColor: .customDarkGray(), indicatorColor: .white)
         addSubview()
         setupFoodTableView()
-        fetchData()
+        DispatchQueue.main.async {
+            self.fetchData()
+        }
         
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=db696760ce1043b08fc01d61d1ed0d35&number=10").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=e8d1d8ab81044fe491a35c7d370eb5ce&number=25").responseJSON { (response) in
             if let error = response.error {
                 print(error)
             }
@@ -109,6 +115,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableViewCellCollectionViewCell", for: indexPath) as! CategoriesTableViewCellCollectionViewCell
+            cell.recipesDidselectActionDelegate = self
             cell.collectionView.reloadData()
             return cell
         } else if indexPath.section == 1 {
@@ -120,6 +127,19 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             let url = URL(string: recipesDetails[indexPath.row].image ?? "Error")
             cell.foodImage.kf.setImage(with: url)
             cell.foodTitle.text = recipesDetails[indexPath.row].title
+            
+            if let readyInMin = recipesDetails[indexPath.row].readyInMinutes {
+                cell.cookingTimeInfoLabel.text = "\(readyInMin) Minutes"
+            }
+            
+            if let pricePerServing = recipesDetails[indexPath.row].pricePerServing {
+                cell.priceInfoLabel.text = "$\(Int(pricePerServing))"
+            }
+            
+            if let serving = recipesDetails[indexPath.row].servings {
+                cell.servesInfoLabel.text = "\(serving)"
+            }
+            
             return cell
         }
         
@@ -152,6 +172,14 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         }
         
+    }
+    
+}
+
+extension HomeView: RecipesDidselectActionDelegate {
+    
+    func recipesSelectionAction(indexPath: IndexPath, category: String) {
+        homeViewDidSelectActionDelegate?.recipesSelectionAction(indexPath: indexPath, category: category)
     }
     
 }

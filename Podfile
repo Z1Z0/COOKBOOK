@@ -19,4 +19,5 @@ pod 'FacebookLogin'
 pod 'GoogleSignIn'
 pod 'lottie-ios'
 pod 'SideMenu'
+pod 'Firebase/Crashlytics'
 end
