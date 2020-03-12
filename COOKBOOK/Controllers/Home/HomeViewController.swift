@@ -119,10 +119,10 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
 
 extension HomeViewController: HomeViewDidSelectActionDelegate {
     
-    func recipesSelectionAction(indexPath: IndexPath, category: String) {
+    func recipesSelectionAction(indexPath: IndexPath) {
         let vc = RecipesTableViewDetails()
 //        vc.mainView.fetchData(category)
-        fetchData(category)
+//        fetchData(category)
 //        vc.mainView.foodTableView.reloadData()
         self.show(vc, sender: nil)
     }
