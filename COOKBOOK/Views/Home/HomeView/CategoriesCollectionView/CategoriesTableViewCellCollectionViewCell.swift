@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RecipesDidselectActionDelegate: class {
-    func recipesSelectionAction(indexPath: IndexPath)
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String)
 }
 
 class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
@@ -179,7 +179,7 @@ extension CategoriesTableViewCellCollectionViewCell: UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        recipesDidselectActionDelegate?.recipesSelectionAction(indexPath: indexPath)
+        recipesDidselectActionDelegate?.categoriesTableViewCell(collectionView, didSelectTitle: categoriesTitle[indexPath.row])
         
     }
     
