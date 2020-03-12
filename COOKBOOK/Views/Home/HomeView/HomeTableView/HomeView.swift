@@ -12,7 +12,7 @@ import Alamofire
 import Kingfisher
 
 protocol HomeViewDidSelectActionDelegate: class {
-    func recipesSelectionAction(indexPath: IndexPath)
+    func homeView(_ view: HomeView, didSelectCategoryWithTitle title: String)
 }
 
 class HomeView: UIView {
@@ -177,9 +177,8 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeView: RecipesDidselectActionDelegate {
-    
-    func recipesSelectionAction(indexPath: IndexPath) {
-        homeViewDidSelectActionDelegate?.recipesSelectionAction(indexPath: indexPath)
+
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String) {
+        homeViewDidSelectActionDelegate?.homeView(self, didSelectCategoryWithTitle: title)
     }
-    
 }
