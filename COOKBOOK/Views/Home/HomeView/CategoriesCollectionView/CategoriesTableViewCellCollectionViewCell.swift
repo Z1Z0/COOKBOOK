@@ -32,13 +32,13 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
     ]
     
     let categoriesTitle: [String] = [
-        "maincourse",
+        "main+course",
         "beef",
         "chicken",
         "seafood",
         "vegetarian",
         "breakfast",
-        "sidedish",
+        "side+dish",
         "drink",
         "sauce",
         "soup",

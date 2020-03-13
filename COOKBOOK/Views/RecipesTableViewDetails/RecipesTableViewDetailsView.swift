@@ -12,9 +12,8 @@ import Alamofire
 
 class RecipesTableViewDetailsView: UIView {
     
-    var recipes: Recipes?
-    var recipesDetails = [Recipe]()
     let indicator = ActivityIndicator()
+    var recipesTableVC = RecipesTableViewDetails()
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,36 +55,34 @@ class RecipesTableViewDetailsView: UIView {
     func layoutUI() {
         addSubview()
         setupFoodTableView()
-//        fetchData()
-        
     }
-    
-    
-    
+
 }
 
 extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipesDetails.count
+        return recipesTableVC.recipesDetails.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
-        let url = URL(string: recipesDetails[indexPath.row].image ?? "Error")
-        cell.foodImage.kf.setImage(with: url)
-        cell.foodTitle.text = recipesDetails[indexPath.row].title
+        let newURL = URL(string: recipesTableVC.recipesDetails[indexPath.row].image ?? "Error")
+        cell.foodImage.kf.setImage(with: newURL)
+        cell.foodTitle.text = recipesTableVC.recipesDetails[indexPath.row].title
         
-        if let readyInMin = recipesDetails[indexPath.row].readyInMinutes {
+        if let readyInMin = recipesTableVC.recipesDetails[indexPath.row].readyInMinutes {
             cell.cookingTimeInfoLabel.text = "\(readyInMin) Minutes"
+            print("ready in min \(readyInMin)")
         }
         
-        if let pricePerServing = recipesDetails[indexPath.row].pricePerServing {
+        if let pricePerServing = recipesTableVC.recipesDetails[indexPath.row].pricePerServing {
             cell.priceInfoLabel.text = "$\(Int(pricePerServing))"
+            print("price per serving \(pricePerServing)")
         }
         
-        if let serving = recipesDetails[indexPath.row].servings {
+        if let serving = recipesTableVC.recipesDetails[indexPath.row].servings {
             cell.servesInfoLabel.text = "\(serving)"
         }
         

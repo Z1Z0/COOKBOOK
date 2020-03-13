@@ -25,6 +25,7 @@ class RecipesTableViewDetails: UIViewController {
     
     override func loadView() {
         super.loadView()
+        mainView.recipesTableVC = self
         view = mainView
     }
 
@@ -39,23 +40,37 @@ class RecipesTableViewDetails: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
+        self.title = categoryTitle
     }
     
     func fetchData(_ category: String) {
         indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=e8d1d8ab81044fe491a35c7d370eb5ce&number=25&tags=\(category)").responseJSON { (response) in
+        let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=db696760ce1043b08fc01d61d1ed0d35&tags=\(category)"
+        print("urlString:", urlString)
+        print()
+        AF.request(urlString).responseJSON { (response) in
             if let error = response.error {
                 print(error)
             }
             do {
                 if let data = response.data {
+                    print("received response data")
+                    print()
                     self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
+                    print("self.recipes:", self.recipes)
+                    print()
                     self.recipesDetails = self.recipes?.recipes ?? []
+                    print("self.recipesDetails count:", self.recipesDetails.count)
+                    print()
+                    print("self.recipesDetails:", self.recipesDetails)
+                    print()
                     DispatchQueue.main.async {
+                        print("calling self.mainView.foodTableView.reloadData()")
+                        print()
                         self.mainView.foodTableView.reloadData()
                     }
                 }
-                
+               
             } catch {
                 print(error)
             }
