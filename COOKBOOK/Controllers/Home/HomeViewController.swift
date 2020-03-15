@@ -91,10 +91,10 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
 }
 
 extension HomeViewController: HomeViewDidSelectActionDelegate {
-    
-    func homeView(_ view: HomeView, didSelectCategoryWithTitle title: String) {
+    func homeView(_ view: HomeView, didSelectCategoryWithTitle title: String, VCTitle: String) {
         let vc = RecipesTableViewDetails()
         vc.categoryTitle = title
+        vc.VCTitle = VCTitle
         self.show(vc, sender: nil)
     }
 }

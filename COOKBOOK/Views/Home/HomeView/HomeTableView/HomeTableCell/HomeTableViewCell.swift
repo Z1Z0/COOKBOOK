@@ -84,7 +84,7 @@ class HomeTableViewCell: UITableViewCell {
     
     lazy var priceLabel: UILabel = {
         let priceLabel = UILabel()
-        priceLabel.text = "Price"
+        priceLabel.text = "Price per serving"
         priceLabel.adjustsFontSizeToFitWidth = true
         priceLabel.minimumScaleFactor = 0.5
         priceLabel.font = UIFont(name: "AvenirNext-Regular", size: 16)

@@ -13,6 +13,7 @@ class RecipesTableViewDetails: UIViewController {
     
     
     var categoryTitle: String?
+    var VCTitle: String?
     var recipes: Recipes?
     var recipesDetails = [Recipe]()
     let indicator = ActivityIndicator()
@@ -40,12 +41,25 @@ class RecipesTableViewDetails: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
-        self.title = categoryTitle
+        self.title = VCTitle
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.CustomGreen()]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.CustomGreen(), .font: UIFont(name: "AvenirNext-Heavy", size: 36)!]
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.CustomGreen()
+    }
+    
+    @objc func saveButtonTapped() {
+        print("OK")
     }
     
     func fetchData(_ category: String) {
         indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
-        let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=db696760ce1043b08fc01d61d1ed0d35&tags=\(category)"
+        let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=8f39671a836440e38af6f6dbd8507b1c&tags=\(category)"
         print("urlString:", urlString)
         print()
         AF.request(urlString).responseJSON { (response) in
@@ -54,23 +68,13 @@ class RecipesTableViewDetails: UIViewController {
             }
             do {
                 if let data = response.data {
-                    print("received response data")
-                    print()
                     self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
-                    print("self.recipes:", self.recipes)
-                    print()
                     self.recipesDetails = self.recipes?.recipes ?? []
-                    print("self.recipesDetails count:", self.recipesDetails.count)
-                    print()
-                    print("self.recipesDetails:", self.recipesDetails)
-                    print()
                     DispatchQueue.main.async {
-                        print("calling self.mainView.foodTableView.reloadData()")
-                        print()
                         self.mainView.foodTableView.reloadData()
                     }
                 }
-               
+                
             } catch {
                 print(error)
             }

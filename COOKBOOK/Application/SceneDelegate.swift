@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
           // User is signed in.
             window = UIWindow(frame: windowScene.coordinateSpace.bounds)
             window?.windowScene = windowScene
-            let nav = UINavigationController(rootViewController: HomeViewController())
+            let nav = UINavigationController(rootViewController: RecipesDetailsViewController())
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
         } else {

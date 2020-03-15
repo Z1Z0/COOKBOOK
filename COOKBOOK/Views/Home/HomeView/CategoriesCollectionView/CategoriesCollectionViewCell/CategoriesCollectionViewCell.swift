@@ -24,7 +24,6 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         categoriesImage.clipsToBounds = true
         categoriesImage.layer.cornerRadius = 8.0
         categoriesImage.image = UIImage(named: "pizza")
-        categoriesImage.layer.cornerRadius = 8.0
         categoriesImage.layer.masksToBounds = true
         categoriesImage.translatesAutoresizingMaskIntoConstraints = false
         return categoriesImage
@@ -48,16 +47,6 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         return categoryName
     }()
     
-    lazy var recipesNumber: UILabel = {
-        let recipesNumber = UILabel()
-        recipesNumber.textColor = .white
-        recipesNumber.font = UIFont(name: "AvenirNext-Regular", size: 16)
-        recipesNumber.text = "33"
-        recipesNumber.textAlignment = .left
-        recipesNumber.translatesAutoresizingMaskIntoConstraints = false
-        return recipesNumber
-    }()
-    
     func setupcategoriesImageConstraints() {
         NSLayoutConstraint.activate([
             categoriesImage.topAnchor.constraint(equalTo: topAnchor),
@@ -78,17 +67,8 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     
     func setupCategoryNameConstraints() {
         NSLayoutConstraint.activate([
-            categoryName.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
-            categoryName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            categoryName.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 16)
-        ])
-    }
-    
-    func setuprecipesNumberConstraints() {
-        NSLayoutConstraint.activate([
-            recipesNumber.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
-            recipesNumber.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            recipesNumber.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 16)
+            categoryName.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            categoryName.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
         ])
     }
     
@@ -96,7 +76,6 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         addSubview(categoriesImage)
         categoriesImage.addSubview(containerView)
         containerView.addSubview(categoryName)
-        containerView.addSubview(recipesNumber)
     }
     
     func layoutUI() {
@@ -104,6 +83,5 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         setupcategoriesImageConstraints()
         setupContainerViewConstraints()
         setupCategoryNameConstraints()
-        setuprecipesNumberConstraints()
     }
 }

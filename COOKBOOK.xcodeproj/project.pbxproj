@@ -38,6 +38,8 @@
 		E133302923F4286C008B46FC /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E133302823F4286C008B46FC /* SignUpViewController.swift */; };
 		E133302B23F4359A008B46FC /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E133302A23F4359A008B46FC /* ForgetPasswordViewController.swift */; };
 		E15FB4D123F19FA2001FAB47 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FB4D023F19FA2001FAB47 /* SplashViewController.swift */; };
+		E18187B4241D495E00880AC7 /* RecipesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18187B3241D495E00880AC7 /* RecipesDetailsView.swift */; };
+		E18187B6241D4B9500880AC7 /* RecipesDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18187B5241D4B9500880AC7 /* RecipesDetailsViewController.swift */; };
 		E19555DB23F2336B0001C480 /* Colors + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19555DA23F2336B0001C480 /* Colors + Ext.swift */; };
 		E1CDA91B23F36D43002BCDD8 /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CDA91A23F36D43002BCDD8 /* UIView + Ext.swift */; };
 		E1D4EC7323F4C035006E6CB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1D4EC7223F4C035006E6CB4 /* GoogleService-Info.plist */; };
@@ -80,6 +82,8 @@
 		E133302823F4286C008B46FC /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E133302A23F4359A008B46FC /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		E15FB4D023F19FA2001FAB47 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		E18187B3241D495E00880AC7 /* RecipesDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesDetailsView.swift; sourceTree = "<group>"; };
+		E18187B5241D4B9500880AC7 /* RecipesDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesDetailsViewController.swift; sourceTree = "<group>"; };
 		E19555DA23F2336B0001C480 /* Colors + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors + Ext.swift"; sourceTree = "<group>"; };
 		E1CDA91A23F36D43002BCDD8 /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		E1D4EC7223F4C035006E6CB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -374,6 +378,22 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		E18187B1241D492E00880AC7 /* RecipesDetails */ = {
+			isa = PBXGroup;
+			children = (
+				E18187B5241D4B9500880AC7 /* RecipesDetailsViewController.swift */,
+			);
+			path = RecipesDetails;
+			sourceTree = "<group>";
+		};
+		E18187B2241D494A00880AC7 /* RecipesDetails */ = {
+			isa = PBXGroup;
+			children = (
+				E18187B3241D495E00880AC7 /* RecipesDetailsView.swift */,
+			);
+			path = RecipesDetails;
+			sourceTree = "<group>";
+		};
 		E19555D923F233530001C480 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +433,7 @@
 				CC039F0323FD101C002ED7F3 /* ForgetPassword */,
 				CCF9CB062402A60800567724 /* Home */,
 				CCE19A392415FE9D0089F2CA /* RecipesTableViewDetails */,
+				E18187B1241D492E00880AC7 /* RecipesDetails */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -427,6 +448,7 @@
 				CC039F0223FD1004002ED7F3 /* ForgetPassword */,
 				CCF9CB072402A61A00567724 /* Home */,
 				CC2BA6F92415F33A0039B725 /* RecipesTableViewDetails */,
+				E18187B2241D494A00880AC7 /* RecipesDetails */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -547,6 +569,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E18187B6241D4B9500880AC7 /* RecipesDetailsViewController.swift in Sources */,
 				E133302923F4286C008B46FC /* SignUpViewController.swift in Sources */,
 				CC2A98A92410ECEC002FD8B4 /* PopularRecipesCollectionViewCell.swift in Sources */,
 				E12AB4D023E2421700DD15D4 /* HomeViewController.swift in Sources */,
@@ -578,6 +601,7 @@
 				CC74E77F23FF6B4E000625DF /* ActivityIndicator.swift in Sources */,
 				CC1A390223FC1EB3000AAF3A /* SplashView.swift in Sources */,
 				CC410FB82406C41500F4A82D /* SideMenuTableViewController.swift in Sources */,
+				E18187B4241D495E00880AC7 /* RecipesDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

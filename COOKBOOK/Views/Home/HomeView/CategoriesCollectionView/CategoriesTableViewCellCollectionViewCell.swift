@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RecipesDidselectActionDelegate: class {
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String)
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, ViewControllerTitle VCTitle: String)
 }
 
 class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
@@ -89,16 +89,6 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
         return categoriesNameLabel
     }()
 
-    lazy var seeAllCategoriesButton: UIButton = {
-        let seeAllCategoriesButton = UIButton()
-        seeAllCategoriesButton.setTitle("See all", for: .normal)
-        seeAllCategoriesButton.setTitleColor(.CustomGreen(), for: .normal)
-        seeAllCategoriesButton.titleLabel?.font = UIFont(name: "AvenirNext-Regular", size: 14)
-        seeAllCategoriesButton.translatesAutoresizingMaskIntoConstraints = false
-        seeAllCategoriesButton.addTarget(self, action: #selector(test), for: .touchUpInside)
-        return seeAllCategoriesButton
-    }()
-
     @objc func test() {
         print("Test worked")
     }
@@ -128,20 +118,13 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
     func setupCategoriesNameLabelConstraints() {
         NSLayoutConstraint.activate([
             categoriesNameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            categoriesNameLabel.centerYAnchor.constraint(equalTo: seeAllCategoriesButton.centerYAnchor)
-        ])
-    }
-
-    func setupSeeAllCategoriesButtonConstraints() {
-        NSLayoutConstraint.activate([
-            seeAllCategoriesButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            seeAllCategoriesButton.topAnchor.constraint(equalTo: containerView.topAnchor)
+            categoriesNameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8)
         ])
     }
 
     func setupCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: seeAllCategoriesButton.bottomAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: categoriesNameLabel.bottomAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -151,7 +134,6 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
     func addSubviews() {
         addSubview(containerView)
         containerView.addSubview(categoriesNameLabel)
-        containerView.addSubview(seeAllCategoriesButton)
         containerView.addSubview(collectionView)
     }
 
@@ -160,7 +142,6 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
         setupCollectionViewConstraints()
         setupContainerViewConstraints()
         setupCategoriesNameLabelConstraints()
-        setupSeeAllCategoriesButtonConstraints()
     }
 
 }
@@ -179,7 +160,7 @@ extension CategoriesTableViewCellCollectionViewCell: UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        recipesDidselectActionDelegate?.categoriesTableViewCell(collectionView, didSelectTitle: categoriesTitle[indexPath.row])
+        recipesDidselectActionDelegate?.categoriesTableViewCell(collectionView, didSelectTitle: categoriesTitle[indexPath.row], ViewControllerTitle: categories[indexPath.row])
         
     }
     

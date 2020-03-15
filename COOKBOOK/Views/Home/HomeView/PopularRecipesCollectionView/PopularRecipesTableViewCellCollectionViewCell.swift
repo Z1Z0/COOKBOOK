@@ -28,7 +28,7 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=e8d1d8ab81044fe491a35c7d370eb5ce&number=10").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=8f39671a836440e38af6f6dbd8507b1c&number=25").responseJSON { (response) in
             if let error = response.error {
                 print(error)
             }
@@ -64,20 +64,6 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
         return categoriesNameLabel
     }()
 
-    lazy var seeAllCategoriesButton: UIButton = {
-        let seeAllCategoriesButton = UIButton()
-        seeAllCategoriesButton.setTitle("See all", for: .normal)
-        seeAllCategoriesButton.setTitleColor(.CustomGreen(), for: .normal)
-        seeAllCategoriesButton.titleLabel?.font = UIFont(name: "AvenirNext-Regular", size: 14)
-        seeAllCategoriesButton.translatesAutoresizingMaskIntoConstraints = false
-        seeAllCategoriesButton.addTarget(self, action: #selector(test), for: .touchUpInside)
-        return seeAllCategoriesButton
-    }()
-
-    @objc func test() {
-        print("Test worked")
-    }
-
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -103,20 +89,13 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     func setupCategoriesNameLabelConstraints() {
         NSLayoutConstraint.activate([
             categoriesNameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            categoriesNameLabel.centerYAnchor.constraint(equalTo: seeAllCategoriesButton.centerYAnchor)
-        ])
-    }
-
-    func setupSeeAllCategoriesButtonConstraints() {
-        NSLayoutConstraint.activate([
-            seeAllCategoriesButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            seeAllCategoriesButton.topAnchor.constraint(equalTo: containerView.topAnchor)
+            categoriesNameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8)
         ])
     }
 
     func setupCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: seeAllCategoriesButton.bottomAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: categoriesNameLabel.bottomAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -126,7 +105,6 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     func addSubviews() {
         addSubview(containerView)
         containerView.addSubview(categoriesNameLabel)
-        containerView.addSubview(seeAllCategoriesButton)
         containerView.addSubview(collectionView)
     }
 
@@ -135,7 +113,6 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
         setupCollectionViewConstraints()
         setupContainerViewConstraints()
         setupCategoriesNameLabelConstraints()
-        setupSeeAllCategoriesButtonConstraints()
     }
 
 }

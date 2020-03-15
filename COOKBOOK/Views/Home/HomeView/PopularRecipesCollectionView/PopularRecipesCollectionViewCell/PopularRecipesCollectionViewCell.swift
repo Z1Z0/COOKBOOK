@@ -39,7 +39,7 @@ class PopularRecipesCollectionViewCell: UICollectionViewCell {
     
     lazy var recipesTitle: UILabel = {
         let recipesTitle = UILabel()
-        recipesTitle.textColor = .customLightGray()
+        recipesTitle.textColor = .customLightDarkGray()
         recipesTitle.textAlignment = .left
         recipesTitle.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
         recipesTitle.translatesAutoresizingMaskIntoConstraints = false

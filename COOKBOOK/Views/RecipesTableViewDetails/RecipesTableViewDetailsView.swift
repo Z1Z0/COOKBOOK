@@ -74,12 +74,10 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
         
         if let readyInMin = recipesTableVC.recipesDetails[indexPath.row].readyInMinutes {
             cell.cookingTimeInfoLabel.text = "\(readyInMin) Minutes"
-            print("ready in min \(readyInMin)")
         }
         
         if let pricePerServing = recipesTableVC.recipesDetails[indexPath.row].pricePerServing {
             cell.priceInfoLabel.text = "$\(Int(pricePerServing))"
-            print("price per serving \(pricePerServing)")
         }
         
         if let serving = recipesTableVC.recipesDetails[indexPath.row].servings {

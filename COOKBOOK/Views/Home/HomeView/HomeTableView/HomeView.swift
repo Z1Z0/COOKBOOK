@@ -12,7 +12,7 @@ import Alamofire
 import Kingfisher
 
 protocol HomeViewDidSelectActionDelegate: class {
-    func homeView(_ view: HomeView, didSelectCategoryWithTitle title: String)
+    func homeView(_ view: HomeView, didSelectCategoryWithTitle title: String, VCTitle: String)
 }
 
 class HomeView: UIView {
@@ -35,7 +35,7 @@ class HomeView: UIView {
     lazy var foodTableView: UITableView = {
         let foodTableView = UITableView()
         foodTableView.translatesAutoresizingMaskIntoConstraints = false
-        foodTableView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
+        foodTableView.backgroundColor = .customVeryLightGray()
         foodTableView.delegate = self
         foodTableView.dataSource = self
         foodTableView.register(CategoriesTableViewCellCollectionViewCell.self, forCellReuseIdentifier: "CategoriesTableViewCellCollectionViewCell")
@@ -73,7 +73,7 @@ class HomeView: UIView {
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=e8d1d8ab81044fe491a35c7d370eb5ce&number=25").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=8f39671a836440e38af6f6dbd8507b1c&number=25").responseJSON { (response) in
             if let error = response.error {
                 print(error)
             }
@@ -133,7 +133,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             }
             
             if let pricePerServing = recipesDetails[indexPath.row].pricePerServing {
-                cell.priceInfoLabel.text = "$\(Int(pricePerServing))"
+                cell.priceInfoLabel.text = String(format: "%.2f", pricePerServing / 100)
             }
             
             if let serving = recipesDetails[indexPath.row].servings {
@@ -154,7 +154,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = .customLightDarkGray()
         (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = .customDarkGray()
     }
@@ -177,8 +177,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeView: RecipesDidselectActionDelegate {
-
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String) {
-        homeViewDidSelectActionDelegate?.homeView(self, didSelectCategoryWithTitle: title)
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, ViewControllerTitle VCTitle: String) {
+        homeViewDidSelectActionDelegate?.homeView(self, didSelectCategoryWithTitle: title, VCTitle: VCTitle)
     }
 }
