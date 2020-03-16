@@ -12,7 +12,7 @@ class RecipesDetailsViewController: UIViewController {
     
     lazy var mainView: RecipesDetailsView = {
         let view = RecipesDetailsView(frame: self.view.frame)
-        view.backgroundColor = .customVeryLightGray()
+        view.backgroundColor = .white
         return view
     }()
     
