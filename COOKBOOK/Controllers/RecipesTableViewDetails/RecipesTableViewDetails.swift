@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Kingfisher
 
 class RecipesTableViewDetails: UIViewController {
     
@@ -20,6 +21,7 @@ class RecipesTableViewDetails: UIViewController {
     
     lazy var mainView: RecipesTableViewDetailsView = {
         let view = RecipesTableViewDetailsView(frame: self.view.frame)
+        view.recipesTVDetailsSelectActionDelegate = self
         view.backgroundColor = .white
         return view
     }()
@@ -51,6 +53,7 @@ class RecipesTableViewDetails: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.CustomGreen()
+        setupNavigation()
     }
     
     @objc func saveButtonTapped() {
@@ -82,4 +85,15 @@ class RecipesTableViewDetails: UIViewController {
         }
     }
 
+}
+
+extension RecipesTableViewDetails: RecipesTVDetailsSelectActionDelegate {
+    
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String) {
+        let vc = RecipesDetailsViewController()
+        vc.recipeTitle = recipeTitle
+        vc.recipeImage = recipeImage
+        vc.recipeInstructions = recipeInstructions
+        self.show(vc, sender: nil)
+    }
 }

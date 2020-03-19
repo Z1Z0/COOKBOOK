@@ -10,10 +10,16 @@ import Foundation
 import UIKit
 import Alamofire
 
+protocol RecipesTVDetailsSelectActionDelegate: class {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String)
+}
+
 class RecipesTableViewDetailsView: UIView {
     
     let indicator = ActivityIndicator()
     var recipesTableVC = RecipesTableViewDetails()
+    
+    weak var recipesTVDetailsSelectActionDelegate: RecipesTVDetailsSelectActionDelegate?
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,6 +92,10 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
         
         return cell
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        recipesTVDetailsSelectActionDelegate?.recipeDetails(recipeTitle: recipesTableVC.recipesDetails[indexPath.row].title ?? "Error", recipeImage: recipesTableVC.recipesDetails[indexPath.row].image ?? "Error", recipeInstructions: recipesTableVC.recipesDetails[indexPath.row].instructions ?? "Error")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

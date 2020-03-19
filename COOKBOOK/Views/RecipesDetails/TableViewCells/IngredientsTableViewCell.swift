@@ -9,7 +9,7 @@
 import UIKit
 
 class IngredientsTableViewCell: UITableViewCell {
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutUI()
@@ -23,7 +23,7 @@ class IngredientsTableViewCell: UITableViewCell {
     lazy var recipeTitleLabel: UILabel = {
         let recipeTitleLabel = UILabel()
         recipeTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipeTitleLabel.text = "Myanmar Traditional Fish Curry"
+//        recipeTitleLabel.text = recipeTitle
         recipeTitleLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 25)
         recipeTitleLabel.textColor = .customDarkGray()
         recipeTitleLabel.numberOfLines = 0

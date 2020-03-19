@@ -124,7 +124,7 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
 
     func setupCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: categoriesNameLabel.bottomAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: categoriesNameLabel.bottomAnchor, constant: 16),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -160,6 +160,7 @@ extension CategoriesTableViewCellCollectionViewCell: UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         recipesDidselectActionDelegate?.categoriesTableViewCell(collectionView, didSelectTitle: categoriesTitle[indexPath.row], ViewControllerTitle: categories[indexPath.row])
         
     }

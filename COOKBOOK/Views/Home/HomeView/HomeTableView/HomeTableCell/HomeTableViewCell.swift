@@ -52,6 +52,7 @@ class HomeTableViewCell: UITableViewCell {
     lazy var foodTitle: UILabel = {
         let foodTitle = UILabel()
         foodTitle.textColor = .CustomGreen()
+        foodTitle.text = "Ahmed"
         foodTitle.numberOfLines = 0
         foodTitle.font = UIFont(name: "AvenirNext-Bold", size: 16)
         foodTitle.translatesAutoresizingMaskIntoConstraints = false

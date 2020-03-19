@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class RecipesDetailsView: UIView {
     
@@ -19,6 +20,8 @@ class RecipesDetailsView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var recipeVC = RecipesDetailsViewController()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -138,6 +141,11 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientsTableViewCell", for: indexPath) as! IngredientsTableViewCell
+            cell.recipeTitleLabel.text = recipeVC.recipeTitle
+            let url = URL(string: recipeVC.recipeImage ?? "Error")
+            cell.recipeImage.kf.setImage(with: url)
+            let recipeInstruction = recipeVC.recipeInstructions?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+            cell.instructionsTextView.text = recipeInstruction
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NumberOfIngredientsTableViewCell", for: indexPath) as! NumberOfIngredientsTableViewCell

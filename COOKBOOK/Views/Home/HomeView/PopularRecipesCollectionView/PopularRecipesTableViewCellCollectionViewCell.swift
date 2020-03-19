@@ -10,10 +10,16 @@ import UIKit
 import Kingfisher
 import Alamofire
 
+protocol PopularRecipesDidselectActionDelegate: class {
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, instructions: String)
+}
+
 class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
     
-    var recipes: RecipesData?
-    var recipesDetails = [RecipeData]()
+    var recipes: Recipes?
+    var recipesDetails = [Recipe]()
+    
+    weak var popularRecipesDidselectActionDelegate: PopularRecipesDidselectActionDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,7 +40,7 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
             }
             do {
                 if let data = response.data {
-                    self.recipes = try JSONDecoder().decode(RecipesData.self, from: data)
+                    self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
                     self.recipesDetails = self.recipes?.recipes ?? []
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
@@ -95,7 +101,7 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
 
     func setupCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: categoriesNameLabel.bottomAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: categoriesNameLabel.bottomAnchor, constant: 16),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -136,6 +142,10 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
         let w: CGFloat = self.frame.width * 0.7
         let h: CGFloat = collectionView.frame.size.height - 6.0
         return CGSize(width: w, height: h)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        popularRecipesDidselectActionDelegate?.categoriesTableViewCell(collectionView, didSelectTitle: recipesDetails[indexPath.row].title ?? "Error", image: recipesDetails[indexPath.row].image ?? "Error", instructions: recipesDetails[indexPath.row].instructions ?? "Error")
     }
     
 }

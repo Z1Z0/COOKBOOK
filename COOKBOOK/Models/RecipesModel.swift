@@ -17,4 +17,4 @@ struct RecipesData: Codable {
 struct RecipeData: Codable {
     let title: String?
     let image: String?
-    }
+}

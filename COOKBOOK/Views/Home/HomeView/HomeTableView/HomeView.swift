@@ -15,6 +15,14 @@ protocol HomeViewDidSelectActionDelegate: class {
     func homeView(_ view: HomeView, didSelectCategoryWithTitle title: String, VCTitle: String)
 }
 
+protocol PopularRecipesSelectActionDelegate: class {
+    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeInstructions: String)
+}
+
+protocol RecipesDetailsSelectActionDelegate: class {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String)
+}
+
 class HomeView: UIView {
     
     var recipes: Recipes?
@@ -22,7 +30,9 @@ class HomeView: UIView {
     let indicator = ActivityIndicator()
     
     weak var homeViewDidSelectActionDelegate: HomeViewDidSelectActionDelegate?
-        
+    weak var recipeDetailsViewSelectActionDelegate: RecipesDetailsSelectActionDelegate?
+    weak var popularRecipesDidselectActionDelegate: PopularRecipesSelectActionDelegate?
+    
     override init( frame: CGRect) {
         super.init(frame: frame)
         layoutUI()
@@ -100,7 +110,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
@@ -120,6 +130,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PopularRecipesTableViewCellCollectionViewCell", for: indexPath) as! PopularRecipesTableViewCellCollectionViewCell
+            cell.popularRecipesDidselectActionDelegate = self
             cell.collectionView.reloadData()
             return cell
         } else {
@@ -145,6 +156,10 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        recipeDetailsViewSelectActionDelegate?.recipeDetails(recipeTitle: recipesDetails[indexPath.row].title ?? "Error", recipeImage: recipesDetails[indexPath.row].image ?? "Error", recipeInstructions: recipesDetails[indexPath.row].instructions ?? "Error")
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 2 {
             return "Random recipes"
@@ -154,7 +169,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = .customLightDarkGray()
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = .white
         (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = .customDarkGray()
     }
@@ -171,13 +186,17 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         } else {
             return UITableView.automaticDimension
         }
-        
     }
-    
 }
 
 extension HomeView: RecipesDidselectActionDelegate {
     func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, ViewControllerTitle VCTitle: String) {
         homeViewDidSelectActionDelegate?.homeView(self, didSelectCategoryWithTitle: title, VCTitle: VCTitle)
+    }
+}
+
+extension HomeView: PopularRecipesDidselectActionDelegate {
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, instructions: String) {
+        popularRecipesDidselectActionDelegate?.popularRecipes(self, recipeTitle: title, recipeImage: image, recipeInstructions: instructions)
     }
 }

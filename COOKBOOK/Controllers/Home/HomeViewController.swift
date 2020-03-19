@@ -19,6 +19,8 @@ class HomeViewController: UIViewController {
     lazy var mainView: HomeView = {
         let view = HomeView(frame: self.view.frame)
         view.homeViewDidSelectActionDelegate = self
+        view.recipeDetailsViewSelectActionDelegate = self
+        view.popularRecipesDidselectActionDelegate = self
         return view
     }()
     
@@ -95,6 +97,28 @@ extension HomeViewController: HomeViewDidSelectActionDelegate {
         let vc = RecipesTableViewDetails()
         vc.categoryTitle = title
         vc.VCTitle = VCTitle
+        self.show(vc, sender: nil)
+    }
+}
+
+extension HomeViewController: RecipesDetailsSelectActionDelegate {
+    
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String) {
+        let vc = RecipesDetailsViewController()
+        vc.recipeTitle = recipeTitle
+        vc.recipeImage = recipeImage
+        vc.recipeInstructions = recipeInstructions
+        self.show(vc, sender: nil)
+    }
+    
+}
+
+extension HomeViewController: PopularRecipesSelectActionDelegate {
+    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeInstructions: String) {
+        let vc = RecipesDetailsViewController()
+        vc.recipeTitle = recipeTitle
+        vc.recipeImage = recipeImage
+        vc.recipeInstructions = recipeInstructions
         self.show(vc, sender: nil)
     }
 }

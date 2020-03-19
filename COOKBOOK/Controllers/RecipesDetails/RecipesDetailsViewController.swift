@@ -10,6 +10,10 @@ import UIKit
 
 class RecipesDetailsViewController: UIViewController {
     
+    var recipeTitle: String?
+    var recipeImage: String?
+    var recipeInstructions: String?
+    
     lazy var mainView: RecipesDetailsView = {
         let view = RecipesDetailsView(frame: self.view.frame)
         view.backgroundColor = .white
@@ -18,13 +22,18 @@ class RecipesDetailsViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        mainView.recipeVC = self
         view = mainView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = "Recipe Details"
     }
 
 }
