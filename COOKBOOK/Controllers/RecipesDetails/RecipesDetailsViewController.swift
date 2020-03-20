@@ -13,6 +13,9 @@ class RecipesDetailsViewController: UIViewController {
     var recipeTitle: String?
     var recipeImage: String?
     var recipeInstructions: String?
+    var ingredientsNumber: String?
+    var ingredientsNumberInt: Int?
+    var ingredientsName: [String]?
     
     lazy var mainView: RecipesDetailsView = {
         let view = RecipesDetailsView(frame: self.view.frame)

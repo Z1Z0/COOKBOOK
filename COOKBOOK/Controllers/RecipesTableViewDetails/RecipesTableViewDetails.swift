@@ -88,12 +88,12 @@ class RecipesTableViewDetails: UIViewController {
 }
 
 extension RecipesTableViewDetails: RecipesTVDetailsSelectActionDelegate {
-    
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String) {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String, ingredientsNumber: String) {
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
         vc.recipeImage = recipeImage
         vc.recipeInstructions = recipeInstructions
+        vc.ingredientsNumber = ingredientsNumber
         self.show(vc, sender: nil)
     }
 }

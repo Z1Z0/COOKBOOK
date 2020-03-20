@@ -11,7 +11,12 @@ import UIKit
 import Alamofire
 
 protocol RecipesTVDetailsSelectActionDelegate: class {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String)
+    func recipeDetails(
+        recipeTitle: String,
+        recipeImage: String,
+        recipeInstructions: String,
+        ingredientsNumber: String
+    )
 }
 
 class RecipesTableViewDetailsView: UIView {
@@ -95,7 +100,11 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        recipesTVDetailsSelectActionDelegate?.recipeDetails(recipeTitle: recipesTableVC.recipesDetails[indexPath.row].title ?? "Error", recipeImage: recipesTableVC.recipesDetails[indexPath.row].image ?? "Error", recipeInstructions: recipesTableVC.recipesDetails[indexPath.row].instructions ?? "Error")
+        recipesTVDetailsSelectActionDelegate?.recipeDetails(
+            recipeTitle: recipesTableVC.recipesDetails[indexPath.row].title ?? "Error",
+            recipeImage: recipesTableVC.recipesDetails[indexPath.row].image ?? "Error",
+            recipeInstructions: recipesTableVC.recipesDetails[indexPath.row].instructions ?? "Error",
+            ingredientsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].extendedIngredients.count)")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

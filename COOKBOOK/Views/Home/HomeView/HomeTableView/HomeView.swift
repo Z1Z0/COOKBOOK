@@ -12,15 +12,32 @@ import Alamofire
 import Kingfisher
 
 protocol HomeViewDidSelectActionDelegate: class {
-    func homeView(_ view: HomeView, didSelectCategoryWithTitle title: String, VCTitle: String)
+    func homeView(
+        _ view: HomeView,
+        didSelectCategoryWithTitle title: String,
+        VCTitle: String
+    )
 }
 
 protocol PopularRecipesSelectActionDelegate: class {
-    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeInstructions: String)
+    func popularRecipes(
+        _ view: HomeView,
+        recipeTitle: String,
+        recipeImage: String,
+        recipeInstructions: String,
+        ingredientsNumber: String
+    )
 }
 
 protocol RecipesDetailsSelectActionDelegate: class {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String)
+    func recipeDetails(
+        recipeTitle: String,
+        recipeImage: String,
+        recipeInstructions: String,
+        ingredientsNumber: String,
+        ingredientsNumbersInt: Int,
+        ingredientsName: [String]
+    )
 }
 
 class HomeView: UIView {
@@ -157,7 +174,14 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        recipeDetailsViewSelectActionDelegate?.recipeDetails(recipeTitle: recipesDetails[indexPath.row].title ?? "Error", recipeImage: recipesDetails[indexPath.row].image ?? "Error", recipeInstructions: recipesDetails[indexPath.row].instructions ?? "Error")
+        recipeDetailsViewSelectActionDelegate?.recipeDetails(
+            recipeTitle: recipesDetails[indexPath.row].title ?? "Error",
+            recipeImage: recipesDetails[indexPath.row].image ?? "Error",
+            recipeInstructions: recipesDetails[indexPath.row].instructions ?? "Error",
+            ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients.count)",
+            ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients.count,
+            ingredientsName: [(recipesDetails[indexPath.row].extendedIngredients[indexPath.row].name ?? "")]
+        )
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -180,9 +204,9 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 130
+            return 140
         } else if indexPath.section == 1 {
-            return 180
+            return 200
         } else {
             return UITableView.automaticDimension
         }
@@ -196,7 +220,19 @@ extension HomeView: RecipesDidselectActionDelegate {
 }
 
 extension HomeView: PopularRecipesDidselectActionDelegate {
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, instructions: String) {
-        popularRecipesDidselectActionDelegate?.popularRecipes(self, recipeTitle: title, recipeImage: image, recipeInstructions: instructions)
+    func categoriesTableViewCell(
+        _ cell: UICollectionView,
+        didSelectTitle title: String,
+        image: String,
+        instructions: String,
+        ingredientsNumber: String
+    ) {
+        popularRecipesDidselectActionDelegate?.popularRecipes(
+            self,
+            recipeTitle: title,
+            recipeImage: image,
+            recipeInstructions: instructions,
+            ingredientsNumber: ingredientsNumber
+        )
     }
 }

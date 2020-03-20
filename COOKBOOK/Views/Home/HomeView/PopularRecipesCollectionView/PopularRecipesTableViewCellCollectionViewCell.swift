@@ -11,7 +11,7 @@ import Kingfisher
 import Alamofire
 
 protocol PopularRecipesDidselectActionDelegate: class {
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, instructions: String)
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, instructions: String, ingredientsNumber: String)
 }
 
 class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
@@ -145,7 +145,7 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        popularRecipesDidselectActionDelegate?.categoriesTableViewCell(collectionView, didSelectTitle: recipesDetails[indexPath.row].title ?? "Error", image: recipesDetails[indexPath.row].image ?? "Error", instructions: recipesDetails[indexPath.row].instructions ?? "Error")
+        popularRecipesDidselectActionDelegate?.categoriesTableViewCell(collectionView, didSelectTitle: recipesDetails[indexPath.row].title ?? "Error", image: recipesDetails[indexPath.row].image ?? "Error", instructions: recipesDetails[indexPath.row].instructions ?? "Error", ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients.count)")
     }
     
 }

@@ -134,7 +134,7 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             return 1
         }
         else {
-            return 5
+            return recipeVC.ingredientsName?.count ?? 4
         }
     }
     
@@ -146,9 +146,13 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             cell.recipeImage.kf.setImage(with: url)
             let recipeInstruction = recipeVC.recipeInstructions?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
             cell.instructionsTextView.text = recipeInstruction
+            if let ingredientsNumbers = recipeVC.ingredientsNumber {
+                cell.numberOfGredientsLabel.text = "\(ingredientsNumbers) Ingredients"
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NumberOfIngredientsTableViewCell", for: indexPath) as! NumberOfIngredientsTableViewCell
+            cell.theNameOfIngredient.text = recipeVC.ingredientsName?[indexPath.row]
             return cell
         }
         
@@ -156,7 +160,6 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-        
     }
     
 }
