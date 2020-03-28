@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import Kingfisher
 
+@objc protocol RecipesDetailsDelegateAction: class {
+    @objc func startCookingButtonTapped()
+}
+
 class RecipesDetailsView: UIView {
     
     override init(frame: CGRect) {
@@ -22,6 +26,7 @@ class RecipesDetailsView: UIView {
     }
     
     var recipeVC = RecipesDetailsViewController()
+    weak var delegate: RecipesDetailsDelegateAction!
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -53,6 +58,7 @@ class RecipesDetailsView: UIView {
         startCookingButton.layer.cornerRadius = 8.0
         startCookingButton.translatesAutoresizingMaskIntoConstraints = false
         startCookingButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 14)
+        startCookingButton.addTarget(delegate, action: #selector(delegate.startCookingButtonTapped), for: .touchUpInside)
         return startCookingButton
     }()
     
@@ -134,11 +140,12 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             return 1
         }
         else {
-            return recipeVC.ingredientsName?.count ?? 4
+            return recipeVC.ingredientsName.count 
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientsTableViewCell", for: indexPath) as! IngredientsTableViewCell
             cell.recipeTitleLabel.text = recipeVC.recipeTitle
@@ -149,13 +156,15 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             if let ingredientsNumbers = recipeVC.ingredientsNumber {
                 cell.numberOfGredientsLabel.text = "\(ingredientsNumbers) Ingredients"
             }
+            
             return cell
+            
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NumberOfIngredientsTableViewCell", for: indexPath) as! NumberOfIngredientsTableViewCell
-            cell.theNameOfIngredient.text = recipeVC.ingredientsName?[indexPath.row]
+            cell.theNumberOfIngredient.text = recipeVC.sequence[indexPath.row]
+            cell.theNameOfIngredient.text = recipeVC.ingredientsName[indexPath.row]
             return cell
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

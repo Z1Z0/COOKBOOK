@@ -102,10 +102,11 @@ extension HomeViewController: HomeViewDidSelectActionDelegate {
 }
 
 extension HomeViewController: RecipesDetailsSelectActionDelegate {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
         vc.recipeImage = recipeImage
+        vc.recipeTime = recipeTime
         vc.recipeInstructions = recipeInstructions
         vc.ingredientsNumber = ingredientsNumber
         vc.ingredientsNumberInt = ingredientsNumbersInt
@@ -115,13 +116,17 @@ extension HomeViewController: RecipesDetailsSelectActionDelegate {
 }
 
 extension HomeViewController: PopularRecipesSelectActionDelegate {
-    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeInstructions: String, ingredientsNumber: String) {
+    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
+        
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
         vc.recipeImage = recipeImage
+        vc.recipeTime = recipeTime
         vc.recipeInstructions = recipeInstructions
         vc.ingredientsNumber = ingredientsNumber
+        vc.ingredientsNumberInt = ingredientsNumbersInt
+        vc.ingredientsName = ingredientsName
         self.show(vc, sender: nil)
+        
     }
-
 }

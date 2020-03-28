@@ -14,8 +14,11 @@ protocol RecipesTVDetailsSelectActionDelegate: class {
     func recipeDetails(
         recipeTitle: String,
         recipeImage: String,
+        recipeTime: String,
         recipeInstructions: String,
-        ingredientsNumber: String
+        ingredientsNumber: String,
+        ingredientsNumbersInt: Int,
+        ingredientsName: [String]
     )
 }
 
@@ -103,8 +106,11 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
         recipesTVDetailsSelectActionDelegate?.recipeDetails(
             recipeTitle: recipesTableVC.recipesDetails[indexPath.row].title ?? "Error",
             recipeImage: recipesTableVC.recipesDetails[indexPath.row].image ?? "Error",
+            recipeTime: "\(recipesTableVC.recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
             recipeInstructions: recipesTableVC.recipesDetails[indexPath.row].instructions ?? "Error",
-            ingredientsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].extendedIngredients.count)")
+            ingredientsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].extendedIngredients.count)",
+            ingredientsNumbersInt: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients.count,
+            ingredientsName: (recipesTableVC.recipesDetails[indexPath.row].extendedIngredients.compactMap({$0.name})))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

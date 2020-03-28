@@ -8,12 +8,10 @@
 
 import Foundation
 
-// MARK: - Recipes
 struct Recipes: Codable {
     let recipes: [Recipe]
 }
 
-// MARK: - Recipe
 struct Recipe: Codable {
     let title: String?
     let image: String?

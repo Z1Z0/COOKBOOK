@@ -24,8 +24,11 @@ protocol PopularRecipesSelectActionDelegate: class {
         _ view: HomeView,
         recipeTitle: String,
         recipeImage: String,
+        recipeTime: String,
         recipeInstructions: String,
-        ingredientsNumber: String
+        ingredientsNumber: String,
+        ingredientsNumbersInt: Int,
+        ingredientsName: [String]
     )
 }
 
@@ -33,6 +36,7 @@ protocol RecipesDetailsSelectActionDelegate: class {
     func recipeDetails(
         recipeTitle: String,
         recipeImage: String,
+        recipeTime: String,
         recipeInstructions: String,
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
@@ -177,10 +181,11 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         recipeDetailsViewSelectActionDelegate?.recipeDetails(
             recipeTitle: recipesDetails[indexPath.row].title ?? "Error",
             recipeImage: recipesDetails[indexPath.row].image ?? "Error",
+            recipeTime: "\(recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
             recipeInstructions: recipesDetails[indexPath.row].instructions ?? "Error",
             ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients.count)",
             ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients.count,
-            ingredientsName: [(recipesDetails[indexPath.row].extendedIngredients[indexPath.row].name ?? "")]
+            ingredientsName: (recipesDetails[indexPath.row].extendedIngredients.compactMap({$0.name}))
         )
     }
     
@@ -220,19 +225,17 @@ extension HomeView: RecipesDidselectActionDelegate {
 }
 
 extension HomeView: PopularRecipesDidselectActionDelegate {
-    func categoriesTableViewCell(
-        _ cell: UICollectionView,
-        didSelectTitle title: String,
-        image: String,
-        instructions: String,
-        ingredientsNumber: String
-    ) {
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
+        
         popularRecipesDidselectActionDelegate?.popularRecipes(
-            self,
-            recipeTitle: title,
-            recipeImage: image,
-            recipeInstructions: instructions,
-            ingredientsNumber: ingredientsNumber
+        self,
+        recipeTitle: title,
+        recipeImage: image,
+        recipeTime: recipeTime,
+        recipeInstructions: instructions,
+        ingredientsNumber: ingredientsNumber,
+        ingredientsNumbersInt: ingredientsNumbersInt,
+        ingredientsName: ingredientsName
         )
     }
 }

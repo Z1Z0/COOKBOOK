@@ -84,16 +84,19 @@ class RecipesTableViewDetails: UIViewController {
             self.indicator.hideIndicatorView(self.view)
         }
     }
-
 }
 
 extension RecipesTableViewDetails: RecipesTVDetailsSelectActionDelegate {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeInstructions: String, ingredientsNumber: String) {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
+        
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
         vc.recipeImage = recipeImage
+        vc.recipeTime = recipeTime
         vc.recipeInstructions = recipeInstructions
         vc.ingredientsNumber = ingredientsNumber
+        vc.ingredientsNumberInt = ingredientsNumbersInt
+        vc.ingredientsName = ingredientsName
         self.show(vc, sender: nil)
     }
 }

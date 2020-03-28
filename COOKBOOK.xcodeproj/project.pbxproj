@@ -37,10 +37,14 @@
 		E12AB4D623E2487800DD15D4 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4D523E2487800DD15D4 /* RecipeModel.swift */; };
 		E133302923F4286C008B46FC /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E133302823F4286C008B46FC /* SignUpViewController.swift */; };
 		E133302B23F4359A008B46FC /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E133302A23F4359A008B46FC /* ForgetPasswordViewController.swift */; };
+		E138AFFA242D387500DD2816 /* RecipeInformationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E138AFF9242D387500DD2816 /* RecipeInformationsTableViewCell.swift */; };
+		E138AFFC242D389A00DD2816 /* RecipeStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E138AFFB242D389A00DD2816 /* RecipeStepsTableViewCell.swift */; };
 		E15FB4D123F19FA2001FAB47 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FB4D023F19FA2001FAB47 /* SplashViewController.swift */; };
 		E18187B4241D495E00880AC7 /* RecipesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18187B3241D495E00880AC7 /* RecipesDetailsView.swift */; };
 		E18187B6241D4B9500880AC7 /* RecipesDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18187B5241D4B9500880AC7 /* RecipesDetailsViewController.swift */; };
 		E19555DB23F2336B0001C480 /* Colors + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19555DA23F2336B0001C480 /* Colors + Ext.swift */; };
+		E1C49D86242BA9FF00446CDE /* StartCookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C49D85242BA9FF00446CDE /* StartCookingView.swift */; };
+		E1C49D89242BAA2000446CDE /* StartCookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C49D88242BAA2000446CDE /* StartCookingViewController.swift */; };
 		E1CDA91B23F36D43002BCDD8 /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CDA91A23F36D43002BCDD8 /* UIView + Ext.swift */; };
 		E1D4EC7323F4C035006E6CB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1D4EC7223F4C035006E6CB4 /* GoogleService-Info.plist */; };
 		E1D4EC7523F4D6E0006E6CB4 /* UIViewController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D4EC7423F4D6E0006E6CB4 /* UIViewController + Ext.swift */; };
@@ -83,10 +87,14 @@
 		E12AB4D523E2487800DD15D4 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		E133302823F4286C008B46FC /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E133302A23F4359A008B46FC /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		E138AFF9242D387500DD2816 /* RecipeInformationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInformationsTableViewCell.swift; sourceTree = "<group>"; };
+		E138AFFB242D389A00DD2816 /* RecipeStepsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeStepsTableViewCell.swift; sourceTree = "<group>"; };
 		E15FB4D023F19FA2001FAB47 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		E18187B3241D495E00880AC7 /* RecipesDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesDetailsView.swift; sourceTree = "<group>"; };
 		E18187B5241D4B9500880AC7 /* RecipesDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesDetailsViewController.swift; sourceTree = "<group>"; };
 		E19555DA23F2336B0001C480 /* Colors + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors + Ext.swift"; sourceTree = "<group>"; };
+		E1C49D85242BA9FF00446CDE /* StartCookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCookingView.swift; sourceTree = "<group>"; };
+		E1C49D88242BAA2000446CDE /* StartCookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCookingViewController.swift; sourceTree = "<group>"; };
 		E1CDA91A23F36D43002BCDD8 /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		E1D4EC7223F4C035006E6CB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1D4EC7423F4D6E0006E6CB4 /* UIViewController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Ext.swift"; sourceTree = "<group>"; };
@@ -365,6 +373,15 @@
 			path = COOKBOOK;
 			sourceTree = "<group>";
 		};
+		E138AFF8242D384900DD2816 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				E138AFF9242D387500DD2816 /* RecipeInformationsTableViewCell.swift */,
+				E138AFFB242D389A00DD2816 /* RecipeStepsTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
 		E147ADC423F5CA96004D1074 /* CustomClasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +434,23 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		E1C49D84242BA9DE00446CDE /* StartCooking */ = {
+			isa = PBXGroup;
+			children = (
+				E1C49D85242BA9FF00446CDE /* StartCookingView.swift */,
+				E138AFF8242D384900DD2816 /* TableViewCells */,
+			);
+			path = StartCooking;
+			sourceTree = "<group>";
+		};
+		E1C49D87242BAA0300446CDE /* StartCooking */ = {
+			isa = PBXGroup;
+			children = (
+				E1C49D88242BAA2000446CDE /* StartCookingViewController.swift */,
+			);
+			path = StartCooking;
+			sourceTree = "<group>";
+		};
 		E1D1EC0923F4E83000A7FFCF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +482,7 @@
 				CCF9CB062402A60800567724 /* Home */,
 				CCE19A392415FE9D0089F2CA /* RecipesTableViewDetails */,
 				E18187B1241D492E00880AC7 /* RecipesDetails */,
+				E1C49D87242BAA0300446CDE /* StartCooking */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -463,6 +498,7 @@
 				CCF9CB072402A61A00567724 /* Home */,
 				CC2BA6F92415F33A0039B725 /* RecipesTableViewDetails */,
 				E18187B2241D494A00880AC7 /* RecipesDetails */,
+				E1C49D84242BA9DE00446CDE /* StartCooking */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -587,6 +623,7 @@
 				E1E12CFE241EB866004B84F9 /* NumberOfIngredientsTableViewCell.swift in Sources */,
 				E133302923F4286C008B46FC /* SignUpViewController.swift in Sources */,
 				CC2A98A92410ECEC002FD8B4 /* PopularRecipesCollectionViewCell.swift in Sources */,
+				E138AFFA242D387500DD2816 /* RecipeInformationsTableViewCell.swift in Sources */,
 				E12AB4D023E2421700DD15D4 /* HomeViewController.swift in Sources */,
 				E12AB4C023E23EEE00DD15D4 /* SignInViewController.swift in Sources */,
 				E1CDA91B23F36D43002BCDD8 /* UIView + Ext.swift in Sources */,
@@ -595,6 +632,8 @@
 				E1D4EC7523F4D6E0006E6CB4 /* UIViewController + Ext.swift in Sources */,
 				CC2752E123FDA33D00BE56A5 /* HomeView.swift in Sources */,
 				CC2A98AE241111ED002FD8B4 /* RecipesModel.swift in Sources */,
+				E1C49D86242BA9FF00446CDE /* StartCookingView.swift in Sources */,
+				E138AFFC242D389A00DD2816 /* RecipeStepsTableViewCell.swift in Sources */,
 				CCE8FC88240C7CD500005405 /* CategoriesCollectionViewCell.swift in Sources */,
 				E12AB4BC23E23EEE00DD15D4 /* AppDelegate.swift in Sources */,
 				CC410FBB2406C44500F4A82D /* SideMenuTableViewCell.swift in Sources */,
@@ -606,6 +645,7 @@
 				CCE19A3B2415FED50089F2CA /* RecipesTableViewDetails.swift in Sources */,
 				CC039F0523FD1031002ED7F3 /* ForgetPasswordView.swift in Sources */,
 				CC1A390723FC54ED000AAF3A /* SignInView.swift in Sources */,
+				E1C49D89242BAA2000446CDE /* StartCookingViewController.swift in Sources */,
 				CC33256E23FCF88D00F8A6F2 /* SignupView.swift in Sources */,
 				E12AB4BE23E23EEE00DD15D4 /* SceneDelegate.swift in Sources */,
 				CCF790052401BE6C006FC3A6 /* ImageView + Ext.swift in Sources */,

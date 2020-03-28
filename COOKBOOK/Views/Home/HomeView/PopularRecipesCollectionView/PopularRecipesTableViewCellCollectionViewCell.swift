@@ -11,7 +11,16 @@ import Kingfisher
 import Alamofire
 
 protocol PopularRecipesDidselectActionDelegate: class {
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, instructions: String, ingredientsNumber: String)
+    func categoriesTableViewCell(
+        _ cell: UICollectionView,
+        didSelectTitle title: String,
+        image: String,
+        recipeTime: String,
+        instructions: String,
+        ingredientsNumber: String,
+        ingredientsNumbersInt: Int,
+        ingredientsName: [String]
+    )
 }
 
 class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
@@ -145,7 +154,15 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        popularRecipesDidselectActionDelegate?.categoriesTableViewCell(collectionView, didSelectTitle: recipesDetails[indexPath.row].title ?? "Error", image: recipesDetails[indexPath.row].image ?? "Error", instructions: recipesDetails[indexPath.row].instructions ?? "Error", ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients.count)")
+        popularRecipesDidselectActionDelegate?.categoriesTableViewCell(
+            collectionView,
+            didSelectTitle: recipesDetails[indexPath.row].title ?? "Error",
+            image: recipesDetails[indexPath.row].image ?? "Error",
+            recipeTime: "\(recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
+            instructions: recipesDetails[indexPath.row].instructions ?? "Error",
+            ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients.count)",
+            ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients.count,
+            ingredientsName: (recipesDetails[indexPath.row].extendedIngredients.compactMap({$0.name})))
     }
     
 }

@@ -12,11 +12,13 @@ class RecipesDetailsViewController: UIViewController {
     
     var recipeTitle: String?
     var recipeImage: String?
+    var recipeTime: String?
     var recipeInstructions: String?
     var ingredientsNumber: String?
     var ingredientsNumberInt: Int?
-    var ingredientsName: [String]?
-    
+    var ingredientsName: [String] = []
+    var sequence = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"]
+        
     lazy var mainView: RecipesDetailsView = {
         let view = RecipesDetailsView(frame: self.view.frame)
         view.backgroundColor = .white
@@ -39,4 +41,16 @@ class RecipesDetailsViewController: UIViewController {
         self.title = "Recipe Details"
     }
 
+}
+
+extension RecipesDetailsViewController: RecipesDetailsDelegateAction {
+    
+    func startCookingButtonTapped() {
+        let vc = StartCookingViewController()
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.recipeTitle = recipeTitle
+        vc.recipeTime = recipeTime
+        vc.recipeImage = recipeImage
+        self.present(vc, animated: true, completion: nil)
+    }
 }
