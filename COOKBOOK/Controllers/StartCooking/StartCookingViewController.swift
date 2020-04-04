@@ -13,6 +13,8 @@ class StartCookingViewController: UIViewController {
     var recipeTitle: String?
     var recipeTime: String?
     var recipeImage: String?
+    var instructionsNumber: String?
+    var instructionsSteps: [String]?
     
     lazy var mainView: StartCookingView = {
         let view = StartCookingView(frame: self.view.frame)
@@ -29,6 +31,16 @@ class StartCookingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.mainView.tableView.reloadData()
+        }
+        
     }
 
 }

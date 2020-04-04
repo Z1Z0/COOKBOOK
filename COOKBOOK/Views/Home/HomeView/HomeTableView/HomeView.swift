@@ -28,7 +28,9 @@ protocol PopularRecipesSelectActionDelegate: class {
         recipeInstructions: String,
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
-        ingredientsName: [String]
+        ingredientsName: [String],
+        instructionsNumber: String,
+        instructionsSteps: [String]
     )
 }
 
@@ -40,7 +42,9 @@ protocol RecipesDetailsSelectActionDelegate: class {
         recipeInstructions: String,
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
-        ingredientsName: [String]
+        ingredientsName: [String],
+        instructionsNumber: String,
+        instructionsSteps: [String]
     )
 }
 
@@ -104,9 +108,9 @@ class HomeView: UIView {
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=8f39671a836440e38af6f6dbd8507b1c&number=25").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=bbb927604e1d4f0195e6e22a92fc9d5f&number=25").responseJSON { (response) in
             if let error = response.error {
-                print(error)
+                print(error.localizedDescription)
             }
             do {
                 if let data = response.data {
@@ -118,7 +122,7 @@ class HomeView: UIView {
                 }
                 
             } catch {
-                print(error)
+                print(error.localizedDescription)
             }
             self.indicator.hideIndicatorView(self)
         }
@@ -143,7 +147,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+                
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableViewCellCollectionViewCell", for: indexPath) as! CategoriesTableViewCellCollectionViewCell
             cell.recipesDidselectActionDelegate = self
@@ -178,15 +182,19 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        recipeDetailsViewSelectActionDelegate?.recipeDetails(
-            recipeTitle: recipesDetails[indexPath.row].title ?? "Error",
-            recipeImage: recipesDetails[indexPath.row].image ?? "Error",
-            recipeTime: "\(recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
-            recipeInstructions: recipesDetails[indexPath.row].instructions ?? "Error",
-            ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients.count)",
-            ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients.count,
-            ingredientsName: (recipesDetails[indexPath.row].extendedIngredients.compactMap({$0.name}))
-        )
+        if indexPath.section == 2 {
+            recipeDetailsViewSelectActionDelegate?.recipeDetails(
+                recipeTitle: recipesDetails[indexPath.row].title ?? "Error",
+                recipeImage: recipesDetails[indexPath.row].image ?? "Error",
+                recipeTime: "\(recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
+                recipeInstructions: recipesDetails[indexPath.row].instructions ?? "Error",
+                ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients?.count ?? 5)",
+                ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients?.count ?? 0,
+                ingredientsName: (recipesDetails[indexPath.row].extendedIngredients?.map({($0.name ?? "Error")}) ?? ["Error"]),
+                instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count ?? 5)",
+                instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[indexPath.row].steps?.map({($0.step ?? "Error")}) ?? ["Error"])
+            )
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -225,17 +233,22 @@ extension HomeView: RecipesDidselectActionDelegate {
 }
 
 extension HomeView: PopularRecipesDidselectActionDelegate {
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
+    
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], instructionsNumber: String, instructionsSteps: [String]) {
         
         popularRecipesDidselectActionDelegate?.popularRecipes(
-        self,
-        recipeTitle: title,
-        recipeImage: image,
-        recipeTime: recipeTime,
-        recipeInstructions: instructions,
-        ingredientsNumber: ingredientsNumber,
-        ingredientsNumbersInt: ingredientsNumbersInt,
-        ingredientsName: ingredientsName
+            self,
+            recipeTitle: title,
+            recipeImage: image,
+            recipeTime: recipeTime,
+            recipeInstructions: instructions,
+            ingredientsNumber: ingredientsNumber,
+            ingredientsNumbersInt: ingredientsNumbersInt,
+            ingredientsName: ingredientsName,
+            instructionsNumber: instructionsNumber,
+            instructionsSteps: instructionsSteps
         )
+        
     }
+
 }

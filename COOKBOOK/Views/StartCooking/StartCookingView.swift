@@ -63,6 +63,7 @@ class StartCookingView: UIView {
         finishCookingButton.layer.cornerRadius = 8.0
         finishCookingButton.translatesAutoresizingMaskIntoConstraints = false
         finishCookingButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 14)
+        finishCookingButton.addTarget(delegate, action: #selector(delegate?.dismissButtonTapped), for: .touchUpInside)
         return finishCookingButton
     }()
     
@@ -71,7 +72,7 @@ class StartCookingView: UIView {
             tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: finishCookingButton.bottomAnchor, constant: -16)
+            tableView.bottomAnchor.constraint(equalTo: finishCookingButton.topAnchor, constant: -16)
         ])
     }
     
@@ -118,7 +119,7 @@ extension StartCookingView: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return 1
+            return vc.instructionsSteps?.count ?? 1
         }
     }
     
@@ -129,9 +130,11 @@ extension StartCookingView: UITableViewDelegate, UITableViewDataSource {
             cell.timerLabel.text = vc.recipeTime
             let url = URL(string: vc.recipeImage ?? "Error")
             cell.recipeImage.kf.setImage(with: url)
+            cell.numberOfProcessLabel.text = "\(vc.instructionsSteps?.count ?? 1) steps"
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeStepsTableViewCell", for: indexPath) as! RecipeStepsTableViewCell
+            cell.nameOfProcessLabel.text = vc.instructionsSteps?[indexPath.row]
             return cell
         }
         

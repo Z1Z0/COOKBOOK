@@ -19,7 +19,9 @@ protocol PopularRecipesDidselectActionDelegate: class {
         instructions: String,
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
-        ingredientsName: [String]
+        ingredientsName: [String],
+        instructionsNumber: String,
+        instructionsSteps: [String]
     )
 }
 
@@ -43,7 +45,7 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=8f39671a836440e38af6f6dbd8507b1c&number=25").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=bbb927604e1d4f0195e6e22a92fc9d5f&number=25").responseJSON { (response) in
             if let error = response.error {
                 print(error)
             }
@@ -160,9 +162,12 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
             image: recipesDetails[indexPath.row].image ?? "Error",
             recipeTime: "\(recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
             instructions: recipesDetails[indexPath.row].instructions ?? "Error",
-            ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients.count)",
-            ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients.count,
-            ingredientsName: (recipesDetails[indexPath.row].extendedIngredients.compactMap({$0.name})))
+            ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients?.count)",
+            ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients?.count ?? 5,
+            ingredientsName: (recipesDetails[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
+            instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count)",
+            instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[indexPath.row].steps?.map({$0.step ?? "Error"}) ?? ["Error"])
+        )
     }
     
 }

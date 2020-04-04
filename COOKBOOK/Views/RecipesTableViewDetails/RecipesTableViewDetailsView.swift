@@ -18,7 +18,9 @@ protocol RecipesTVDetailsSelectActionDelegate: class {
         recipeInstructions: String,
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
-        ingredientsName: [String]
+        ingredientsName: [String],
+        instructionsNumber: String,
+        instructionsSteps: [String]
     )
 }
 
@@ -108,9 +110,12 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
             recipeImage: recipesTableVC.recipesDetails[indexPath.row].image ?? "Error",
             recipeTime: "\(recipesTableVC.recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
             recipeInstructions: recipesTableVC.recipesDetails[indexPath.row].instructions ?? "Error",
-            ingredientsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].extendedIngredients.count)",
-            ingredientsNumbersInt: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients.count,
-            ingredientsName: (recipesTableVC.recipesDetails[indexPath.row].extendedIngredients.compactMap({$0.name})))
+            ingredientsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count)",
+            ingredientsNumbersInt: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count ?? 5,
+            ingredientsName: (recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
+            instructionsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?.count)",
+            instructionsSteps: recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?[indexPath.row].steps?.map({$0.step ?? "Error"}) ?? ["Error"]
+        )
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

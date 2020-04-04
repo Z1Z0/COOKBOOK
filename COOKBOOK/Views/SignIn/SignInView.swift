@@ -15,6 +15,7 @@ import Material
     @objc func registerButtonTapped()
     @objc func forgetPasswordButtonTapped()
     @objc func facebookButtonTapped()
+    @objc func twitterButtonTapped()
 }
 
 class SignInView: UIView {
@@ -142,6 +143,7 @@ class SignInView: UIView {
         twitterButton.setImage(UIImage(named: "twitter"), for: .normal)
         twitterButton.backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.5568627451, blue: 0.9333333333, alpha: 1)
         twitterButton.layer.cornerRadius = 8.0
+        twitterButton.addTarget(delegate, action: #selector(delegate.twitterButtonTapped), for: .touchUpInside)
         return twitterButton
     }()
     

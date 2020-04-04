@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 import FacebookLogin
 import FacebookCore
-import GoogleSignIn
 
 class SignInViewController: UIViewController, SignInDelegate {
+    
     
     let indicator = ActivityIndicator()
         
@@ -83,8 +83,12 @@ class SignInViewController: UIViewController, SignInDelegate {
                 self.signIntoFirebaseWithFacebook()
             case .failed(let error):
                 print(error)
+                self.indicator.hideIndicatorView(self.view)
+                self.view.alpha = 1.0
             case .cancelled:
                 print("cancelled")
+                self.indicator.hideIndicatorView(self.view)
+                self.view.alpha = 1.0
             }
         }
     }
@@ -99,6 +103,30 @@ class SignInViewController: UIViewController, SignInDelegate {
             }
             self.view.alpha = 1.0
             self.indicator.hideIndicatorView(self.view)
+        }
+    }
+    
+    func twitterButtonTapped() {
+        let provider = OAuthProvider(providerID: "twitter.com")
+        provider.getCredentialWith(_: nil) { credential, error in
+            if error != nil {
+                print(error?.localizedDescription)
+            }
+            if credential != nil {
+                Auth.auth().signIn(with: credential!) { authResult, error in
+                    if error != nil {
+                        print(error?.localizedDescription)
+                    }
+                }
+            }
+            if let credential = credential {
+                Auth.auth().signIn(with: credential) { (result, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        return
+                    }
+                }
+            }
         }
     }
     

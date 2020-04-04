@@ -62,7 +62,7 @@ class RecipesTableViewDetails: UIViewController {
     
     func fetchData(_ category: String) {
         indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
-        let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=8f39671a836440e38af6f6dbd8507b1c&tags=\(category)"
+        let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=bbb927604e1d4f0195e6e22a92fc9d5f&tags=\(category)"
         print("urlString:", urlString)
         print()
         AF.request(urlString).responseJSON { (response) in
@@ -87,7 +87,7 @@ class RecipesTableViewDetails: UIViewController {
 }
 
 extension RecipesTableViewDetails: RecipesTVDetailsSelectActionDelegate {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], instructionsNumber: String, instructionsSteps: [String]) {
         
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
@@ -97,6 +97,13 @@ extension RecipesTableViewDetails: RecipesTVDetailsSelectActionDelegate {
         vc.ingredientsNumber = ingredientsNumber
         vc.ingredientsNumberInt = ingredientsNumbersInt
         vc.ingredientsName = ingredientsName
+        vc.instructionsNumber = instructionsNumber
+        vc.instructionsSteps = instructionsSteps
         self.show(vc, sender: nil)
+    }
+    
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
+        
+        
     }
 }

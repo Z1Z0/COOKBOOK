@@ -140,7 +140,7 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             return 1
         }
         else {
-            return recipeVC.ingredientsName.count 
+            return recipeVC.ingredientsName.count
         }
     }
     
@@ -153,9 +153,7 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             cell.recipeImage.kf.setImage(with: url)
             let recipeInstruction = recipeVC.recipeInstructions?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
             cell.instructionsTextView.text = recipeInstruction
-            if let ingredientsNumbers = recipeVC.ingredientsNumber {
-                cell.numberOfGredientsLabel.text = "\(ingredientsNumbers) Ingredients"
-            }
+            cell.numberOfGredientsLabel.text = "\(recipeVC.ingredientsName.count) Ingredients"
             
             return cell
             

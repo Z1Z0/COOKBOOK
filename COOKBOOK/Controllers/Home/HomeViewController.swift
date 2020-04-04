@@ -31,7 +31,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -102,21 +101,8 @@ extension HomeViewController: HomeViewDidSelectActionDelegate {
 }
 
 extension HomeViewController: RecipesDetailsSelectActionDelegate {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
-        let vc = RecipesDetailsViewController()
-        vc.recipeTitle = recipeTitle
-        vc.recipeImage = recipeImage
-        vc.recipeTime = recipeTime
-        vc.recipeInstructions = recipeInstructions
-        vc.ingredientsNumber = ingredientsNumber
-        vc.ingredientsNumberInt = ingredientsNumbersInt
-        vc.ingredientsName = ingredientsName
-        self.show(vc, sender: nil)
-    }
-}
-
-extension HomeViewController: PopularRecipesSelectActionDelegate {
-    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
+    
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], instructionsNumber: String, instructionsSteps: [String]) {
         
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
@@ -126,6 +112,27 @@ extension HomeViewController: PopularRecipesSelectActionDelegate {
         vc.ingredientsNumber = ingredientsNumber
         vc.ingredientsNumberInt = ingredientsNumbersInt
         vc.ingredientsName = ingredientsName
+        vc.instructionsNumber = instructionsNumber
+        vc.instructionsSteps = instructionsSteps
+        self.show(vc, sender: nil)
+        
+    }
+
+}
+
+extension HomeViewController: PopularRecipesSelectActionDelegate {
+    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], instructionsNumber: String, instructionsSteps: [String]) {
+        
+        let vc = RecipesDetailsViewController()
+        vc.recipeTitle = recipeTitle
+        vc.recipeImage = recipeImage
+        vc.recipeTime = recipeTime
+        vc.recipeInstructions = recipeInstructions
+        vc.ingredientsNumber = ingredientsNumber
+        vc.ingredientsNumberInt = ingredientsNumbersInt
+        vc.ingredientsName = ingredientsName
+        vc.ingredientsNumber = ingredientsNumber
+        vc.instructionsSteps = instructionsSteps
         self.show(vc, sender: nil)
         
     }

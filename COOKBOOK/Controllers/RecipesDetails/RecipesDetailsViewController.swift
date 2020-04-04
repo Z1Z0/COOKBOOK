@@ -17,6 +17,8 @@ class RecipesDetailsViewController: UIViewController {
     var ingredientsNumber: String?
     var ingredientsNumberInt: Int?
     var ingredientsName: [String] = []
+    var instructionsNumber: String?
+    var instructionsSteps: [String]?
     var sequence = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"]
         
     lazy var mainView: RecipesDetailsView = {
@@ -51,6 +53,8 @@ extension RecipesDetailsViewController: RecipesDetailsDelegateAction {
         vc.recipeTitle = recipeTitle
         vc.recipeTime = recipeTime
         vc.recipeImage = recipeImage
+        vc.instructionsNumber = instructionsNumber
+        vc.instructionsSteps = instructionsSteps
         self.present(vc, animated: true, completion: nil)
     }
 }
