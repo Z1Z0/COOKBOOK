@@ -192,7 +192,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
                 ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients?.count ?? 0,
                 ingredientsName: (recipesDetails[indexPath.row].extendedIngredients?.map({($0.name ?? "Error")}) ?? ["Error"]),
                 instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count ?? 5)",
-                instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[indexPath.row].steps?.map({($0.step ?? "Error")}) ?? ["Error"])
+                instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({($0.step ?? "Error")}) ?? ["Error"])
             )
         }
     }
