@@ -166,7 +166,7 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
             ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients?.count ?? 5,
             ingredientsName: (recipesDetails[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
             instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count)",
-            instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[indexPath.row].steps?.map({$0.step ?? "Error"}) ?? ["Error"])
+            instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"])
         )
     }
     

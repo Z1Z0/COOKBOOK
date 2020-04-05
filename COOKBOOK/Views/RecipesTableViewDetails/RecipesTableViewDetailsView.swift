@@ -114,7 +114,7 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
             ingredientsNumbersInt: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count ?? 5,
             ingredientsName: (recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
             instructionsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?.count)",
-            instructionsSteps: recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?[indexPath.row].steps?.map({$0.step ?? "Error"}) ?? ["Error"]
+            instructionsSteps: recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"]
         )
     }
     
