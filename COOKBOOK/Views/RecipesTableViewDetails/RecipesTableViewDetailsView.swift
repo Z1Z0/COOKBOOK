@@ -19,6 +19,8 @@ protocol RecipesTVDetailsSelectActionDelegate: class {
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
         ingredientsName: [String],
+        ingredientsWeight: [Double],
+        ingredientsAmount: [String],
         instructionsNumber: String,
         instructionsSteps: [String]
     )
@@ -110,10 +112,12 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
             recipeImage: recipesTableVC.recipesDetails[indexPath.row].image ?? "Error",
             recipeTime: "\(recipesTableVC.recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
             recipeInstructions: recipesTableVC.recipesDetails[indexPath.row].instructions ?? "Error",
-            ingredientsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count)",
-            ingredientsNumbersInt: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count ?? 5,
+            ingredientsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count ?? 0)",
+            ingredientsNumbersInt: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count ?? 0,
             ingredientsName: (recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
-            instructionsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?.count)",
+            ingredientsWeight: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
+            ingredientsAmount: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
+            instructionsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?.count ?? 0)",
             instructionsSteps: recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"]
         )
     }

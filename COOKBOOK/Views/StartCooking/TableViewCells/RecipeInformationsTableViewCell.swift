@@ -100,7 +100,7 @@ class RecipeInformationsTableViewCell: UITableViewCell {
     
     func setupRecipeImageConstraints() {
         NSLayoutConstraint.activate([
-            recipeImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            recipeImage.topAnchor.constraint(equalTo: topAnchor),
             recipeImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             recipeImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             recipeImage.bottomAnchor.constraint(equalTo: bottomAnchor),

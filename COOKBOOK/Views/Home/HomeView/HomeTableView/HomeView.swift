@@ -29,6 +29,8 @@ protocol PopularRecipesSelectActionDelegate: class {
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
         ingredientsName: [String],
+        ingredientsWeight: [Double],
+        ingredientsAmount: [String],
         instructionsNumber: String,
         instructionsSteps: [String]
     )
@@ -43,6 +45,8 @@ protocol RecipesDetailsSelectActionDelegate: class {
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
         ingredientsName: [String],
+        ingredientsWeight: [Double],
+        ingredientsAmount: [String],
         instructionsNumber: String,
         instructionsSteps: [String]
     )
@@ -191,6 +195,8 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
                 ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients?.count ?? 5)",
                 ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients?.count ?? 0,
                 ingredientsName: (recipesDetails[indexPath.row].extendedIngredients?.map({($0.name ?? "Error")}) ?? ["Error"]),
+                ingredientsWeight: recipesDetails[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
+                ingredientsAmount: recipesDetails[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
                 instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count ?? 5)",
                 instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({($0.step ?? "Error")}) ?? ["Error"])
             )
@@ -234,7 +240,8 @@ extension HomeView: RecipesDidselectActionDelegate {
 
 extension HomeView: PopularRecipesDidselectActionDelegate {
     
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], instructionsNumber: String, instructionsSteps: [String]) {
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double],
+    ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String]) {
         
         popularRecipesDidselectActionDelegate?.popularRecipes(
             self,
@@ -245,6 +252,8 @@ extension HomeView: PopularRecipesDidselectActionDelegate {
             ingredientsNumber: ingredientsNumber,
             ingredientsNumbersInt: ingredientsNumbersInt,
             ingredientsName: ingredientsName,
+            ingredientsWeight: ingredientsWeight,
+            ingredientsAmount: ingredientsAmount,
             instructionsNumber: instructionsNumber,
             instructionsSteps: instructionsSteps
         )

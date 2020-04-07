@@ -8,7 +8,13 @@
 
 import UIKit
 
+@objc protocol BuyingIngredientsButtonDelegate: class {
+    @objc func buyingIngredientsButtonTapped()
+}
+
 class IngredientsTableViewCell: UITableViewCell {
+    
+    weak var delegate: BuyingIngredientsButtonDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,7 +29,6 @@ class IngredientsTableViewCell: UITableViewCell {
     lazy var recipeTitleLabel: UILabel = {
         let recipeTitleLabel = UILabel()
         recipeTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-//        recipeTitleLabel.text = recipeTitle
         recipeTitleLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 25)
         recipeTitleLabel.textColor = .customDarkGray()
         recipeTitleLabel.numberOfLines = 0
@@ -79,6 +84,7 @@ class IngredientsTableViewCell: UITableViewCell {
         buyingIngredientsButton.translatesAutoresizingMaskIntoConstraints = false
         buyingIngredientsButton.setTitle("Start buying", for: .normal)
         buyingIngredientsButton.setTitleColor(.CustomGreen(), for: .normal)
+        buyingIngredientsButton.addTarget(delegate, action: #selector(delegate?.buyingIngredientsButtonTapped), for: .touchUpInside)
         buyingIngredientsButton.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 12)
         return buyingIngredientsButton
     }()

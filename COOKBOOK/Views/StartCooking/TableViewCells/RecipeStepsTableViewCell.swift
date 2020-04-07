@@ -50,16 +50,6 @@ class RecipeStepsTableViewCell: UITableViewCell {
         return nameOfProcessLabel
     }()
     
-    lazy var recipeTimerLabel: UILabel = {
-        let recipeTimerLabel = UILabel()
-        recipeTimerLabel.text = "1min"
-        recipeTimerLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 14)
-        recipeTimerLabel.textColor = .white
-        recipeTimerLabel.textAlignment = .center
-        recipeTimerLabel.translatesAutoresizingMaskIntoConstraints = false
-        return recipeTimerLabel
-    }()
-    
     func setupNumbersContainerViewConstraints() {
         NSLayoutConstraint.activate([
             numbersContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
@@ -79,7 +69,7 @@ class RecipeStepsTableViewCell: UITableViewCell {
     func setupNameOfProcessLabelConstraints() {
         NSLayoutConstraint.activate([
             nameOfProcessLabel.leadingAnchor.constraint(equalTo: numbersContainerView.trailingAnchor, constant: 16),
-            nameOfProcessLabel.trailingAnchor.constraint(equalTo: recipeTimerLabel.leadingAnchor, constant: -16),
+            nameOfProcessLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             nameOfProcessLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             nameOfProcessLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
@@ -87,18 +77,10 @@ class RecipeStepsTableViewCell: UITableViewCell {
         nameOfProcessLabel.setContentCompressionResistancePriority(.init(740.0), for: .horizontal)
     }
     
-    func setupRecipeTimerLabelConstraints() {
-        NSLayoutConstraint.activate([
-            recipeTimerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            recipeTimerLabel.centerYAnchor.constraint(equalTo: nameOfProcessLabel.centerYAnchor)
-        ])
-    }
-    
     func addSubviews() {
         addSubview(numbersContainerView)
         numbersContainerView.addSubview(numberofProcessLabel)
         addSubview(nameOfProcessLabel)
-        addSubview(recipeTimerLabel)
     }
     
     func layoutUI() {
@@ -106,7 +88,6 @@ class RecipeStepsTableViewCell: UITableViewCell {
         setupNumbersContainerViewConstraints()
         setupNumberofProcessLabelConstraints()
         setupNameOfProcessLabelConstraints()
-        setupRecipeTimerLabelConstraints()
     }
 
 }

@@ -78,7 +78,7 @@ class RecipesDetailsView: UIView {
     
     func setupTableViewConstraints() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor),
+            tableView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: containerView.topAnchor, constant: -16),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
@@ -161,6 +161,10 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NumberOfIngredientsTableViewCell", for: indexPath) as! NumberOfIngredientsTableViewCell
             cell.theNumberOfIngredient.text = recipeVC.sequence[indexPath.row]
             cell.theNameOfIngredient.text = recipeVC.ingredientsName[indexPath.row]
+            if let weight = recipeVC.ingredientsWeight?[indexPath.row] {
+                cell.theAmountOfIngredient.text = "\(String(format: "%.2f", weight)) \(recipeVC.ingredientsAmount?[indexPath.row] ?? "Error")"
+            }
+            
             return cell
         }
     }

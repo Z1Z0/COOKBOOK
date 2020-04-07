@@ -110,12 +110,12 @@ class SignInViewController: UIViewController, SignInDelegate {
         let provider = OAuthProvider(providerID: "twitter.com")
         provider.getCredentialWith(_: nil) { credential, error in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "Error")
             }
             if credential != nil {
                 Auth.auth().signIn(with: credential!) { authResult, error in
                     if error != nil {
-                        print(error?.localizedDescription)
+                        print(error?.localizedDescription ?? "Error")
                     }
                 }
             }

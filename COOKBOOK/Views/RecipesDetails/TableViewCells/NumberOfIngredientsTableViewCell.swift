@@ -36,34 +36,57 @@ class NumberOfIngredientsTableViewCell: UITableViewCell {
         theNameOfIngredient.font = UIFont(name: "AvenirNext-Regular", size: 14)
         theNameOfIngredient.textColor = .customDarkGray()
         theNameOfIngredient.textAlignment = .left
+        theNameOfIngredient.numberOfLines = 0
         theNameOfIngredient.translatesAutoresizingMaskIntoConstraints = false
         return theNameOfIngredient
+    }()
+    
+    lazy var theAmountOfIngredient: UILabel = {
+        let theAmountOfIngredient = UILabel()
+        theAmountOfIngredient.text = "2.0"
+        theAmountOfIngredient.font = UIFont(name: "AvenirNext-Regular", size: 14)
+        theAmountOfIngredient.textColor = .customDarkGray()
+        theAmountOfIngredient.textAlignment = .center
+        theAmountOfIngredient.translatesAutoresizingMaskIntoConstraints = false
+        return theAmountOfIngredient
     }()
     
     func setupTheNumberOfIngredientConstraints() {
         NSLayoutConstraint.activate([
             theNumberOfIngredient.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            theNumberOfIngredient.centerYAnchor.constraint(equalTo: centerYAnchor)
+            theNumberOfIngredient.centerYAnchor.constraint(equalTo: theNameOfIngredient.centerYAnchor)
         ])
     }
     
     func setupTheNameOfIngredientConstraints() {
         NSLayoutConstraint.activate([
+            theNameOfIngredient.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             theNameOfIngredient.leadingAnchor.constraint(equalTo: theNumberOfIngredient.trailingAnchor, constant: 16),
-            theNameOfIngredient.centerYAnchor.constraint(equalTo: theNumberOfIngredient.centerYAnchor),
-//            theNameOfIngredient.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            theNameOfIngredient.trailingAnchor.constraint(lessThanOrEqualTo: theAmountOfIngredient.leadingAnchor, constant: -16),
+            theNameOfIngredient.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+        ])
+        theNameOfIngredient.setContentHuggingPriority(.init(240.0), for: .horizontal)
+        theNameOfIngredient.setContentCompressionResistancePriority(.init(740.0), for: .horizontal)
+    }
+    
+    func setupTheAmountOfIngredientConstraints() {
+        NSLayoutConstraint.activate([
+            theAmountOfIngredient.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            theAmountOfIngredient.centerYAnchor.constraint(equalTo: theNameOfIngredient.centerYAnchor)
         ])
     }
     
     func addSubviews() {
         addSubview(theNumberOfIngredient)
         addSubview(theNameOfIngredient)
+        addSubview(theAmountOfIngredient)
     }
     
     func layoutUI() {
         addSubviews()
         setupTheNumberOfIngredientConstraints()
         setupTheNameOfIngredientConstraints()
+        setupTheAmountOfIngredientConstraints()
     }
 
 }

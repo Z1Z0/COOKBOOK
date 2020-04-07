@@ -26,23 +26,25 @@ class StartCookingView: UIView {
         
     }
     
+    var sequence = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"]
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-        tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        tableView.register(RecipeInformationsTableViewCell.self, forCellReuseIdentifier: "RecipeInformationsTableViewCell")
-        tableView.register(RecipeStepsTableViewCell.self, forCellReuseIdentifier: "RecipeStepsTableViewCell")
-        return tableView
+    lazy var startCookingTableView: UITableView = {
+        let startCookingTableView = UITableView()
+        startCookingTableView.translatesAutoresizingMaskIntoConstraints = false
+        startCookingTableView.delegate = self
+        startCookingTableView.dataSource = self
+        startCookingTableView.rowHeight = UITableView.automaticDimension
+        startCookingTableView.estimatedRowHeight = 100
+        startCookingTableView.showsVerticalScrollIndicator = false
+        startCookingTableView.separatorStyle = .none
+        startCookingTableView.backgroundColor = .clear
+        startCookingTableView.register(RecipeInformationsTableViewCell.self, forCellReuseIdentifier: "RecipeInformationsTableViewCell")
+        startCookingTableView.register(RecipeStepsTableViewCell.self, forCellReuseIdentifier: "RecipeStepsTableViewCell")
+        return startCookingTableView
     }()
     
     lazy var dismissButton: UIButton = {
@@ -69,10 +71,10 @@ class StartCookingView: UIView {
     
     func setupTableViewConstraints() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: finishCookingButton.topAnchor, constant: -16)
+            startCookingTableView.topAnchor.constraint(equalTo: topAnchor),
+            startCookingTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            startCookingTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            startCookingTableView.bottomAnchor.constraint(equalTo: finishCookingButton.topAnchor, constant: -16)
         ])
     }
     
@@ -95,7 +97,7 @@ class StartCookingView: UIView {
     }
     
     func addSubviews() {
-        addSubview(tableView)
+        addSubview(startCookingTableView)
         addSubview(dismissButton)
         addSubview(finishCookingButton)
     }
@@ -135,6 +137,7 @@ extension StartCookingView: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeStepsTableViewCell", for: indexPath) as! RecipeStepsTableViewCell
             cell.nameOfProcessLabel.text = vc.instructionsSteps?[indexPath.row]
+            cell.numberofProcessLabel.text = sequence[indexPath.row]
             return cell
         }
         

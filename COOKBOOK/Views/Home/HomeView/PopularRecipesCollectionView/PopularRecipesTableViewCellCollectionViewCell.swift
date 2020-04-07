@@ -20,6 +20,8 @@ protocol PopularRecipesDidselectActionDelegate: class {
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
         ingredientsName: [String],
+        ingredientsWeight: [Double],
+        ingredientsAmount: [String],
         instructionsNumber: String,
         instructionsSteps: [String]
     )
@@ -162,10 +164,12 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
             image: recipesDetails[indexPath.row].image ?? "Error",
             recipeTime: "\(recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
             instructions: recipesDetails[indexPath.row].instructions ?? "Error",
-            ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients?.count)",
+            ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients?.count ?? 0)",
             ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients?.count ?? 5,
             ingredientsName: (recipesDetails[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
-            instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count)",
+            ingredientsWeight: recipesDetails[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
+            ingredientsAmount: recipesDetails[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
+            instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count ?? 0)",
             instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"])
         )
     }

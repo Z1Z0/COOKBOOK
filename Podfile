@@ -17,4 +17,5 @@ target 'COOKBOOK' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'SideMenu'
+  pod 'BEMCheckBox'
 end

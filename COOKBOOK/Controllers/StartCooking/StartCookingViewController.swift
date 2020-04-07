@@ -38,7 +38,7 @@ class StartCookingViewController: UIViewController {
         super.viewWillAppear(animated)
         
         DispatchQueue.main.async {
-            self.mainView.tableView.reloadData()
+            self.mainView.startCookingTableView.reloadData()
         }
         
     }
