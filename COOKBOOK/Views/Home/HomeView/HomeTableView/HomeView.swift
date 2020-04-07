@@ -118,7 +118,6 @@ class HomeView: UIView {
             }
             do {
                 if let data = response.data {
-                    print(response.result)
                     self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
                     self.recipesDetails = self.recipes?.recipes ?? []
                     DispatchQueue.main.async {

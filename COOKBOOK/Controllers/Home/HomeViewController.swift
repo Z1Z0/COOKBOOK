@@ -93,7 +93,10 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let vc = RecipesTableViewDetails()
+        let vc = SearchViewController()
+        if let searchTxt = searchBar.text {
+            vc.searchText = searchTxt
+        }
         self.show(vc, sender: nil)
     }
 }
