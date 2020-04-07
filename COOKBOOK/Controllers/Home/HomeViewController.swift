@@ -21,6 +21,7 @@ class HomeViewController: UIViewController {
         view.homeViewDidSelectActionDelegate = self
         view.recipeDetailsViewSelectActionDelegate = self
         view.popularRecipesDidselectActionDelegate = self
+        view.backgroundColor = .white
         return view
     }()
     
@@ -67,6 +68,7 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
         searchController.searchBar.searchTextField.textColor = .customDarkGray()
         searchController.searchBar.searchTextField.font = UIFont(name: "AvenirNext-Regular", size: 14)
         searchController.searchBar.tintColor = UIColor.CustomGreen()
+        searchController.searchBar.becomeFirstResponder()
         self.navigationItem.searchController = searchController
         self.title = "Home"
         let navBarAppearance = UINavigationBarAppearance()
@@ -89,6 +91,11 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
     @objc func menuButtonTapped() {
         self.present(leftMenuNavigationController, animated: true, completion: nil)
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let vc = RecipesTableViewDetails()
+        self.show(vc, sender: nil)
+    }
 }
 
 extension HomeViewController: HomeViewDidSelectActionDelegate {
@@ -98,6 +105,12 @@ extension HomeViewController: HomeViewDidSelectActionDelegate {
         vc.VCTitle = VCTitle
         self.show(vc, sender: nil)
     }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+    }
+    
+    
 }
 
 extension HomeViewController: RecipesDetailsSelectActionDelegate {
@@ -118,14 +131,6 @@ extension HomeViewController: RecipesDetailsSelectActionDelegate {
         self.show(vc, sender: nil)
         
     }
-    
-    
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], instructionsNumber: String, instructionsSteps: [String]) {
-        
-        
-        
-    }
-
 }
 
 extension HomeViewController: PopularRecipesSelectActionDelegate {

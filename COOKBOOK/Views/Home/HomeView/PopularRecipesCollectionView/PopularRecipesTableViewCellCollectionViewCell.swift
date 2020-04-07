@@ -47,7 +47,7 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=bbb927604e1d4f0195e6e22a92fc9d5f&number=25").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=8f39671a836440e38af6f6dbd8507b1c&number=25").responseJSON { (response) in
             if let error = response.error {
                 print(error)
             }

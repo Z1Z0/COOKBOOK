@@ -17,7 +17,7 @@ class HomeTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutUI()
         selectionStyle = .none
-        self.backgroundColor = .clear
+        self.backgroundColor = .customVeryLightGray()
     }
     
     required init?(coder: NSCoder) {

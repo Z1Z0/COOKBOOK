@@ -112,12 +112,13 @@ class HomeView: UIView {
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=bbb927604e1d4f0195e6e22a92fc9d5f&number=25").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/random?apiKey=8f39671a836440e38af6f6dbd8507b1c&number=25").responseJSON { (response) in
             if let error = response.error {
                 print(error.localizedDescription)
             }
             do {
                 if let data = response.data {
+                    print(response.result)
                     self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
                     self.recipesDetails = self.recipes?.recipes ?? []
                     DispatchQueue.main.async {
@@ -210,13 +211,13 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             return ""
         }
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = .white
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = .customVeryLightGray()
         (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = .customDarkGray()
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }

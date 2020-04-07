@@ -62,7 +62,7 @@ class RecipesTableViewDetails: UIViewController {
     
     func fetchData(_ category: String) {
         indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
-        let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=bbb927604e1d4f0195e6e22a92fc9d5f&tags=\(category)"
+        let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=8f39671a836440e38af6f6dbd8507b1c&tags=\(category)"
         print("urlString:", urlString)
         print()
         AF.request(urlString).responseJSON { (response) in
