@@ -103,9 +103,4 @@ extension RecipesTableViewDetails: RecipesTVDetailsSelectActionDelegate {
         vc.instructionsSteps = instructionsSteps
         self.show(vc, sender: nil)
     }
-    
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String]) {
-        
-        
-    }
 }

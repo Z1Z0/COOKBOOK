@@ -59,9 +59,11 @@ extension RecipesDetailsViewController: RecipesDetailsDelegateAction {
         vc.instructionsSteps = instructionsSteps
         self.present(vc, animated: true, completion: nil)
     }
+    
 }
 
 extension RecipesDetailsViewController: BuyingIngredientsButtonDelegate {
+    
     func buyingIngredientsButtonTapped() {
         let vc = StartBuyingViewController()
         vc.modalPresentationStyle = .popover
@@ -70,6 +72,5 @@ extension RecipesDetailsViewController: BuyingIngredientsButtonDelegate {
         vc.ingredientsAmount = ingredientsAmount
         self.present(vc, animated: true, completion: nil)
     }
-    
     
 }

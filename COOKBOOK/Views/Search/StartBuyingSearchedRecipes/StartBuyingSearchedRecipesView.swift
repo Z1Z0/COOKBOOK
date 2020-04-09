@@ -1,19 +1,19 @@
 //
-//  StartBuying.swift
+//  StartBuyingSearchedRecipesView.swift
 //  COOKBOOK
 //
-//  Created by Ahmed Abd Elaziz on 4/6/20.
+//  Created by Ahmed Abd Elaziz on 4/9/20.
 //  Copyright © 2020 Ahmed Abd Elaziz. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class StartBuyingView: UIView {
+class StartBuyingSearchedRecipesView: UIView {
     
     private let widthConstant: CGFloat = 1.3
     weak var delegate: StartCookingDelegateAction?
-    var vc = StartBuyingViewController()
+    var vc = StartBuyingSearchedRecipesViewController()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -103,7 +103,7 @@ class StartBuyingView: UIView {
     
 }
 
-extension StartBuyingView: UITableViewDelegate, UITableViewDataSource {
+extension StartBuyingSearchedRecipesView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2

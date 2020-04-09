@@ -10,9 +10,14 @@ import Foundation
 import UIKit
 import Kingfisher
 
+protocol SearchDelegate: class {
+    func searchRecipeDelegate(recipeID: Int, recipeTitle: String, recipeImage: String)
+}
+
 class SearchView: UIView {
     
     var vc = SearchViewController()
+    weak var delegate: SearchDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,5 +78,11 @@ extension SearchView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.searchRecipeDelegate(
+            recipeID: vc.recipes?.results?[indexPath.row].id ?? 0,
+            recipeTitle: vc.recipes?.results?[indexPath.row].title ?? "Error",
+            recipeImage: "\(vc.recipes?.baseURI ?? "Error")" + "\(vc.recipes?.results?[indexPath.row].image ?? "Error")"
+        )
+    }
 }
