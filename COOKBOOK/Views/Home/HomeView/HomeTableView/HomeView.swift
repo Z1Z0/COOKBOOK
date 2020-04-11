@@ -165,7 +165,9 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
             let url = URL(string: recipesDetails[indexPath.row].image ?? "Error")
-            cell.foodImage.kf.setImage(with: url)
+            let processor = DownsamplingImageProcessor(size: cell.foodImage.bounds.size)
+            cell.foodImage.kf.indicatorType = .activity
+            cell.foodImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
             cell.foodTitle.text = recipesDetails[indexPath.row].title
             
             if let readyInMin = recipesDetails[indexPath.row].readyInMinutes {

@@ -146,7 +146,9 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
         
         let url = URL(string: recipesDetails[indexPath.row].image ?? "Error")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularRecipesCollectionViewCell", for: indexPath) as! PopularRecipesCollectionViewCell
-        cell.popularRecipesImage.kf.setImage(with: url)
+        let processor = DownsamplingImageProcessor(size: cell.popularRecipesImage.bounds.size)
+        cell.popularRecipesImage.kf.indicatorType = .activity
+        cell.popularRecipesImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
         cell.recipesTitle.text = recipesDetails[indexPath.row].title
         return cell
     }
