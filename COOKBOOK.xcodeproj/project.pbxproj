@@ -30,7 +30,6 @@
 		E12AB4BC23E23EEE00DD15D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4BB23E23EEE00DD15D4 /* AppDelegate.swift */; };
 		E12AB4BE23E23EEE00DD15D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4BD23E23EEE00DD15D4 /* SceneDelegate.swift */; };
 		E12AB4C023E23EEE00DD15D4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4BF23E23EEE00DD15D4 /* SignInViewController.swift */; };
-		E12AB4C523E23EEF00DD15D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E12AB4C423E23EEF00DD15D4 /* Assets.xcassets */; };
 		E12AB4C823E23EEF00DD15D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E12AB4C623E23EEF00DD15D4 /* LaunchScreen.storyboard */; };
 		E12AB4D023E2421700DD15D4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4CF23E2421700DD15D4 /* HomeViewController.swift */; };
 		E12AB4D623E2487800DD15D4 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12AB4D523E2487800DD15D4 /* RecipeModel.swift */; };
@@ -739,7 +738,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E12AB4C823E23EEF00DD15D4 /* LaunchScreen.storyboard in Resources */,
-				E12AB4C523E23EEF00DD15D4 /* Assets.xcassets in Resources */,
 				E1D4EC7323F4C035006E6CB4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

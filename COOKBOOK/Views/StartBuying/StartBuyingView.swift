@@ -120,6 +120,10 @@ extension StartBuyingView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StartBuyingIngredientsTableViewCell", for: indexPath) as! StartBuyingIngredientsTableViewCell
+            if let numberOFIngredients = vc.ingredientsNumber {
+                cell.ingredientsNumbersLabel.text = "\(numberOFIngredients) Ingredients"
+            }
+            
             cell.setNeedsLayout()
             return cell
         } else {

@@ -13,6 +13,7 @@ class StartBuyingViewController: UIViewController {
     var ingredientsName: [String]?
     var ingredientsWeight: [Double]?
     var ingredientsAmount: [String]?
+    var ingredientsNumber: Int?
     
     lazy var mainView: StartBuyingView = {
         let view = StartBuyingView(frame: self.view.frame)

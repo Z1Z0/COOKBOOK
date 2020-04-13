@@ -13,6 +13,7 @@ class StartBuyingSearchedRecipesViewController: UIViewController {
     var ingredientsName: [String]?
     var ingredientsWeight: [Double]?
     var ingredientsAmount: [String]?
+    var ingredientsNumber: Int?
     
     lazy var mainView: StartBuyingSearchedRecipesView = {
         let view = StartBuyingSearchedRecipesView(frame: self.view.frame)

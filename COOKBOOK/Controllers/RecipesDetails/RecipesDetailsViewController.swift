@@ -70,6 +70,7 @@ extension RecipesDetailsViewController: BuyingIngredientsButtonDelegate {
         vc.ingredientsName = ingredientsName
         vc.ingredientsWeight = ingredientsWeight
         vc.ingredientsAmount = ingredientsAmount
+        vc.ingredientsNumber = ingredientsNumberInt
         self.present(vc, animated: true, completion: nil)
     }
     

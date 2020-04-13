@@ -61,6 +61,7 @@ class SideMenuTableViewController: UITableViewController {
                     self.dismiss(animated: true) { () -> Void in
                         //Perform segue or push some view with your code
                         UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: newViewController)
+                        
                     }
                     let firebaseAuth = Auth.auth()
                     do {

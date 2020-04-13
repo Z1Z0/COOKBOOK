@@ -18,4 +18,5 @@ target 'COOKBOOK' do
   pod 'FacebookLogin'
   pod 'SideMenu'
   pod 'BEMCheckBox'
+  pod 'ExpandableCell'
 end

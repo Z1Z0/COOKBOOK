@@ -88,6 +88,7 @@ extension SearchedRecipesDetailsViewController: BuyingIngredientsButtonDelegate 
         vc.ingredientsName = recipes?.extendedIngredients?.map({$0.name ?? "Error"})
         vc.ingredientsAmount = recipes?.extendedIngredients?.map({$0.unit ?? "Error"})
         vc.ingredientsWeight = recipes?.extendedIngredients?.map({$0.amount ?? 0.0})
+        vc.ingredientsNumber = recipes?.extendedIngredients?.count
         self.present(vc, animated: true, completion: nil)
     }
 }

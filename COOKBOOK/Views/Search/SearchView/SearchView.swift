@@ -65,7 +65,12 @@ class SearchView: UIView {
 extension SearchView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vc.recipes?.number ?? 0
+        if vc.recipes?.totalResults ?? 0 < vc.recipes?.number ?? 0 {
+            return vc.recipes?.totalResults ?? 0
+        } else {
+            return vc.recipes?.number ?? 0
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
