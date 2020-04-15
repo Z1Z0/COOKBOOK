@@ -37,6 +37,7 @@ class UserTableViewCell: UITableViewCell {
         let userPhoto = UIImageView()
         userPhoto.translatesAutoresizingMaskIntoConstraints = false
         userPhoto.layer.cornerRadius = frame.width / 6
+        userPhoto.image = UIImage(named: "ahmed")
         userPhoto.clipsToBounds = true
         return userPhoto
     }()

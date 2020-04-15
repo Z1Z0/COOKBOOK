@@ -55,6 +55,7 @@ class HomeViewController: UIViewController {
         leftMenuNavigationController.allowPushOfSameClassTwice = false
         leftMenuNavigationController.menuWidth = view.frame.width * (3/4)
         leftMenuNavigationController.navigationBar.isHidden = true
+        
     }
     
 }

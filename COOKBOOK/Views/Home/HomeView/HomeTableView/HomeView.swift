@@ -175,7 +175,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             }
             
             if let pricePerServing = recipesDetails[indexPath.row].pricePerServing {
-                cell.priceInfoLabel.text = String(format: "%.2f", pricePerServing / 100)
+                cell.priceInfoLabel.text = "$" + String(format: "%.2f", pricePerServing / 100)
             }
             
             if let serving = recipesDetails[indexPath.row].servings {

@@ -33,7 +33,7 @@ extension UIViewController {
         backItem.title = ""
         backItem.tintColor = .CustomGreen()
         navigationItem.backBarButtonItem = backItem
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.CustomGreen()]
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.yellow]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
 }

@@ -98,7 +98,7 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
         }
         
         if let pricePerServing = recipesTableVC.recipesDetails[indexPath.row].pricePerServing {
-            cell.priceInfoLabel.text = "$\(Int(pricePerServing))"
+            cell.priceInfoLabel.text = "$" + String(format: "%.2f", pricePerServing / 100)
         }
         
         if let serving = recipesTableVC.recipesDetails[indexPath.row].servings {
