@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2F2745F4FABCC3C8D07F78FE199F16EE"
-               BuildableName = "libNotificationBannerSwift.a"
+               BuildableName = "NotificationBannerSwift.framework"
                BlueprintName = "NotificationBannerSwift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

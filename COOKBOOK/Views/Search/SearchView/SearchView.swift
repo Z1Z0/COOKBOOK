@@ -35,6 +35,7 @@ class SearchView: UIView {
         searchTableView.delegate = self
         searchTableView.dataSource = self
         searchTableView.register(SearchViewTableViewCell.self, forCellReuseIdentifier: "SearchViewTableViewCell")
+        searchTableView.register(Error404TableViewCell.self, forCellReuseIdentifier: "Error404TableViewCell")
         searchTableView.rowHeight = UITableView.automaticDimension
         searchTableView.estimatedRowHeight = 100
         searchTableView.showsVerticalScrollIndicator = false
@@ -65,7 +66,9 @@ class SearchView: UIView {
 extension SearchView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if vc.recipes?.totalResults ?? 0 < vc.recipes?.number ?? 0 {
+        if vc.recipes?.totalResults ?? 0 == 0 {
+            return 1
+        } else if vc.recipes?.totalResults ?? 0 < vc.recipes?.number ?? 0 {
             return vc.recipes?.totalResults ?? 0
         } else {
             return vc.recipes?.number ?? 0
@@ -74,22 +77,33 @@ extension SearchView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchViewTableViewCell", for: indexPath) as! SearchViewTableViewCell
-        cell.foodTitle.text = vc.recipes?.results?[indexPath.row].title
-        let url = URL(string: "\(vc.recipes?.baseURI ?? "Error")" + "\(vc.recipes?.results?[indexPath.row].image ?? "Error")")
-        let processor = DownsamplingImageProcessor(size: cell.foodImage.bounds.size)
-        cell.foodImage.kf.indicatorType = .activity
-        cell.foodImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
-        cell.cookingTimeInfoLabel.text = "\(vc.recipes?.results?[indexPath.row].readyInMinutes ?? 0) Mins"
-        cell.servesInfoLabel.text = "\(vc.recipes?.results?[indexPath.row].servings ?? 0) People"
-        return cell
+        if vc.recipes?.totalResults == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Error404TableViewCell", for: indexPath) as! Error404TableViewCell
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchViewTableViewCell", for: indexPath) as! SearchViewTableViewCell
+            cell.foodTitle.text = vc.recipes?.results?[indexPath.row].title
+            let url = URL(string: "\(vc.recipes?.baseURI ?? "Error")" + "\(vc.recipes?.results?[indexPath.row].image ?? "Error")")
+            let processor = DownsamplingImageProcessor(size: cell.foodImage.bounds.size)
+            cell.foodImage.kf.indicatorType = .activity
+            cell.foodImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
+            cell.cookingTimeInfoLabel.text = "\(vc.recipes?.results?[indexPath.row].readyInMinutes ?? 0) Mins"
+            cell.servesInfoLabel.text = "\(vc.recipes?.results?[indexPath.row].servings ?? 0) People"
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.searchRecipeDelegate(
-            recipeID: vc.recipes?.results?[indexPath.row].id ?? 0,
-            recipeTitle: vc.recipes?.results?[indexPath.row].title ?? "Error",
-            recipeImage: "\(vc.recipes?.baseURI ?? "Error")" + "\(vc.recipes?.results?[indexPath.row].image ?? "Error")"
-        )
+        if vc.recipes?.totalResults != 0 {
+            delegate?.searchRecipeDelegate(
+                recipeID: vc.recipes?.results?[indexPath.row].id ?? 0,
+                recipeTitle: vc.recipes?.results?[indexPath.row].title ?? "Error",
+                recipeImage: "\(vc.recipes?.baseURI ?? "Error")" + "\(vc.recipes?.results?[indexPath.row].image ?? "Error")"
+            )
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }

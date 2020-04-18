@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B3F18CDBBCAC5A1034587BFC /* libPods-COOKBOOK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD58E067D65A23B12CA1717C /* libPods-COOKBOOK.a */; };
 		CC039F0523FD1031002ED7F3 /* ForgetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC039F0423FD1031002ED7F3 /* ForgetPasswordView.swift */; };
 		CC1A390223FC1EB3000AAF3A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A390123FC1EB3000AAF3A /* SplashView.swift */; };
 		CC1A390723FC54ED000AAF3A /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A390623FC54ED000AAF3A /* SignInView.swift */; };
@@ -55,6 +54,7 @@
 		E1840A8F24462A9C002AB3E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E12AB4C423E23EEF00DD15D4 /* Assets.xcassets */; };
 		E19555DB23F2336B0001C480 /* Colors + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19555DA23F2336B0001C480 /* Colors + Ext.swift */; };
 		E196849A24453C650007F16A /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E196849924453C650007F16A /* SideMenuTableView.swift */; };
+		E1B68228244B35BE004B666E /* Error404TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B68227244B35BE004B666E /* Error404TableViewCell.swift */; };
 		E1C49D86242BA9FF00446CDE /* StartCookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C49D85242BA9FF00446CDE /* StartCookingView.swift */; };
 		E1C49D89242BAA2000446CDE /* StartCookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C49D88242BAA2000446CDE /* StartCookingViewController.swift */; };
 		E1CDA91B23F36D43002BCDD8 /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CDA91A23F36D43002BCDD8 /* UIView + Ext.swift */; };
@@ -66,12 +66,12 @@
 		E1E12CFE241EB866004B84F9 /* NumberOfIngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E12CFD241EB866004B84F9 /* NumberOfIngredientsTableViewCell.swift */; };
 		E1EF80DB2438F1600000C4D5 /* SavedRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF80DA2438F1600000C4D5 /* SavedRecipesView.swift */; };
 		E1EF80DE2438F1AF0000C4D5 /* SavedRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF80DD2438F1AF0000C4D5 /* SavedRecipesViewController.swift */; };
+		E6ED0A25B40D6B72EB6123AF /* Pods_COOKBOOK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FC6A015EA4734DB4FAADAD /* Pods_COOKBOOK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		46AC84310F488B5144B5F439 /* Pods-COOKBOOK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COOKBOOK.debug.xcconfig"; path = "Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK.debug.xcconfig"; sourceTree = "<group>"; };
-		7134C9C1A9803BBB2ADB35D2 /* Pods-COOKBOOK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COOKBOOK.release.xcconfig"; path = "Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK.release.xcconfig"; sourceTree = "<group>"; };
-		BD58E067D65A23B12CA1717C /* libPods-COOKBOOK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-COOKBOOK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32FC6A015EA4734DB4FAADAD /* Pods_COOKBOOK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_COOKBOOK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44AF172FF2AA4E53D4F84C50 /* Pods-COOKBOOK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COOKBOOK.release.xcconfig"; path = "Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK.release.xcconfig"; sourceTree = "<group>"; };
 		CC039F0423FD1031002ED7F3 /* ForgetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordView.swift; sourceTree = "<group>"; };
 		CC1A390123FC1EB3000AAF3A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		CC1A390623FC54ED000AAF3A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -121,6 +121,7 @@
 		E18187B5241D4B9500880AC7 /* RecipesDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesDetailsViewController.swift; sourceTree = "<group>"; };
 		E19555DA23F2336B0001C480 /* Colors + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors + Ext.swift"; sourceTree = "<group>"; };
 		E196849924453C650007F16A /* SideMenuTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
+		E1B68227244B35BE004B666E /* Error404TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error404TableViewCell.swift; sourceTree = "<group>"; };
 		E1C49D85242BA9FF00446CDE /* StartCookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCookingView.swift; sourceTree = "<group>"; };
 		E1C49D88242BAA2000446CDE /* StartCookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCookingViewController.swift; sourceTree = "<group>"; };
 		E1CDA91A23F36D43002BCDD8 /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		E1E12CFD241EB866004B84F9 /* NumberOfIngredientsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfIngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		E1EF80DA2438F1600000C4D5 /* SavedRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesView.swift; sourceTree = "<group>"; };
 		E1EF80DD2438F1AF0000C4D5 /* SavedRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesViewController.swift; sourceTree = "<group>"; };
+		ED74E39EF6444D0FBB635A32 /* Pods-COOKBOOK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COOKBOOK.debug.xcconfig"; path = "Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3F18CDBBCAC5A1034587BFC /* libPods-COOKBOOK.a in Frameworks */,
+				E6ED0A25B40D6B72EB6123AF /* Pods_COOKBOOK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,7 +151,7 @@
 		374F2A6BBA0F0CEF2EB43E68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BD58E067D65A23B12CA1717C /* libPods-COOKBOOK.a */,
+				32FC6A015EA4734DB4FAADAD /* Pods_COOKBOOK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -157,8 +159,8 @@
 		7A0A1F2EFE3B42CEC9F65F36 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				46AC84310F488B5144B5F439 /* Pods-COOKBOOK.debug.xcconfig */,
-				7134C9C1A9803BBB2ADB35D2 /* Pods-COOKBOOK.release.xcconfig */,
+				ED74E39EF6444D0FBB635A32 /* Pods-COOKBOOK.debug.xcconfig */,
+				44AF172FF2AA4E53D4F84C50 /* Pods-COOKBOOK.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -452,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				E1625DAC243D3FC100FFABA3 /* SearchViewTableViewCell.swift */,
+				E1B68227244B35BE004B666E /* Error404TableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -694,11 +697,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E12AB4CC23E23EEF00DD15D4 /* Build configuration list for PBXNativeTarget "COOKBOOK" */;
 			buildPhases = (
-				C54DE9C91E5C049FE54896B9 /* [CP] Check Pods Manifest.lock */,
+				00876D6E9A1182202D64499D /* [CP] Check Pods Manifest.lock */,
 				E12AB4B423E23EEE00DD15D4 /* Sources */,
 				E12AB4B523E23EEE00DD15D4 /* Frameworks */,
 				E12AB4B623E23EEE00DD15D4 /* Resources */,
-				E4E02B00FC74F4EB44C47CCB /* [CP] Copy Pods Resources */,
+				52B9849DC442C0ADE53D8AFC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -758,7 +761,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C54DE9C91E5C049FE54896B9 /* [CP] Check Pods Manifest.lock */ = {
+		00876D6E9A1182202D64499D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -780,21 +783,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E4E02B00FC74F4EB44C47CCB /* [CP] Copy Pods Resources */ = {
+		52B9849DC442C0ADE53D8AFC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -851,6 +854,7 @@
 				E1625DA9243D209E00FFABA3 /* SearchViewController.swift in Sources */,
 				E12AB4D623E2487800DD15D4 /* RecipeModel.swift in Sources */,
 				CC2A98AC2410F839002FD8B4 /* PopularRecipesTableViewCellCollectionViewCell.swift in Sources */,
+				E1B68228244B35BE004B666E /* Error404TableViewCell.swift in Sources */,
 				E15FB4D123F19FA2001FAB47 /* SplashViewController.swift in Sources */,
 				E133302B23F4359A008B46FC /* ForgetPasswordViewController.swift in Sources */,
 				CC74E77F23FF6B4E000625DF /* ActivityIndicator.swift in Sources */,
@@ -994,7 +998,7 @@
 		};
 		E12AB4CD23E23EEF00DD15D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46AC84310F488B5144B5F439 /* Pods-COOKBOOK.debug.xcconfig */;
+			baseConfigurationReference = ED74E39EF6444D0FBB635A32 /* Pods-COOKBOOK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1015,7 +1019,7 @@
 		};
 		E12AB4CE23E23EEF00DD15D4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7134C9C1A9803BBB2ADB35D2 /* Pods-COOKBOOK.release.xcconfig */;
+			baseConfigurationReference = 44AF172FF2AA4E53D4F84C50 /* Pods-COOKBOOK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

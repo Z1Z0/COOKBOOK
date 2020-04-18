@@ -1,4 +1,4 @@
-module BEMCheckBox {
+framework module BEMCheckBox {
   umbrella header "BEMCheckBox-umbrella.h"
 
   export *

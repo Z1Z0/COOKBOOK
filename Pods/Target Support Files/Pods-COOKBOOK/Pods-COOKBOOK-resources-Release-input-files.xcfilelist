@@ -2,3 +2,4 @@ ${PODS_ROOT}/Target Support Files/Pods-COOKBOOK/Pods-COOKBOOK-resources.sh
 ${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/Material/com.cosmicmind.material.icons.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/Material/com.cosmicmind.material.fonts.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates-Cpp.bundle

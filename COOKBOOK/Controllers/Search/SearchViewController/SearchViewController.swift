@@ -30,11 +30,12 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchData()
+        
         self.title = searchText
         setupNavigation()
     }
@@ -50,11 +51,20 @@ class SearchViewController: UIViewController {
             }
             do {
                 if let data = response.data {
+                    print("Data => \(data)")
+                    print("response.result => \(response.result)")
                     self.recipes = try JSONDecoder().decode(SearchRecipesModel.self, from: data)
                     DispatchQueue.main.async {
                         self.mainView.searchTableView.reloadData()
                     }
                 }
+                
+//                if self.recipes?.totalResults == 0 {
+//                    let vc = Error404ViewController()
+//                    vc.modalPresentationStyle = .fullScreen
+//                    vc.searchRecipe = self.searchText
+//                    self.present(vc, animated: true, completion: nil)
+//                }
                 
             } catch {
                 print(error.localizedDescription)

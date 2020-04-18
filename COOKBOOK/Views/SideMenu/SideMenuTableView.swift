@@ -8,6 +8,11 @@
 
 import Foundation
 import UIKit
+import Firebase
+
+protocol LogoutDelegate: class {
+    func logoutTapped()
+}
 
 class SideMenuTableView: UIView {
         
@@ -16,7 +21,9 @@ class SideMenuTableView: UIView {
         layoutUI()
     }
     
-    
+    weak var delegate: LogoutDelegate?
+    let db = Firestore.firestore()
+    let uid = Auth.auth().currentUser?.uid
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -64,7 +71,7 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return 8
+            return 7
         }
     }
     
@@ -76,8 +83,19 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.row {
                 
             case 0:
-                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as! UserTableViewCell
+                if let uid = uid {
+                    db.collection("Users").document(uid).addSnapshotListener { (snapshot, error) in
+                        if error != nil {
+                            print(error?.localizedDescription)
+                        } else {
+                            if let dbUsername = snapshot?["Username"] as? String {
+                                cell.username.text = dbUsername
+                            }
+                        }
+                    }
+                }
+                
                 return cell
                 
             default:
@@ -97,43 +115,37 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Search recipes by nutrients"
+                cell.titleLabel.text = "Search recipes by ingredients"
                 return cell
                 
             case 2:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Search recipes by ingredients"
+                cell.titleLabel.text = "Profile"
                 return cell
                 
             case 3:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Advanced search recipes"
+                cell.titleLabel.text = "Rate our app"
                 return cell
                 
             case 4:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Profile"
+                cell.titleLabel.text = "About application"
                 return cell
                 
             case 5:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Rate our app"
+                cell.titleLabel.text = "Contact us"
                 return cell
                 
             case 6:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "About application"
-                return cell
-                
-            case 7:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Contact us"
+                cell.titleLabel.text = "Logout"
                 return cell
                 
             default:
@@ -141,6 +153,20 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
             }
         default:
             return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            switch indexPath.row {
+            case 8:
+                delegate?.logoutTapped()
+            default:
+                print("default")
+            }
+        default:
+            print("default")
         }
     }
     

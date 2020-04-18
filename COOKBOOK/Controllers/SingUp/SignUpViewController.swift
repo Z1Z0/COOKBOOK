@@ -13,6 +13,7 @@ import Firebase
 class SignUpViewController: UIViewController, SignupDelegate {
     
     let indicator = ActivityIndicator()
+    let db = Firestore.firestore()
     
     lazy var mainView: SignupView = {
         let view = SignupView(delegate: self, frame: self.view.frame)
@@ -35,11 +36,20 @@ class SignUpViewController: UIViewController, SignupDelegate {
         
         let validateEmail = isValidEmail(emailStr: email)
         
+        var data = [
+            "Username": name,
+            "Email": email
+        ]
+        
         if validateEmail == true {
             if isValidPassword(testStr: password) == true {
                 if confirmPassword == password {
                     Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
                         if error == nil {
+                            if let uid = Auth.auth().currentUser?.uid {
+                                self.db.collection("Users").document(uid).setData(data)
+                            }
+                            
                             self.view.alpha = 1.0
                             self.indicator.hideIndicatorView(self.view)
                             Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in

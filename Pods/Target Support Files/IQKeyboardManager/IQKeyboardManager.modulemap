@@ -1,4 +1,4 @@
-module IQKeyboardManager {
+framework module IQKeyboardManager {
   umbrella header "IQKeyboardManager-umbrella.h"
 
   export *

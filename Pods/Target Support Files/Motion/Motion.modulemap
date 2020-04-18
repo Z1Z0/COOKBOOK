@@ -1,4 +1,4 @@
-module Motion {
+framework module Motion {
   umbrella header "Motion-umbrella.h"
 
   export *
