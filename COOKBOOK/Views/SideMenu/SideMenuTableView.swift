@@ -9,9 +9,14 @@
 import Foundation
 import UIKit
 import Firebase
+import Kingfisher
 
 protocol LogoutDelegate: class {
     func logoutTapped()
+}
+
+protocol GoToSearchByIngredientsDelegate: class {
+    func GoToSearchByIngredients()
 }
 
 class SideMenuTableView: UIView {
@@ -22,6 +27,7 @@ class SideMenuTableView: UIView {
     }
     
     weak var delegate: LogoutDelegate?
+    weak var searchByIngredientsDelegate: GoToSearchByIngredientsDelegate?
     let db = Firestore.firestore()
     let uid = Auth.auth().currentUser?.uid
     
@@ -92,6 +98,13 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
                             if let dbUsername = snapshot?["Username"] as? String {
                                 cell.username.text = dbUsername
                             }
+                            
+                            if let dbImage = snapshot?["ProfileImage"] as? String {
+                                let url = URL(string: dbImage)
+                                let processor = DownsamplingImageProcessor(size: cell.userPhoto.bounds.size)
+                                cell.userPhoto.kf.indicatorType = .activity
+                                cell.userPhoto.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
+                            }
                         }
                     }
                 }
@@ -160,7 +173,9 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 1:
             switch indexPath.row {
-            case 8:
+            case 1:
+                searchByIngredientsDelegate?.GoToSearchByIngredients()
+            case 6:
                 delegate?.logoutTapped()
             default:
                 print("default")

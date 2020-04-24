@@ -41,8 +41,8 @@ class SplashView: UIView {
     private lazy var appDescription: UITextView = {
         let appDescriptionTextView = UITextView()
         appDescriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        appDescriptionTextView.text = "COOKBOOK COOKBOOK COOKBOOK COOKBOOK COOKBOOK COOKBOOK COOKBOOKasdasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-        appDescriptionTextView.textColor = .black
+        appDescriptionTextView.text = "Start now and the app will help you in the cooking process and find your favorite dishes and how to cook them in the simplest way."
+        appDescriptionTextView.textColor = .white
         appDescriptionTextView.backgroundColor = .none
         appDescriptionTextView.textAlignment = .left
         appDescriptionTextView.isEditable = false

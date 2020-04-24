@@ -14,9 +14,11 @@ target 'COOKBOOK' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
   pod 'NotificationBannerSwift', '~> 3.0.0'
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'SideMenu'
   pod 'BEMCheckBox'
+  pod 'AlignedCollectionViewFlowLayout'
 end

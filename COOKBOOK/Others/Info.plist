@@ -100,8 +100,14 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+	<false/>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSCameraUsageDescription</key>
+	<string>COOKBOOK wants to use your camera to take profile photo.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>COOKBOOK wants to save photos to your photo library.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>COOKBOOK wants to use your photo library to take profile photo.</string>
 </dict>
 </plist>

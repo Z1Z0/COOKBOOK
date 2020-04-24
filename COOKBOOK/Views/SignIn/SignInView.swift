@@ -53,9 +53,10 @@ class SignInView: UIView {
         loginStackView.addArrangedSubview(loginButton)
         loginStackView.addArrangedSubview(registerBtn)
         loginStackView.addArrangedSubview(socialLoginStackView)
-        socialLoginStackView.addArrangedSubview(facebookBtn)
-        socialLoginStackView.addArrangedSubview(twitterBtn)
-        socialLoginStackView.addArrangedSubview(appleBtn)
+        socialLoginStackView.addArrangedSubview(facebookBtnContainer)
+        facebookBtnContainer.addSubview(facebookBtn)
+        socialLoginStackView.addArrangedSubview(appleBtnContainer)
+        appleBtnContainer.addSubview(appleBtn)
         loginStackView.addArrangedSubview(forgetPasswordBtn)
         
     }
@@ -129,22 +130,28 @@ class SignInView: UIView {
         return registerButton
     }()
     
+    private lazy var facebookBtnContainer: UIView = {
+        let facebookBtnContainer = UIView()
+        facebookBtnContainer.backgroundColor = .clear
+        facebookBtnContainer.translatesAutoresizingMaskIntoConstraints = false
+        return facebookBtnContainer
+    }()
+    
     private lazy var facebookBtn: UIButton = {
         let facebookButton = UIButton()
         facebookButton.setImage(UIImage(named: "facebook"), for: .normal)
         facebookButton.backgroundColor = #colorLiteral(red: 0.1803921569, green: 0.2705882353, blue: 0.5294117647, alpha: 1)
         facebookButton.layer.cornerRadius = 8.0
         facebookButton.addTarget(delegate, action: #selector(delegate.facebookButtonTapped), for: .touchUpInside)
+        facebookButton.translatesAutoresizingMaskIntoConstraints = false
         return facebookButton
     }()
     
-    private lazy var twitterBtn: UIButton = {
-        let twitterButton = UIButton()
-        twitterButton.setImage(UIImage(named: "twitter"), for: .normal)
-        twitterButton.backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.5568627451, blue: 0.9333333333, alpha: 1)
-        twitterButton.layer.cornerRadius = 8.0
-        twitterButton.addTarget(delegate, action: #selector(delegate.twitterButtonTapped), for: .touchUpInside)
-        return twitterButton
+    private lazy var appleBtnContainer: UIView = {
+        let appleBtnContainer = UIView()
+        appleBtnContainer.backgroundColor = .clear
+        appleBtnContainer.translatesAutoresizingMaskIntoConstraints = false
+        return appleBtnContainer
     }()
     
     private lazy var appleBtn: UIButton = {
@@ -152,6 +159,7 @@ class SignInView: UIView {
         appleButton.setImage(UIImage(named: "apple"), for: .normal)
         appleButton.backgroundColor = #colorLiteral(red: 0.1450980392, green: 0.1450980392, blue: 0.1450980392, alpha: 1)
         appleButton.layer.cornerRadius = 8.0
+        appleButton.translatesAutoresizingMaskIntoConstraints = false
         return appleButton
     }()
     
@@ -223,19 +231,31 @@ class SignInView: UIView {
     
     private func setupFacebookButtonConstraints() {
         NSLayoutConstraint.activate([
-            facebookBtn.heightAnchor.constraint(equalToConstant: frame.width / 6)
+            facebookBtn.heightAnchor.constraint(equalToConstant: frame.width / 6),
+            facebookBtn.widthAnchor.constraint(equalToConstant: frame.width / 6),
+            facebookBtn.centerXAnchor.constraint(equalTo: facebookBtnContainer.centerXAnchor),
+            facebookBtn.centerYAnchor.constraint(equalTo: facebookBtnContainer.centerYAnchor)
         ])
     }
     
-    private func setupTwitterButtonConstraints() {
+    private func setupFacebookButtonContainerConstraints() {
         NSLayoutConstraint.activate([
-            twitterBtn.heightAnchor.constraint(equalToConstant: frame.width / 6)
+            facebookBtnContainer.heightAnchor.constraint(equalToConstant: frame.width / 6)
         ])
     }
     
     private func setupAppleButtonConstraints() {
         NSLayoutConstraint.activate([
-            appleBtn.heightAnchor.constraint(equalToConstant: frame.width / 6)
+            appleBtn.heightAnchor.constraint(equalToConstant: frame.width / 6),
+            appleBtn.widthAnchor.constraint(equalToConstant: frame.width / 6),
+            appleBtn.centerXAnchor.constraint(equalTo: appleBtnContainer.centerXAnchor),
+            appleBtn.centerYAnchor.constraint(equalTo: appleBtnContainer.centerYAnchor)
+        ])
+    }
+    
+    private func setupAppleButtonContainerConstraints() {
+        NSLayoutConstraint.activate([
+            appleBtnContainer.heightAnchor.constraint(equalToConstant: frame.width / 6)
         ])
     }
     
@@ -243,16 +263,16 @@ class SignInView: UIView {
         socialLoginStackView.axis = .horizontal
         socialLoginStackView.distribution = .fillEqually
         socialLoginStackView.alignment = .center
-        socialLoginStackView.spacing = frame.width / 8
+        socialLoginStackView.spacing = 20
         setupSocialLoginStackViewConstraint()
     }
     
     private func setupSocialLoginStackViewConstraint() {
         NSLayoutConstraint.activate([
-            socialLoginStackView.leadingAnchor.constraint(equalTo: loginStackView.leadingAnchor),
-            socialLoginStackView.trailingAnchor.constraint(equalTo: loginStackView.trailingAnchor),
-            socialLoginStackView.widthAnchor.constraint(equalToConstant: frame.width / widthConstant),
-            socialLoginStackView.heightAnchor.constraint(equalToConstant: frame.width / 6)
+//            socialLoginStackView.leadingAnchor.constraint(equalTo: loginStackView.leadingAnchor),
+//            socialLoginStackView.trailingAnchor.constraint(equalTo: loginStackView.trailingAnchor),
+//            socialLoginStackView.widthAnchor.constraint(equalToConstant: frame.width / widthConstant),
+//            socialLoginStackView.heightAnchor.constraint(equalToConstant: frame.width / 6)
         ])
     }
     
@@ -305,8 +325,9 @@ class SignInView: UIView {
         setupPasswordConstraints()
         dismissKeyboard()
         setupSocialLoginStackView()
+        setupFacebookButtonContainerConstraints()
         setupFacebookButtonConstraints()
-        setupTwitterButtonConstraints()
+        setupAppleButtonContainerConstraints()
         setupAppleButtonConstraints()
         setupForgetPasswordButtonConstraints()
         checkTxtFields()

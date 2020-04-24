@@ -14,6 +14,10 @@ import Material
     @objc func registerBtnTapped()
 }
 
+@objc protocol UserImageDelegate: class {
+    @objc func userImageTapped()
+}
+
 class SignupView: UIView {
     
     let signupStackView = UIStackView()
@@ -22,6 +26,7 @@ class SignupView: UIView {
     fileprivate let height: CGFloat = 55
     
     private weak var delegate: SignupDelegate!
+    weak var imageDelegate: UserImageDelegate?
     
     init(delegate: SignupDelegate, frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +41,9 @@ class SignupView: UIView {
     func addSubviews() {
         addSubview(signupStackView)
         signupStackView.addArrangedSubview(viewName)
+        signupStackView.addArrangedSubview(userImageContainerView)
+        userImageContainerView.addSubview(userImageButton)
+        userImageContainerView.addSubview(userImage)
         signupStackView.addArrangedSubview(usernameTxtField)
         signupStackView.addArrangedSubview(emailTxtField)
         signupStackView.addArrangedSubview(passwordTxtField)
@@ -59,9 +67,63 @@ class SignupView: UIView {
         return confirmPasswordTxtField.text!
     }
     
-    let viewName: UILabel = {
+    lazy var userImageContainerView: UIView = {
+        let userImageContainerView = UIView()
+        userImageContainerView.backgroundColor = .clear
+        userImageContainerView.translatesAutoresizingMaskIntoConstraints = false
+        return userImageContainerView
+    }()
+    
+    lazy var userImageButton: UIButton = {
+        let userImageButton = UIButton()
+        userImageButton.setTitle("", for: .normal)
+        userImageButton.translatesAutoresizingMaskIntoConstraints = false
+        userImageButton.backgroundColor = .clear
+        userImageButton.addTarget(imageDelegate, action: #selector(imageDelegate?.userImageTapped), for: .touchUpInside)
+        userImageButton.layer.cornerRadius = frame.width / 6
+        userImageButton.layer.masksToBounds = true
+        return userImageButton
+    }()
+    
+    lazy var userImage: UIImageView = {
+        let userImage = UIImageView()
+        userImage.contentMode = .scaleToFill
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 0, weight: .thin, scale: .small)
+        userImage.image = UIImage(systemName: "plus.circle", withConfiguration: imageConfig)
+        userImage.tintColor = .customDarkGray()
+        userImage.layer.cornerRadius = frame.width / 6
+        userImage.layer.masksToBounds = true
+        userImage.translatesAutoresizingMaskIntoConstraints = false
+        return userImage
+    }()
+    
+    func setupUserImageContainerViewConstraints() {
+        NSLayoutConstraint.activate([
+            userImageContainerView.heightAnchor.constraint(equalToConstant: frame.width / 3)
+        ])
+    }
+    
+    func setupUserImageButton() {
+        NSLayoutConstraint.activate([
+            userImageButton.heightAnchor.constraint(equalToConstant: frame.width / 3),
+            userImageButton.widthAnchor.constraint(equalToConstant: frame.width / 3),
+            userImageButton.centerXAnchor.constraint(equalTo: userImage.centerXAnchor),
+            userImageButton.centerYAnchor.constraint(equalTo: userImage.centerYAnchor)
+        ])
+    }
+    
+    func setupUserImageConstraints() {
+        NSLayoutConstraint.activate([
+            userImage.centerXAnchor.constraint(equalTo: userImageContainerView.centerXAnchor),
+            userImage.centerYAnchor.constraint(equalTo: userImageContainerView.centerYAnchor),
+            userImage.heightAnchor.constraint(equalToConstant: frame.width / 3),
+            userImage.widthAnchor.constraint(equalToConstant: frame.width / 3)
+        ])
+    }
+    
+    lazy var viewName: UILabel = {
         let viewName = UILabel()
-        viewName.text = "Create an \nAccount!"
+        viewName.text = "Create an Account!"
         viewName.numberOfLines = 0
         viewName.font = UIFont(name: "AvenirNext-Bold", size: 36)
         viewName.textColor = .customDarkGray()
@@ -76,7 +138,7 @@ class SignupView: UIView {
         ])
     }
     
-    let usernameTxtField: UITextField = {
+    lazy var usernameTxtField: UITextField = {
         let usernameTextField = ErrorTextField()
         usernameTextField.backgroundColor = .white
         usernameTextField.placeholder = "Username"
@@ -103,7 +165,7 @@ class SignupView: UIView {
         ])
     }
     
-    let emailTxtField: UITextField = {
+    lazy var emailTxtField: UITextField = {
         let emailTextField = ErrorTextField()
         emailTextField.backgroundColor = .white
         emailTextField.placeholder = "Email"
@@ -130,7 +192,7 @@ class SignupView: UIView {
         ])
     }
     
-    let passwordTxtField: UITextField = {
+    lazy var passwordTxtField: UITextField = {
         let passwordTextField = ErrorTextField()
         passwordTextField.backgroundColor = .white
         passwordTextField.placeholder = "Password"
@@ -157,7 +219,7 @@ class SignupView: UIView {
         ])
     }
     
-    let confirmPasswordTxtField: UITextField = {
+    lazy var confirmPasswordTxtField: UITextField = {
         let confirmPasswordTextField = ErrorTextField()
         confirmPasswordTextField.backgroundColor = .white
         confirmPasswordTextField.placeholder = "Confirm Password"
@@ -214,13 +276,13 @@ class SignupView: UIView {
     func setupSignupStackViewConstraint() {
         NSLayoutConstraint.activate([
             signupStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            signupStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            signupStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             signupStackView.widthAnchor.constraint(equalToConstant: frame.width / widthConstant)
         ])
         
     }
     
-    let facebookBtn: UIButton = {
+    lazy var facebookBtn: UIButton = {
         let facebookButton = UIButton()
         facebookButton.setImage(UIImage(named: "facebook"), for: .normal)
         facebookButton.backgroundColor = #colorLiteral(red: 0.1803921569, green: 0.2705882353, blue: 0.5294117647, alpha: 1)
@@ -234,22 +296,7 @@ class SignupView: UIView {
         ])
     }
     
-    let twitterBtn: UIButton = {
-        let twitterButton = UIButton()
-        twitterButton.setImage(UIImage(named: "twitter"), for: .normal)
-        twitterButton.backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.5568627451, blue: 0.9333333333, alpha: 1)
-        twitterButton.layer.cornerRadius = 8.0
-        return twitterButton
-    }()
-    
-    func setupTwitterButtonConstraints() {
-        NSLayoutConstraint.activate([
-            twitterBtn.heightAnchor.constraint(equalToConstant: frame.width / 6)
-        ])
-        
-    }
-    
-    let appleBtn: UIButton = {
+    lazy var appleBtn: UIButton = {
         let appleButton = UIButton()
         appleButton.setImage(UIImage(named: "apple"), for: .normal)
         appleButton.backgroundColor = #colorLiteral(red: 0.1450980392, green: 0.1450980392, blue: 0.1450980392, alpha: 1)
@@ -301,6 +348,9 @@ class SignupView: UIView {
         addSubviews()
         setupSignupStackView()
         setupViewName()
+        setupUserImageContainerViewConstraints()
+        setupUserImageConstraints()
+        setupUserImageButton()
         setupSignupConstraints()
         setupUsernameConstraints()
         setupEmailConstraints()

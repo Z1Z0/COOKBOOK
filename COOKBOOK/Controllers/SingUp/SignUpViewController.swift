@@ -14,10 +14,12 @@ class SignUpViewController: UIViewController, SignupDelegate {
     
     let indicator = ActivityIndicator()
     let db = Firestore.firestore()
+    var image: UIImage? = nil
     
     lazy var mainView: SignupView = {
         let view = SignupView(delegate: self, frame: self.view.frame)
         view.backgroundColor = .white
+        view.imageDelegate = self
         return view
     }()
     
@@ -33,12 +35,15 @@ class SignUpViewController: UIViewController, SignupDelegate {
         let email = mainView.userEmail
         let password = mainView.userPassword
         let confirmPassword = mainView.userConfirmPassword
+        guard let imageSelected = self.image else { return }
+        guard let imageData = imageSelected.jpegData(compressionQuality: 0.4) else { return }
         
         let validateEmail = isValidEmail(emailStr: email)
         
         var data = [
             "Username": name,
-            "Email": email
+            "Email": email,
+            "ProfileImage": ""
         ]
         
         if validateEmail == true {
@@ -47,7 +52,27 @@ class SignUpViewController: UIViewController, SignupDelegate {
                     Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
                         if error == nil {
                             if let uid = Auth.auth().currentUser?.uid {
-                                self.db.collection("Users").document(uid).setData(data)
+                                let storageRef = Storage.storage().reference(forURL: "gs://cookbook-5a8f7.appspot.com")
+                                
+                                let storageProfileRef = storageRef.child("profile").child(uid).child(uid)
+                                
+                                let metadata = StorageMetadata()
+                                
+                                metadata.contentType = "image/jpg"
+                                
+                                storageProfileRef.putData(imageData, metadata: metadata) { (storage, error) in
+                                    if error != nil {
+                                        print(error!.localizedDescription)
+                                        return
+                                    }
+                                    storageProfileRef.downloadURL { (url, error) in
+                                        if let metaImageUrl = url?.absoluteString {
+                                            print(metaImageUrl)
+                                            data["ProfileImage"] = metaImageUrl
+                                            self.db.collection("Users").document(uid).setData(data)
+                                        }
+                                    }
+                                }
                             }
                             
                             self.view.alpha = 1.0
@@ -55,6 +80,7 @@ class SignUpViewController: UIViewController, SignupDelegate {
                             Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
                                 
                             })
+                            
                             self.view.alpha = 1.0
                             self.indicator.hideIndicatorView(self.view)
                             Alert.showAlert(title: "Email created", subtitle: "You have created your account. Please check your email and activate the account", leftView: UIImageView(image: #imageLiteral(resourceName: "isSuccessIcon")), style: .success)
@@ -90,15 +116,56 @@ class SignUpViewController: UIViewController, SignupDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
         setupNavigation()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+    }
+    
+}
+
+extension SignUpViewController: UserImageDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func userImageTapped() {
+        showImagePickerControllerActionSheet()
+    }
+    
+    func showImagePickerControllerActionSheet() {
+        let photoLibraryAction = UIAlertAction(title: "Choose from Library", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .photoLibrary)
+        }
+        let cameraAction = UIAlertAction(title: "Take from Camera", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        AlertService.showAlert(style: .actionSheet, title: "Choose your image", message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
+    }
+    
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            mainView.userImage.image = editedImage
+            image = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            mainView.userImage.image = originalImage
+            image = originalImage
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
     
 }

@@ -34,3 +34,14 @@ extension UIColor {
         return #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
     }
 }
+
+extension RangeReplaceableCollection where Element: Hashable {
+    var orderedSet: Self {
+        var set = Set<Element>()
+        return filter { set.insert($0).inserted }
+    }
+    mutating func removeDuplicates() {
+        var set = Set<Element>()
+        removeAll { !set.insert($0).inserted }
+    }
+}

@@ -37,7 +37,11 @@ class UserTableViewCell: UITableViewCell {
         let userPhoto = UIImageView()
         userPhoto.translatesAutoresizingMaskIntoConstraints = false
         userPhoto.layer.cornerRadius = frame.width / 6
-        userPhoto.image = UIImage(named: "ahmed")
+        userPhoto.contentMode = .scaleToFill
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 0, weight: .thin, scale: .small)
+        userPhoto.image = UIImage(systemName: "plus.circle", withConfiguration: imageConfig)
+        userPhoto.tintColor = .customDarkGray()
+        userPhoto.backgroundColor = .customVeryLightGray()
         userPhoto.clipsToBounds = true
         return userPhoto
     }()
