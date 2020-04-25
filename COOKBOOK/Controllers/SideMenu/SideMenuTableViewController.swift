@@ -14,7 +14,7 @@ class SideMenuTableViewController: UIViewController {
     lazy var mainView: SideMenuTableView = {
         let view = SideMenuTableView(frame: self.view.frame)
         view.delegate = self
-        view.searchByIngredientsDelegate = self
+        view.backgroundColor = .CustomGreen()
         return view
     }()
     
@@ -29,11 +29,37 @@ class SideMenuTableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupNavigation()
     }
 
 }
 
-extension SideMenuTableViewController: LogoutDelegate {
+extension SideMenuTableViewController: SideMenuDelegate {
+    
+    func goToHome() {
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        self.sideMenuViewController?.setContentViewController(vc, animated: true)
+        self.sideMenuViewController!.hideMenuViewController()
+        
+    }
+    
+    func goToSearchByIngredients() {
+        let vc = UINavigationController(rootViewController: SearchByIngredientsViewController())
+        self.sideMenuViewController?.setContentViewController(vc, animated: true)
+        self.sideMenuViewController!.hideMenuViewController()
+    }
+    
+    func goToContactUs() {
+        let vc = UINavigationController(rootViewController: ContactUsViewController())
+        self.sideMenuViewController?.setContentViewController(vc, animated: true)
+        self.sideMenuViewController!.hideMenuViewController()
+    }
+    
+    func goToAboutUs() {
+        let vc = UINavigationController(rootViewController: AboutUsViewController())
+        self.sideMenuViewController?.setContentViewController(vc, animated: true)
+        self.sideMenuViewController!.hideMenuViewController()
+    }
     
     func logoutTapped() {
         let alert = UIAlertController(title: "Logout", message: "Are you sure you want to logout?", preferredStyle: .alert)
@@ -42,8 +68,9 @@ extension SideMenuTableViewController: LogoutDelegate {
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
-                let vc = SignInViewController()
-                self.show(vc, sender: nil)
+                let vc = UINavigationController(rootViewController: SignInViewController())
+                self.sideMenuViewController?.setContentViewController(vc, animated: true)
+                self.sideMenuViewController!.hideMenuViewController()
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
                 
@@ -53,16 +80,6 @@ extension SideMenuTableViewController: LogoutDelegate {
         alert.addAction(logoutAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
-    }
-    
-    
-}
-
-extension SideMenuTableViewController: GoToSearchByIngredientsDelegate {
-    
-    func GoToSearchByIngredients() {
-        let vc = SearchByIngredientsViewController()
-        self.show(vc, sender: nil)
     }
     
     

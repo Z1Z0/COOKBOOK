@@ -36,4 +36,9 @@ extension UIViewController {
         let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.yellow]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
+    
+    func setupSideMenu() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(presentLeftMenuViewController(_:)))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.CustomGreen()
+    }
 }

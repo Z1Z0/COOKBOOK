@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SideMenu
 
 class SideMenuTableViewCell: UITableViewCell {
     
@@ -20,7 +19,7 @@ class SideMenuTableViewCell: UITableViewCell {
     
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
+        titleLabel.font = UIFont(name: "AvenirNext-Medium", size: 18)
         titleLabel.textColor = .white
         titleLabel.textAlignment = .left
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -29,8 +28,10 @@ class SideMenuTableViewCell: UITableViewCell {
     
     func setupTitleLabelConstraints() {
         NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+//            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     

@@ -18,7 +18,7 @@ target 'COOKBOOK' do
   pod 'NotificationBannerSwift', '~> 3.0.0'
   pod 'FacebookCore'
   pod 'FacebookLogin'
-  pod 'SideMenu'
   pod 'BEMCheckBox'
   pod 'AlignedCollectionViewFlowLayout'
+  pod 'AKSideMenu'
 end

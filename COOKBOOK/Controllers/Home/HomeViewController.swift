@@ -9,12 +9,10 @@
 import UIKit
 import Alamofire
 import Kingfisher
-import SideMenu
 
 class HomeViewController: UIViewController {
 
     let searchController = UISearchController(searchResultsController: nil)
-    let leftMenuNavigationController = SideMenuNavigationController(rootViewController: SideMenuTableViewController())
         
     lazy var mainView: HomeView = {
         let view = HomeView(frame: self.view.frame)
@@ -44,19 +42,8 @@ class HomeViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
         setNeedsStatusBarAppearanceUpdate()
         setupNavigationWithLargeTitle()
-        setupLeftSideMenu()
         setupNavigation()
-    }
-    
-    func setupLeftSideMenu() {
-        SideMenuManager.default.leftMenuNavigationController = leftMenuNavigationController
-        leftMenuNavigationController.leftSide = true
-        leftMenuNavigationController.statusBarEndAlpha = 0
-        leftMenuNavigationController.presentationStyle = .viewSlideOut
-        leftMenuNavigationController.allowPushOfSameClassTwice = false
-        leftMenuNavigationController.menuWidth = view.frame.width * (3/4)
-        leftMenuNavigationController.navigationBar.isHidden = true
-        
+        setupSideMenu()
     }
     
 }
@@ -82,16 +69,10 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.CustomGreen()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(menuButtonTapped))
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.CustomGreen()
     }
     
     @objc func saveButtonTapped() {
         print("OK")
-    }
-    
-    @objc func menuButtonTapped() {
-        self.present(leftMenuNavigationController, animated: true, completion: nil)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

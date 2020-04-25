@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import AKSideMenu
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, AKSideMenuDelegate {
 
     var window: UIWindow?
 
@@ -23,8 +24,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
           // User is signed in.
             window = UIWindow(frame: windowScene.coordinateSpace.bounds)
             window?.windowScene = windowScene
-            let nav = UINavigationController(rootViewController: HomeViewController())
-            window?.rootViewController = nav
+            let navigationController = UINavigationController(rootViewController: HomeViewController())
+            let leftMenu = SideMenuTableViewController()
+            let sideMenuViewController = AKSideMenu(contentViewController: navigationController, leftMenuViewController: leftMenu, rightMenuViewController: nil)
+            sideMenuViewController.delegate = self
+            window?.rootViewController = sideMenuViewController
             window?.makeKeyAndVisible()
         } else {
             // No user is signed in.

@@ -11,12 +11,12 @@ import UIKit
 import Firebase
 import Kingfisher
 
-protocol LogoutDelegate: class {
+protocol SideMenuDelegate: class {
+    func goToHome()
+    func goToSearchByIngredients()
+    func goToContactUs()
+    func goToAboutUs()
     func logoutTapped()
-}
-
-protocol GoToSearchByIngredientsDelegate: class {
-    func GoToSearchByIngredients()
 }
 
 class SideMenuTableView: UIView {
@@ -26,8 +26,7 @@ class SideMenuTableView: UIView {
         layoutUI()
     }
     
-    weak var delegate: LogoutDelegate?
-    weak var searchByIngredientsDelegate: GoToSearchByIngredientsDelegate?
+    weak var delegate: SideMenuDelegate?
     let db = Firestore.firestore()
     let uid = Auth.auth().currentUser?.uid
     
@@ -50,9 +49,11 @@ class SideMenuTableView: UIView {
     func setupTableViewConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+//            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
+//            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            tableView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
@@ -77,7 +78,7 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return 7
+            return 6
         }
     }
     
@@ -128,34 +129,28 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Search recipes by ingredients"
+                cell.titleLabel.text = "Search by ingredients"
                 return cell
                 
             case 2:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Profile"
+                cell.titleLabel.text = "Rate our app"
                 return cell
                 
             case 3:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Rate our app"
+                cell.titleLabel.text = "About application"
                 return cell
                 
             case 4:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "About application"
-                return cell
-                
-            case 5:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
                 cell.titleLabel.text = "Contact us"
                 return cell
                 
-            case 6:
+            case 5:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
                 cell.titleLabel.text = "Logout"
@@ -173,9 +168,15 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 1:
             switch indexPath.row {
+            case 0:
+                delegate?.goToHome()
             case 1:
-                searchByIngredientsDelegate?.GoToSearchByIngredients()
-            case 6:
+                delegate?.goToSearchByIngredients()
+            case 3:
+                delegate?.goToAboutUs()
+            case 4:
+                delegate?.goToContactUs()
+            case 5:
                 delegate?.logoutTapped()
             default:
                 print("default")

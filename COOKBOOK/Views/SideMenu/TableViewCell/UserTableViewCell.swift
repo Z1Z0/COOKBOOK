@@ -59,8 +59,9 @@ class UserTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: topAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            containerView.widthAnchor.constraint(equalToConstant: frame.width * (2/3)),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+//            containerView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     

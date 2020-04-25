@@ -158,6 +158,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - AKSideMenu (1.4.5)
   - Alamofire (5.0.2)
   - AlignedCollectionViewFlowLayout (1.1.2)
   - BEMCheckBox (1.4.1)
@@ -315,10 +316,10 @@ PODS:
     - MarqueeLabel (~> 4.0.0)
     - SnapKit (~> 5.0.0)
   - PromisesObjC (1.2.8)
-  - SideMenu (6.4.7)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
+  - AKSideMenu
   - Alamofire
   - AlignedCollectionViewFlowLayout
   - BEMCheckBox
@@ -332,11 +333,11 @@ DEPENDENCIES:
   - Kingfisher
   - Material
   - NotificationBannerSwift (~> 3.0.0)
-  - SideMenu
 
 SPEC REPOS:
   trunk:
     - abseil
+    - AKSideMenu
     - Alamofire
     - AlignedCollectionViewFlowLayout
     - BEMCheckBox
@@ -371,11 +372,11 @@ SPEC REPOS:
     - nanopb
     - NotificationBannerSwift
     - PromisesObjC
-    - SideMenu
     - SnapKit
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
+  AKSideMenu: 2880c44ee04a68f40be783c5cb997b2e0ee22401
   Alamofire: 3ba7a4db18b4f62c4a1c0e1cb39d7f3d52e10ada
   AlignedCollectionViewFlowLayout: ee2ef451e741ec08f8e0967d828001e2f051c20a
   BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
@@ -410,9 +411,8 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NotificationBannerSwift: 713e20f21b6105f4a36a00e5d9fa414a930d3d8e
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  SideMenu: 928a015669c3afc201e1fe3a87f1b0bc8993a664
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 3df8640c1e310fd739bd6acc5b509ea9489151f0
+PODFILE CHECKSUM: 0e071f78d328939b13232c327ea5880565dc9f08
 
 COCOAPODS: 1.8.4
