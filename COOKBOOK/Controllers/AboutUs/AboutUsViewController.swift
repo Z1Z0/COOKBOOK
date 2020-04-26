@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class AboutUsViewController: UIViewController {
+    
+    let db = Firestore.firestore()
     
     lazy var mainView: AboutUsView = {
         let view = AboutUsView(frame: self.view.frame)
@@ -32,6 +35,40 @@ class AboutUsViewController: UIViewController {
         setupSideMenu()
         preferedLargeTitle()
         self.title = "About us"
+        getAboutUsData()
+    }
+    
+    func getAboutUsData() {
+        db.collection("AppInfo").document("AboutUs").addSnapshotListener { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                if let aboutUs = snapshot?["AboutUs"] as? String {
+                    self.mainView.aboutCookbookLabel.text = aboutUs
+                }
+            }
+        }
+        
+        db.collection("AppInfo").document("inquiry").addSnapshotListener { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                
+                if let inquiry = snapshot?["inquiry"] as? String {
+                    self.mainView.informationLabel.text = inquiry
+                }
+                
+            }
+        }
     }
 
+}
+
+extension AboutUsViewController: GoToAboutUsDelegate {
+    
+    func goToAboutUs() {
+        let vc = ContactUsViewController()
+        self.show(vc, sender: nil)
+    }
+    
 }

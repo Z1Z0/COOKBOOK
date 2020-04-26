@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+@objc protocol GoToAboutUsDelegate: class {
+    @objc func goToAboutUs()
+}
+
 class AboutUsView: UIView {
     
     override init(frame: CGRect) {
@@ -21,6 +25,23 @@ class AboutUsView: UIView {
     }
     
     fileprivate let widthConstant: CGFloat = 1.3
+    weak var delegate: GoToAboutUsDelegate?
+    
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    func setupScrollViewConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
     
     lazy var cookbookLabel: UILabel = {
         let cookbookLabel = UILabel()
@@ -34,7 +55,7 @@ class AboutUsView: UIView {
     func setupCookbookLabelConstraints() {
         NSLayoutConstraint.activate([
             cookbookLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            cookbookLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16)
+            cookbookLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16)
         ])
     }
     
@@ -58,7 +79,6 @@ class AboutUsView: UIView {
     
     lazy var aboutCookbookLabel: UILabel = {
         let aboutCookbookLabel = UILabel()
-        aboutCookbookLabel.text = "This application was developed specifically to help everyone to cook what they love simply and smoothly by viewing the ingredients, the amount of ingredients, and steps of the recipe, and also helping those who are afraid of burning food."
         aboutCookbookLabel.textColor = .customLightDarkGray()
         aboutCookbookLabel.numberOfLines = 0
         aboutCookbookLabel.font = UIFont(name: "AvenirNext-Medium", size: 16)
@@ -69,14 +89,13 @@ class AboutUsView: UIView {
     func setupAboutCookbookLabelConstraints() {
         NSLayoutConstraint.activate([
             aboutCookbookLabel.topAnchor.constraint(equalTo: cookingImage.bottomAnchor, constant: 16),
-            aboutCookbookLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            aboutCookbookLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            aboutCookbookLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            aboutCookbookLabel.widthAnchor.constraint(equalToConstant: frame.width / widthConstant)
         ])
     }
     
     lazy var informationLabel: UILabel = {
         let informationLabel = UILabel()
-        informationLabel.text = "If you have a question, faced a problem, or want to request future features. You can email us"
         informationLabel.textColor = .customDarkGray()
         informationLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 16)
         informationLabel.numberOfLines = 0
@@ -86,19 +105,20 @@ class AboutUsView: UIView {
     
     func setupInformationLabelConstraints() {
         NSLayoutConstraint.activate([
-            informationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             informationLabel.topAnchor.constraint(equalTo: aboutCookbookLabel.bottomAnchor, constant: 16),
-            informationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            informationLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            informationLabel.widthAnchor.constraint(equalToConstant: frame.width / widthConstant)
         ])
     }
     
     lazy var sendEmailButton: UIButton = {
         let sendEmailButton = UIButton(type: .system)
-        sendEmailButton.setTitle("Search recipe", for: .normal)
+        sendEmailButton.setTitle("Contact us", for: .normal)
         sendEmailButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 14)
         sendEmailButton.backgroundColor = .CustomGreen()
         sendEmailButton.setTitleColor(.white, for: .normal)
         sendEmailButton.layer.cornerRadius = 8.0
+        sendEmailButton.addTarget(delegate, action: #selector(delegate?.goToAboutUs), for: .touchUpInside)
         sendEmailButton.translatesAutoresizingMaskIntoConstraints = false
         return sendEmailButton
     }()
@@ -108,20 +128,23 @@ class AboutUsView: UIView {
             sendEmailButton.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: 16),
             sendEmailButton.heightAnchor.constraint(equalToConstant: 55),
             sendEmailButton.widthAnchor.constraint(equalToConstant: frame.width / widthConstant),
-            sendEmailButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            sendEmailButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            sendEmailButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16)
         ])
     }
     
     func addSubviews() {
-        addSubview(cookbookLabel)
-        addSubview(cookingImage)
-        addSubview(aboutCookbookLabel)
-        addSubview(informationLabel)
-        addSubview(sendEmailButton)
+        addSubview(scrollView)
+        scrollView.addSubview(cookbookLabel)
+        scrollView.addSubview(cookingImage)
+        scrollView.addSubview(aboutCookbookLabel)
+        scrollView.addSubview(informationLabel)
+        scrollView.addSubview(sendEmailButton)
     }
     
     func layoutUI() {
         addSubviews()
+        setupScrollViewConstraints()
         setupCookbookLabelConstraints()
         setupCookingImageConstraints()
         setupAboutCookbookLabelConstraints()

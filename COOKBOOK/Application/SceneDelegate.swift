@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AKSideMenuDelegate {
             // No user is signed in.
             window = UIWindow(frame: windowScene.coordinateSpace.bounds)
             window?.windowScene = windowScene
-            let nav = UINavigationController(rootViewController: SplashViewController())
+            let nav = UINavigationController(rootViewController: SignUpViewController())
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
         }

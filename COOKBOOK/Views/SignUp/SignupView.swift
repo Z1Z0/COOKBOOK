@@ -39,7 +39,8 @@ class SignupView: UIView {
     }
     
     func addSubviews() {
-        addSubview(signupStackView)
+        addSubview(scrollView)
+        scrollView.addSubview(signupStackView)
         signupStackView.addArrangedSubview(viewName)
         signupStackView.addArrangedSubview(userImageContainerView)
         userImageContainerView.addSubview(userImageButton)
@@ -65,6 +66,22 @@ class SignupView: UIView {
     
     var userConfirmPassword: String {
         return confirmPasswordTxtField.text!
+    }
+    
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    func setupScrollViewConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
     }
     
     lazy var userImageContainerView: UIView = {
@@ -276,57 +293,11 @@ class SignupView: UIView {
     func setupSignupStackViewConstraint() {
         NSLayoutConstraint.activate([
             signupStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            signupStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            signupStackView.widthAnchor.constraint(equalToConstant: frame.width / widthConstant)
+            signupStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            signupStackView.widthAnchor.constraint(equalToConstant: frame.width / widthConstant),
+            signupStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16)
         ])
         
-    }
-    
-    lazy var facebookBtn: UIButton = {
-        let facebookButton = UIButton()
-        facebookButton.setImage(UIImage(named: "facebook"), for: .normal)
-        facebookButton.backgroundColor = #colorLiteral(red: 0.1803921569, green: 0.2705882353, blue: 0.5294117647, alpha: 1)
-        facebookButton.layer.cornerRadius = 8.0
-        return facebookButton
-    }()
-    
-    func setupFacebookButtonConstraints() {
-        NSLayoutConstraint.activate([
-            facebookBtn.heightAnchor.constraint(equalToConstant: frame.width / 6)
-        ])
-    }
-    
-    lazy var appleBtn: UIButton = {
-        let appleButton = UIButton()
-        appleButton.setImage(UIImage(named: "apple"), for: .normal)
-        appleButton.backgroundColor = #colorLiteral(red: 0.1450980392, green: 0.1450980392, blue: 0.1450980392, alpha: 1)
-        appleButton.layer.cornerRadius = 8.0
-        return appleButton
-    }()
-    
-    func setupAppleButtonConstraints() {
-        NSLayoutConstraint.activate([
-            appleBtn.heightAnchor.constraint(equalToConstant: frame.width / 6)
-        ])
-        
-    }
-    
-    func setupSocialLoginStackView() {
-        socialLoginStackView.axis = .horizontal
-        socialLoginStackView.distribution = .fillEqually
-        socialLoginStackView.alignment = .center
-        socialLoginStackView.spacing = frame.width / 8
-        socialLoginStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupSocialLoginStackViewConstraint()
-    }
-    
-    func setupSocialLoginStackViewConstraint() {
-        NSLayoutConstraint.activate([
-            socialLoginStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            socialLoginStackView.topAnchor.constraint(equalTo: signupStackView.bottomAnchor, constant: 25),
-            socialLoginStackView.widthAnchor.constraint(equalToConstant: frame.width / widthConstant),
-            socialLoginStackView.heightAnchor.constraint(equalToConstant: frame.width / 6)
-        ])
     }
     
     func dismissKeyboard() {
@@ -346,6 +317,7 @@ class SignupView: UIView {
     
     func layoutUI() {
         addSubviews()
+        setupScrollViewConstraints()
         setupSignupStackView()
         setupViewName()
         setupUserImageContainerViewConstraints()
