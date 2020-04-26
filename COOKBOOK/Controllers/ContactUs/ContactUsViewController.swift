@@ -32,6 +32,8 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSideMenu()
+        preferedLargeTitle()
+        self.title = "Contact us"
     }
     
     func sendEmail() {

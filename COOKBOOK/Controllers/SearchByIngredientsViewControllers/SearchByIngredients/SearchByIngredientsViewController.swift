@@ -33,12 +33,8 @@ class SearchByIngredientsViewController: UIViewController {
         super.viewWillAppear(animated)
         setupNavigation()
         setupSideMenu()
+        preferedLargeTitle()
         self.title = "Ingredients"
-        let appearance = UINavigationBarAppearance()
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.CustomGreen(), .font: UIFont(name: "AvenirNext-Heavy", size: 36)!]
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 

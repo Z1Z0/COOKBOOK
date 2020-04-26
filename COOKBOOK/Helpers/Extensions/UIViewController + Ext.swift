@@ -41,4 +41,12 @@ extension UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(presentLeftMenuViewController(_:)))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.CustomGreen()
     }
+    
+    func preferedLargeTitle() {
+        let appearance = UINavigationBarAppearance()
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.CustomGreen(), .font: UIFont(name: "AvenirNext-Heavy", size: 36)!]
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 }

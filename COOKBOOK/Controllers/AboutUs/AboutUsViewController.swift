@@ -30,6 +30,8 @@ class AboutUsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSideMenu()
+        preferedLargeTitle()
+        self.title = "About us"
     }
 
 }

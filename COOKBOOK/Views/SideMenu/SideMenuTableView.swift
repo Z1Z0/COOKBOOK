@@ -141,7 +141,7 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
             case 3:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "About application"
+                cell.titleLabel.text = "About us"
                 return cell
                 
             case 4:
