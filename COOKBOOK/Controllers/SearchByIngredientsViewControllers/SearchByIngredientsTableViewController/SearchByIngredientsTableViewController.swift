@@ -38,6 +38,7 @@ class SearchByIngredientsTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Recipes"
+        preferedLargeTitle()
         setupNavigation()
     }
     

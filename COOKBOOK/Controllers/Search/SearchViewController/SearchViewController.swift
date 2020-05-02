@@ -37,6 +37,7 @@ class SearchViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.title = searchText
+        preferedLargeTitle()
         setupNavigation()
     }
     

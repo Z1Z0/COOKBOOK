@@ -8,14 +8,8 @@
 
 import UIKit
 
-@objc protocol DeleteCurrentIngredientDelegate: class {
-    @objc func deleteCurrentIngredient()
-}
-
 class SearchByIngredientsViewCollectionViewCell: UICollectionViewCell {
-    
-    weak var cellDelegate: DeleteCurrentIngredientDelegate?
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .CustomGreen()
@@ -28,7 +22,6 @@ class SearchByIngredientsViewCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    weak var delegate: DeleteCurrentIngredientDelegate?
     
     lazy var ingredientTitleLabel: UILabel = {
         let ingredientTitleLabel = UILabel()
@@ -52,7 +45,6 @@ class SearchByIngredientsViewCollectionViewCell: UICollectionViewCell {
         let deleteIngredient = UIButton(type: .system)
         deleteIngredient.setImage(UIImage(systemName: "multiply.circle.fill"), for: .normal)
         deleteIngredient.tintColor = .white
-        deleteIngredient.addTarget(delegate, action: #selector(delegate?.deleteCurrentIngredient), for: .touchUpInside)
         deleteIngredient.translatesAutoresizingMaskIntoConstraints = false
         return deleteIngredient
     }()

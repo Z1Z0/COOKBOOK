@@ -35,6 +35,7 @@ class SearchByIngredientsViewController: UIViewController {
         setupSideMenu()
         preferedLargeTitle()
         self.title = "Ingredients"
+        preferedLargeTitle()
     }
 }
 
@@ -63,14 +64,6 @@ extension SearchByIngredientsViewController: AddIngredientsToCollectionDelegate 
         let ingredientsString = mainView.cleanIngredientsArray.joined(separator: "+")
         vc.ingredientsString = ingredientsString
         self.show(vc, sender: nil)
-    }
-    
-}
-
-extension SearchByIngredientsViewController: DeleteCurrentIngredientDelegate {
-    
-    func deleteCurrentIngredient() {
-        
     }
     
 }

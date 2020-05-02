@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AKSideMenuDelegate {
           // User is signed in.
             window = UIWindow(frame: windowScene.coordinateSpace.bounds)
             window?.windowScene = windowScene
-            let navigationController = UINavigationController(rootViewController: AboutUsViewController())
+            let navigationController = UINavigationController(rootViewController: HomeViewController())
             let leftMenu = SideMenuTableViewController()
             let sideMenuViewController = AKSideMenu(contentViewController: navigationController, leftMenuViewController: leftMenu, rightMenuViewController: nil)
             sideMenuViewController.delegate = self
@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AKSideMenuDelegate {
             // No user is signed in.
             window = UIWindow(frame: windowScene.coordinateSpace.bounds)
             window?.windowScene = windowScene
-            let nav = UINavigationController(rootViewController: SignUpViewController())
+            let nav = UINavigationController(rootViewController: SplashViewController())
             window?.rootViewController = nav
             window?.makeKeyAndVisible()
         }

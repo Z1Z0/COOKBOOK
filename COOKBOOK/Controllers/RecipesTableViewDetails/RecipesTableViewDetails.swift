@@ -18,6 +18,10 @@ class RecipesTableViewDetails: UIViewController {
     var recipes: Recipes?
     var recipesDetails = [Recipe]()
     let indicator = ActivityIndicator()
+    var recipeID: [String]?
+    var recipeIDs: String?
+    var recipesID: [String] = []
+    let defaults = UserDefaults.standard
     
     lazy var mainView: RecipesTableViewDetailsView = {
         let view = RecipesTableViewDetailsView(frame: self.view.frame)
@@ -34,10 +38,12 @@ class RecipesTableViewDetails: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        defaults.set(recipesID, forKey: "array")
+        print(recipesID)
         if let categoryTitle = categoryTitle {
             fetchData(categoryTitle)
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +63,8 @@ class RecipesTableViewDetails: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        print("OK")
+        let vc = SavedRecipesViewController()
+        self.show(vc, sender: nil)
     }
     
     func fetchData(_ category: String) {

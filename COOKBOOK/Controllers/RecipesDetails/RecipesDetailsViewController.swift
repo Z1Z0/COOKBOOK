@@ -43,6 +43,7 @@ class RecipesDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Recipe Details"
+        preferedLargeTitle()
     }
 
 }

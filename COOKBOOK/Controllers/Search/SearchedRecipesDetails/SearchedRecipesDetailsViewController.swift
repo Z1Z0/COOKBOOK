@@ -41,6 +41,7 @@ class SearchedRecipesDetailsViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchData()
         self.title = "Recipe Details"
+        preferedLargeTitle()
     }
     
     func fetchData() {

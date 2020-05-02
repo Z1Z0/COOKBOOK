@@ -50,7 +50,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
     func setupNavigationWithLargeTitle() {
-        navigationController?.navigationBar.prefersLargeTitles = true
+        preferedLargeTitle()
         searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.backgroundColor = .white
@@ -60,19 +60,14 @@ extension HomeViewController: UISearchControllerDelegate, UISearchBarDelegate {
         searchController.searchBar.becomeFirstResponder()
         self.navigationItem.searchController = searchController
         self.title = "Home"
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.CustomGreen()]
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.CustomGreen(), .font: UIFont(name: "AvenirNext-Heavy", size: 36)!]
         navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.CustomGreen()
     }
     
     @objc func saveButtonTapped() {
-        print("OK")
+        let vc = SavedRecipesViewController()
+        self.show(vc, sender: nil)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

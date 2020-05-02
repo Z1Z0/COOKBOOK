@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class SplashViewController: UIViewController, SplashViewDelegate {
+    
+    let db = Firestore.firestore()
     
     lazy var mainView: SplashView = {
         let view = SplashView(delegate: self, frame: self.view.frame)
@@ -36,11 +39,24 @@ class SplashViewController: UIViewController, SplashViewDelegate {
         navigationController?.isNavigationBarHidden = true
         setupNavigation()
         setNeedsStatusBarAppearanceUpdate()
+        getAboutUsData()
     }
     
     func registerButtonTapped() {
         let loginVC = SignInViewController()
         self.show(loginVC, sender: nil)
+    }
+    
+    func getAboutUsData() {
+        db.collection("AppInfo").document("splash").addSnapshotListener { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                if let description = snapshot?["splash"] as? String {
+                    self.mainView.appDescription.text = description
+                }
+            }
+        }
     }
     
 }

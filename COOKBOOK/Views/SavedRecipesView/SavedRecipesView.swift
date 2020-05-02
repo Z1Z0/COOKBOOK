@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class SavedRecipesView: UIView {
     
@@ -20,14 +21,16 @@ class SavedRecipesView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var vc = SavedRecipesViewController()
+    
     lazy var recipesTableView: UITableView = {
         let recipesTableView = UITableView()
         recipesTableView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
-        recipesTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "HomeTableViewCell")
         recipesTableView.rowHeight = UITableView.automaticDimension
         recipesTableView.estimatedRowHeight = 100
         recipesTableView.showsVerticalScrollIndicator = false
         recipesTableView.separatorStyle = .none
+        recipesTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "HomeTableViewCell")
         recipesTableView.delegate = self
         recipesTableView.dataSource = self
         recipesTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,11 +59,30 @@ class SavedRecipesView: UIView {
 
 extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int()
+        return vc.recipes?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
+        let url = URL(string: vc.recipes?[indexPath.row].image ?? "Error")
+        let processor = DownsamplingImageProcessor(size: cell.foodImage.bounds.size)
+        cell.foodImage.kf.indicatorType = .activity
+        cell.foodImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
+        cell.foodTitle.text = vc.recipes?[indexPath.row].title
+        
+        if let readyInMin = vc.recipes?[indexPath.row].readyInMinutes {
+            cell.cookingTimeInfoLabel.text = "\(readyInMin) Minutes"
+        }
+        
+        if let pricePerServing = vc.recipes?[indexPath.row].pricePerServing {
+            cell.priceInfoLabel.text = "$" + String(format: "%.2f", pricePerServing / 100)
+        }
+        
+        if let serving = vc.recipes?[indexPath.row].servings {
+            cell.servesInfoLabel.text = "\(serving)"
+        }
+                
+        return cell
     }
     
     

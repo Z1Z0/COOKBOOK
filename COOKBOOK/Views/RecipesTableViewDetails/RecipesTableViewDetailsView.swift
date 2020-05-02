@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 import Kingfisher
+import Firebase
 
 protocol RecipesTVDetailsSelectActionDelegate: class {
     func recipeDetails(
@@ -27,13 +28,19 @@ protocol RecipesTVDetailsSelectActionDelegate: class {
     )
 }
 
+protocol PassingFavouriteRecipesDelegate: class {
+    func passingFavouriteRecipes(id: String)
+}
+
 class RecipesTableViewDetailsView: UIView {
     
     let indicator = ActivityIndicator()
     var recipesTableVC = RecipesTableViewDetails()
+    let db = Firestore.firestore()
+//    weak var delegate: PassingFavouriteRecipesDelegate?
     
     weak var recipesTVDetailsSelectActionDelegate: RecipesTVDetailsSelectActionDelegate?
-        
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         layoutUI()
@@ -78,7 +85,7 @@ class RecipesTableViewDetailsView: UIView {
 
 }
 
-extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSource {
+extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSource, FavouriteActionDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipesTableVC.recipesDetails.count
@@ -105,6 +112,9 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
             cell.servesInfoLabel.text = "\(serving)"
         }
         
+        cell.delegate = self
+        cell.favouriteButton.tag = indexPath.row
+        
         return cell
         
     }
@@ -127,6 +137,15 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func favouriteButtonTapped(_ tag: Int) {
+        let recipeID = "\(recipesTableVC.recipesDetails[tag].id ?? 0)"
+        let uid = Auth.auth().currentUser!.uid
+        let data = [
+            "FavRecipes": recipeID
+        ]
+        db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
     }
     
 }

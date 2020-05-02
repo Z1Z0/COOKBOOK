@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol FavouriteActionDelegate: class {
+    func favouriteButtonTapped(_ tag: Int)
+}
+
 class HomeTableViewCell: UITableViewCell {
     
     let titlesStackView = UIStackView()
     let titlesInformationStackView = UIStackView()
+    weak var delegate: FavouriteActionDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,12 +47,46 @@ class HomeTableViewCell: UITableViewCell {
     }()
     
     lazy var favouriteButton: UIButton = {
-        var favouriteButton = UIButton(type: .system)
-        favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        var favouriteButton = UIButton()
+        let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+        favouriteButton.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+        favouriteButton.contentMode = .scaleAspectFill
         favouriteButton.tintColor = .CustomGreen()
+        favouriteButton.backgroundColor = .clear
+        favouriteButton.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
         favouriteButton.translatesAutoresizingMaskIntoConstraints = false
         return favouriteButton
     }()
+    
+    @objc func favoriteButtonTapped(_ sender: UIButton) {
+        delegate?.favouriteButtonTapped(sender.tag)
+        let button = sender
+        
+        UIView.animate(withDuration: 0.2,
+        animations: {
+            self.favouriteButton.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        },
+        completion: { _ in
+            UIView.animate(withDuration: 0.2) {
+                self.favouriteButton.transform = CGAffineTransform.identity
+            }
+        })
+
+        
+        if button.isSelected == true {
+            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+            sender.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+            sender.tintColor = .CustomGreen()
+            sender.backgroundColor = .clear
+            sender.isSelected = false
+        } else {
+            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+            sender.tintColor = .CustomGreen()
+            sender.backgroundColor = .clear
+            sender.isSelected = true
+        }
+    }
     
     lazy var foodTitle: UILabel = {
         let foodTitle = UILabel()
