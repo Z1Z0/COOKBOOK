@@ -22,6 +22,7 @@ class SavedRecipesView: UIView {
     }
     
     var vc = SavedRecipesViewController()
+    weak var recipesTVDetailsSelectActionDelegate: RecipesTVDetailsSelectActionDelegate?
     
     lazy var recipesTableView: UITableView = {
         let recipesTableView = UITableView()
@@ -83,6 +84,22 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource {
         }
                 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        recipesTVDetailsSelectActionDelegate?.recipeDetails(
+            recipeTitle: vc.recipes?[indexPath.row].title ?? "Error",
+            recipeImage: vc.recipes?[indexPath.row].image ?? "Error",
+            recipeTime: "\(vc.recipes?[indexPath.row].readyInMinutes ?? 0) Min",
+            recipeInstructions: vc.recipes?[indexPath.row].instructions ?? "Error",
+            ingredientsNumber: "\(vc.recipes?[indexPath.row].extendedIngredients?.count ?? 0)",
+            ingredientsNumbersInt: vc.recipes?[indexPath.row].extendedIngredients?.count ?? 0,
+            ingredientsName: (vc.recipes?[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
+            ingredientsWeight: vc.recipes?[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
+            ingredientsAmount: vc.recipes?[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
+            instructionsNumber: "\(vc.recipes?[indexPath.row].analyzedInstructions?.count ?? 0)",
+            instructionsSteps: vc.recipes?[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"]
+        )
     }
     
     

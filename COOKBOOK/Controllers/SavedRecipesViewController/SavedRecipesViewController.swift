@@ -21,6 +21,7 @@ class SavedRecipesViewController: UIViewController {
     
     lazy var mainView: SavedRecipesView = {
         let view = SavedRecipesView(frame: self.view.frame)
+        view.recipesTVDetailsSelectActionDelegate = self
         view.backgroundColor = .white
         view.vc = self
         return view
@@ -43,6 +44,7 @@ class SavedRecipesViewController: UIViewController {
         super.viewWillAppear(animated)
         self.title = "Favourite recipes"
         preferedLargeTitle()
+        setupNavigation()
         getFirebaseDocuments()
     }
     
@@ -92,7 +94,23 @@ class SavedRecipesViewController: UIViewController {
         }
         
     }
+}
+
+extension SavedRecipesViewController: RecipesTVDetailsSelectActionDelegate {
     
-    
-    
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String]) {
+        let vc = RecipesDetailsViewController()
+        vc.recipeTitle = recipeTitle
+        vc.recipeImage = recipeImage
+        vc.recipeTime = recipeTime
+        vc.recipeInstructions = recipeInstructions
+        vc.ingredientsNumber = ingredientsNumber
+        vc.ingredientsNumberInt = ingredientsNumbersInt
+        vc.ingredientsName = ingredientsName
+        vc.ingredientsWeight = ingredientsWeight
+        vc.ingredientsAmount = ingredientsAmount
+        vc.instructionsNumber = instructionsNumber
+        vc.instructionsSteps = instructionsSteps
+        self.show(vc, sender: nil)
+    }
 }
