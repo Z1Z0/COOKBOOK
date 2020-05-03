@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import Firebase
 
 class SavedRecipesView: UIView {
     
@@ -23,6 +24,8 @@ class SavedRecipesView: UIView {
     
     var vc = SavedRecipesViewController()
     weak var recipesTVDetailsSelectActionDelegate: RecipesTVDetailsSelectActionDelegate?
+    weak var delegate: FavouriteActionDelegate?
+    let db = Firestore.firestore()
     
     lazy var recipesTableView: UITableView = {
         let recipesTableView = UITableView()
@@ -58,7 +61,8 @@ class SavedRecipesView: UIView {
     
 }
 
-extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource {
+extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, FavouriteActionDelegate {
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return vc.recipes?.count ?? 0
     }
@@ -82,8 +86,32 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource {
         if let serving = vc.recipes?[indexPath.row].servings {
             cell.servesInfoLabel.text = "\(serving)"
         }
-                
+        
+        let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+        cell.favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+        cell.favouriteButton.tintColor = .CustomGreen()
+        cell.delegate = self
+        cell.favouriteButton.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
         return cell
+    }
+    
+    @objc func favoriteButtonTapped(_ sender: UIButton) {
+//        delegate?.favouriteButtonTapped(sender.tag)
+        print(sender.tag)
+    }
+    
+    func favouriteButtonTapped(_ tag: Int) {
+        let recipeID = vc.recipes?[tag].id
+        let uid = Auth.auth().currentUser!.uid
+        db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
+            if error != nil {
+                print("There is an error")
+            } else {
+                self.vc.recipes?.remove(at: tag)
+                self.recipesTableView.deleteRows(at: [IndexPath.init(row: tag, section: 0)], with: .fade)
+                self.recipesTableView.reloadData()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -102,5 +130,27 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource {
         )
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let recipeID = vc.recipes?[tag].id
+        let uid = Auth.auth().currentUser!.uid
+        if editingStyle == .delete {
+           print("Deleted")
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
+                if error != nil {
+                    print("There is an error")
+                } else {
+                    print("Delete done")
+                    self.vc.recipes?.remove(at: indexPath.row)
+                    self.recipesTableView.deleteRows(at: [indexPath], with: .fade)
+                    self.recipesTableView.reloadData()
+                }
+            }
+            
+        }
+    }
+
 }
