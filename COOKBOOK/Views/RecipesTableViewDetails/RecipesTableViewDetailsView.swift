@@ -140,6 +140,7 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
     }
     
     func favouriteButtonTapped(_ tag: Int) {
+        print("RecipeDetailsView => \(tag)")
         let recipeID = "\(recipesTableVC.recipesDetails[tag].id ?? 0)"
         let uid = Auth.auth().currentUser!.uid
         let data = [

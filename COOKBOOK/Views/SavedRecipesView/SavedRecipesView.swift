@@ -91,16 +91,17 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
         cell.favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
         cell.favouriteButton.tintColor = .CustomGreen()
         cell.delegate = self
+        cell.favouriteButton.tag = indexPath.row
         cell.favouriteButton.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
         return cell
     }
     
     @objc func favoriteButtonTapped(_ sender: UIButton) {
-//        delegate?.favouriteButtonTapped(sender.tag)
-        print(sender.tag)
+        delegate?.favouriteButtonTapped(sender.tag)
     }
     
     func favouriteButtonTapped(_ tag: Int) {
+        print("tag => \(tag)")
         let recipeID = vc.recipes?[tag].id
         let uid = Auth.auth().currentUser!.uid
         db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
@@ -128,29 +129,6 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
             instructionsNumber: "\(vc.recipes?[indexPath.row].analyzedInstructions?.count ?? 0)",
             instructionsSteps: vc.recipes?[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"]
         )
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let recipeID = vc.recipes?[tag].id
-        let uid = Auth.auth().currentUser!.uid
-        if editingStyle == .delete {
-           print("Deleted")
-            db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
-                if error != nil {
-                    print("There is an error")
-                } else {
-                    print("Delete done")
-                    self.vc.recipes?.remove(at: indexPath.row)
-                    self.recipesTableView.deleteRows(at: [indexPath], with: .fade)
-                    self.recipesTableView.reloadData()
-                }
-            }
-            
-        }
     }
 
 }

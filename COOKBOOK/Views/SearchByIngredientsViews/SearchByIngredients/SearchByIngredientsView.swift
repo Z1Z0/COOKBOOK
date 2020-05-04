@@ -30,8 +30,8 @@ class SearchByIngredientsView: UIView, UITextFieldDelegate {
     var sectionInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     fileprivate let widthConstant: CGFloat = 1.3
     fileprivate let height: CGFloat = 55
-    var delegate: AddIngredientsToCollectionDelegate?
-    var deleteBtnIndexPath: IndexPath?
+    weak var delegate: AddIngredientsToCollectionDelegate?
+    weak var deleteDelegate: DeleteIngredientsDelegate?
     
     lazy var addIngrediantsInstructionsLabel: UILabel = {
         let addIngrediantsInstructionsLabel = UILabel()
@@ -161,8 +161,8 @@ class SearchByIngredientsView: UIView, UITextFieldDelegate {
     
 }
 
-extension SearchByIngredientsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+extension SearchByIngredientsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DeleteIngredientsDelegate {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cleanIngredientsArray.count
     }
@@ -171,6 +171,8 @@ extension SearchByIngredientsView: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchByIngredientsViewCollectionViewCell", for: indexPath) as! SearchByIngredientsViewCollectionViewCell
         cell.ingredientTitleLabel.text = cleanIngredientsArray[indexPath.row]
         cell.deleteIngredient.addTarget(self, action: #selector(deleteIngredient(sender:)), for: .touchUpInside)
+        cell.delegate = self
+        cell.deleteIngredient.tag = indexPath.row
         return cell
     }
     
@@ -182,20 +184,16 @@ extension SearchByIngredientsView: UICollectionViewDelegate, UICollectionViewDat
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        self.cleanIngredientsArray.remove(at: indexPath.row)
-//        self.ingredientsArray = []
-//        print(cleanIngredientsArray)
-//        print(ingredientsArray)
-//        addIngrediantsCollectionView.deleteItems(at: [indexPath])
-//    }
-    
     @objc func deleteIngredient(sender: UIButton) {
-        let buttonRow = sender.tag
-        self.cleanIngredientsArray.remove(at: buttonRow)
-        self.ingredientsArray = []
-        print(cleanIngredientsArray)
-        addIngrediantsCollectionView.deleteItems(at: [IndexPath.init(row: buttonRow, section: 0)])
+        deleteDelegate?.deleteButtonTapped(sender.tag)
     }
     
+    func deleteButtonTapped(_ tag: Int) {
+        let buttonRow = tag
+        self.cleanIngredientsArray.remove(at: buttonRow)
+        self.ingredientsArray = []
+        let indexSet = IndexSet(integer: 0)
+        self.addIngrediantsCollectionView.deleteItems(at: [IndexPath.init(row: buttonRow, section: 0)])
+        self.addIngrediantsCollectionView.reloadSections(indexSet)
+    }
 }

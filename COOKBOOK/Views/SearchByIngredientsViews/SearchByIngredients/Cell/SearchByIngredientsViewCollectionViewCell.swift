@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DeleteIngredientsDelegate: class {
+    func deleteButtonTapped(_ tag: Int)
+}
+
 class SearchByIngredientsViewCollectionViewCell: UICollectionViewCell {
         
     override init(frame: CGRect) {
@@ -22,6 +26,7 @@ class SearchByIngredientsViewCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    weak var delegate: DeleteIngredientsDelegate?
     
     lazy var ingredientTitleLabel: UILabel = {
         let ingredientTitleLabel = UILabel()
@@ -45,9 +50,14 @@ class SearchByIngredientsViewCollectionViewCell: UICollectionViewCell {
         let deleteIngredient = UIButton(type: .system)
         deleteIngredient.setImage(UIImage(systemName: "multiply.circle.fill"), for: .normal)
         deleteIngredient.tintColor = .white
+        deleteIngredient.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
         deleteIngredient.translatesAutoresizingMaskIntoConstraints = false
         return deleteIngredient
     }()
+    
+    @objc func favoriteButtonTapped(_ sender: UIButton) {
+        delegate?.deleteButtonTapped(sender.tag)
+    }
     
     func deleteIngredientConstraints() {
         NSLayoutConstraint.activate([

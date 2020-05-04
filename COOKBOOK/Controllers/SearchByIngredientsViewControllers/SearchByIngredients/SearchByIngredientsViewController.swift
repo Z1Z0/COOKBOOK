@@ -43,20 +43,20 @@ extension SearchByIngredientsViewController: AddIngredientsToCollectionDelegate 
     
     func addingIngredientsToCollection() {
         mainView.ingredientsArray.append(mainView.addIngrediantsTextField.text!)
+        
+        
+        
         for ingredient in mainView.ingredientsArray {
             if ingredient != "" {
-                
                 mainView.cleanIngredientsArray.append(ingredient)
-                mainView.cleanIngredientsArray.removeDuplicates()
-                print(mainView.cleanIngredientsArray)
+                mainView.ingredientsArray = []
+//                mainView.cleanIngredientsArray.removeDuplicates()
                 DispatchQueue.main.async {
                     self.mainView.addIngrediantsCollectionView.reloadData()
                     self.mainView.addIngrediantsTextField.text = ""
                 }
-                
             }
         }
-        
     }
     
     func searchByIngredients() {
