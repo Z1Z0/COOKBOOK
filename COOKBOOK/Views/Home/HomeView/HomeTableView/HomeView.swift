@@ -116,23 +116,31 @@ class HomeView: UIView {
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=8f39671a836440e38af6f6dbd8507b1c&number=25").responseJSON { (response) in
-            if let error = response.error {
-                print(error.localizedDescription)
-            }
-            do {
-                if let data = response.data {
-                    self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
-                    self.recipesDetails = self.recipes?.recipes ?? []
-                    DispatchQueue.main.async {
-                        self.foodTableView.reloadData()
+        db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                if let apiKey = snapshot?["apiKey"] as? String {
+                    AF.request("https://api.spoonacular.com/recipes/random?apiKey=\(apiKey)&number=25").responseJSON { (response) in
+                        if let error = response.error {
+                            print(error.localizedDescription)
+                        }
+                        do {
+                            if let data = response.data {
+                                self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
+                                self.recipesDetails = self.recipes?.recipes ?? []
+                                DispatchQueue.main.async {
+                                    self.foodTableView.reloadData()
+                                }
+                            }
+                            
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        self.indicator.hideIndicatorView(self)
                     }
                 }
-                
-            } catch {
-                print(error.localizedDescription)
             }
-            self.indicator.hideIndicatorView(self)
         }
     }
     
@@ -169,9 +177,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource, FavouriteActionD
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
             let url = URL(string: recipesDetails[indexPath.row].image ?? "Error")
-            let processor = DownsamplingImageProcessor(size: cell.foodImage.bounds.size)
-            cell.foodImage.kf.indicatorType = .activity
-            cell.foodImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
+            cell.foodImage.kf.setImage(with: url)
             cell.foodTitle.text = recipesDetails[indexPath.row].title
             
             if let readyInMin = recipesDetails[indexPath.row].readyInMinutes {

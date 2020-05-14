@@ -70,9 +70,7 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
         let url = URL(string: vc.recipes?[indexPath.row].image ?? "Error")
-        let processor = DownsamplingImageProcessor(size: cell.foodImage.bounds.size)
-        cell.foodImage.kf.indicatorType = .activity
-        cell.foodImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
+        cell.foodImage.kf.setImage(with: url)
         cell.foodTitle.text = vc.recipes?[indexPath.row].title
         
         if let readyInMin = vc.recipes?[indexPath.row].readyInMinutes {

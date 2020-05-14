@@ -83,7 +83,6 @@ class SearchedRecipesDetails: UIView {
     }()
     
     @objc func favoriteButtonTapped(_ sender: UIButton) {
-//        saveDelegate?.favouriteButtonTapped(sender.tag)
         let button = sender
         
         UIView.animate(withDuration: 0.2,

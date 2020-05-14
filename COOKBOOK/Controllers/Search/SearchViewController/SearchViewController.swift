@@ -8,12 +8,14 @@
 
 import UIKit
 import Alamofire
+import Firebase
 
 class SearchViewController: UIViewController {
     
     var searchText: String?
     var recipes: SearchRecipesModel?
     let indicator = ActivityIndicator()
+    let db = Firestore.firestore()
         
     lazy var mainView: SearchView = {
         let view = SearchView(frame: self.view.frame)
@@ -46,23 +48,31 @@ class SearchViewController: UIViewController {
         let newRecipe = searchText?.replacingOccurrences(of: " ", with: "+")
         
         indicator.setupIndicatorView(self.view, containerColor: .customDarkGray(), indicatorColor: .white)
-        AF.request("https://api.spoonacular.com/recipes/search?apiKey=8f39671a836440e38af6f6dbd8507b1c&query=\(newRecipe ?? "Burger")&number=5").responseJSON { (response) in
-            if let error = response.error {
-                print(error.localizedDescription)
-            }
-            do {
-                if let data = response.data {
-                    self.recipes = try JSONDecoder().decode(SearchRecipesModel.self, from: data)
-                    DispatchQueue.main.async {
-                        self.mainView.searchTableView.reloadData()
+        db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                if let apiKey = snapshot?["apiKey"] as? String {
+                    AF.request("https://api.spoonacular.com/recipes/search?apiKey=\(apiKey)&query=\(newRecipe ?? "Burger")&number=5").responseJSON { (response) in
+                        if let error = response.error {
+                            print(error.localizedDescription)
+                        }
+                        do {
+                            if let data = response.data {
+                                self.recipes = try JSONDecoder().decode(SearchRecipesModel.self, from: data)
+                                DispatchQueue.main.async {
+                                    self.mainView.searchTableView.reloadData()
+                                }
+                            }
+                            
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        DispatchQueue.main.async {
+                            self.indicator.hideIndicatorView(self.view)
+                        }
                     }
                 }
-                
-            } catch {
-                print(error.localizedDescription)
-            }
-            DispatchQueue.main.async {
-                self.indicator.hideIndicatorView(self.view)
             }
         }
     }

@@ -96,9 +96,7 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
         let newURL = URL(string: recipesTableVC.recipesDetails[indexPath.row].image ?? "Error")
-        let processor = DownsamplingImageProcessor(size: cell.foodImage.bounds.size)
-        cell.foodImage.kf.indicatorType = .activity
-        cell.foodImage.kf.setImage(with: newURL, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
+        cell.foodImage.kf.setImage(with: newURL)
         cell.foodTitle.text = recipesTableVC.recipesDetails[indexPath.row].title
         
         if let readyInMin = recipesTableVC.recipesDetails[indexPath.row].readyInMinutes {

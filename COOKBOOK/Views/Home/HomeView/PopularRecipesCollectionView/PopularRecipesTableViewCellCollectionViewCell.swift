@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 import Alamofire
+import Firebase
 
 protocol PopularRecipesDidselectActionDelegate: class {
     func categoriesTableViewCell(
@@ -32,6 +33,7 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     
     var recipes: Recipes?
     var recipesDetails = [Recipe]()
+    let db = Firestore.firestore()
     
     weak var popularRecipesDidselectActionDelegate: PopularRecipesDidselectActionDelegate?
 
@@ -48,23 +50,31 @@ class PopularRecipesTableViewCellCollectionViewCell: UITableViewCell, UICollecti
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/random?apiKey=8f39671a836440e38af6f6dbd8507b1c&number=25").responseJSON { (response) in
-            if let error = response.error {
-                print(error)
-            }
-            do {
-                if let data = response.data {
-                    self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
-                    self.recipesDetails = self.recipes?.recipes ?? []
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                }
-                
-            } catch {
-                print(error)
-            }
-        }
+       db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
+           if error != nil {
+               print(error?.localizedDescription)
+           } else {
+               if let apiKey = snapshot?["apiKey"] as? String {
+                   AF.request("https://api.spoonacular.com/recipes/random?apiKey=\(apiKey)&number=25").responseJSON { (response) in
+                       if let error = response.error {
+                           print(error)
+                       }
+                       do {
+                           if let data = response.data {
+                               self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
+                               self.recipesDetails = self.recipes?.recipes ?? []
+                               DispatchQueue.main.async {
+                                   self.collectionView.reloadData()
+                               }
+                           }
+                           
+                       } catch {
+                           print(error)
+                       }
+                   }
+               }
+           }
+       }
     }
     
     lazy var containerView: UIView = {
@@ -147,9 +157,7 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
         
         let url = URL(string: recipesDetails[indexPath.row].image ?? "Error")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularRecipesCollectionViewCell", for: indexPath) as! PopularRecipesCollectionViewCell
-        let processor = DownsamplingImageProcessor(size: cell.popularRecipesImage.bounds.size)
-        cell.popularRecipesImage.kf.indicatorType = .activity
-        cell.popularRecipesImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
+        cell.popularRecipesImage.kf.setImage(with: url)
         cell.recipesTitle.text = recipesDetails[indexPath.row].title
         return cell
     }

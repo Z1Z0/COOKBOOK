@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import Firebase
 
 class RecipesTableViewDetails: UIViewController {
     
@@ -22,6 +23,7 @@ class RecipesTableViewDetails: UIViewController {
     var recipeIDs: String?
     var recipesID: [String] = []
     let defaults = UserDefaults.standard
+    let db = Firestore.firestore()
     
     lazy var mainView: RecipesTableViewDetailsView = {
         let view = RecipesTableViewDetailsView(frame: self.view.frame)
@@ -69,26 +71,32 @@ class RecipesTableViewDetails: UIViewController {
     
     func fetchData(_ category: String) {
         indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
-        let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=8f39671a836440e38af6f6dbd8507b1c&tags=\(category)"
-        print("urlString:", urlString)
-        print()
-        AF.request(urlString).responseJSON { (response) in
-            if let error = response.error {
-                print(error)
-            }
-            do {
-                if let data = response.data {
-                    self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
-                    self.recipesDetails = self.recipes?.recipes ?? []
-                    DispatchQueue.main.async {
-                        self.mainView.foodTableView.reloadData()
+        db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                if let apiKey = snapshot?["apiKey"] as? String {
+                    let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=\(apiKey)&tags=\(category)"
+                    AF.request(urlString).responseJSON { (response) in
+                        if let error = response.error {
+                            print(error)
+                        }
+                        do {
+                            if let data = response.data {
+                                self.recipes = try JSONDecoder().decode(Recipes.self, from: data)
+                                self.recipesDetails = self.recipes?.recipes ?? []
+                                DispatchQueue.main.async {
+                                    self.mainView.foodTableView.reloadData()
+                                }
+                            }
+                            
+                        } catch {
+                            print(error)
+                        }
+                        self.indicator.hideIndicatorView(self.view)
                     }
                 }
-                
-            } catch {
-                print(error)
             }
-            self.indicator.hideIndicatorView(self.view)
         }
     }
 }

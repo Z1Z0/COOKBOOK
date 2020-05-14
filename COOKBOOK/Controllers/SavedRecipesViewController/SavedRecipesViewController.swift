@@ -50,25 +50,32 @@ class SavedRecipesViewController: UIViewController {
     }
     
     func fetchData() {
-        
-        AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(recipesIDs ?? "0")&apiKey=8f39671a836440e38af6f6dbd8507b1c").responseJSON { (response) in
-            if let error = response.error {
-                print(error.localizedDescription)
-            }
-            do {
-                if let data = response.data {
-                    
-                    self.recipes = try JSONDecoder().decode([Recipe].self, from: data)
-                    DispatchQueue.main.async {
-                        self.mainView.recipesTableView.reloadData()
+        db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                if let apiKey = snapshot?["apiKey"] as? String {
+                    AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(self.recipesIDs ?? "0")&apiKey=\(apiKey)").responseJSON { (response) in
+                        if let error = response.error {
+                            print(error.localizedDescription)
+                        }
+                        do {
+                            if let data = response.data {
+                                
+                                self.recipes = try JSONDecoder().decode([Recipe].self, from: data)
+                                DispatchQueue.main.async {
+                                    self.mainView.recipesTableView.reloadData()
+                                }
+                                
+                            }
+                            
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        
                     }
-                    
                 }
-                
-            } catch {
-                print(error.localizedDescription)
             }
-            
         }
     }
     

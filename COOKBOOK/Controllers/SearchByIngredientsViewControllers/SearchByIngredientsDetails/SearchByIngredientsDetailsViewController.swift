@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Firebase
 
 class SearchByIngredientsDetailsViewController: UIViewController {
 
@@ -17,6 +18,7 @@ class SearchByIngredientsDetailsViewController: UIViewController {
     var recipeTitle: String?
     var recipeImage: String?
     var sequence = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51"]
+    let db = Firestore.firestore()
     
     lazy var mainView: SearchByIngredientsDetailsView = {
         let view = SearchByIngredientsDetailsView(frame: self.view.frame)
@@ -46,24 +48,32 @@ class SearchByIngredientsDetailsViewController: UIViewController {
     func fetchData() {
                 
         indicator.setupIndicatorView(self.view, containerColor: .customDarkGray(), indicatorColor: .white)
-        AF.request("https://api.spoonacular.com/recipes/\(recipeID ?? 0)/information?apiKey=8f39671a836440e38af6f6dbd8507b1c").responseJSON { (response) in
-            if let error = response.error {
-                print(error.localizedDescription)
-            }
-            do {
-                if let data = response.data {
-                    
-                    self.recipes = try JSONDecoder().decode(Recipe.self, from: data)
-                    DispatchQueue.main.async {
-                        self.mainView.tableView.reloadData()
+        db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                if let apiKey = snapshot?["apiKey"] as? String {
+                    AF.request("https://api.spoonacular.com/recipes/\(self.recipeID ?? 0)/information?apiKey=\(apiKey)").responseJSON { (response) in
+                        if let error = response.error {
+                            print(error.localizedDescription)
+                        }
+                        do {
+                            if let data = response.data {
+                                
+                                self.recipes = try JSONDecoder().decode(Recipe.self, from: data)
+                                DispatchQueue.main.async {
+                                    self.mainView.tableView.reloadData()
+                                }
+                            }
+                            
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        DispatchQueue.main.async {
+                            self.indicator.hideIndicatorView(self.view)
+                        }
                     }
                 }
-                
-            } catch {
-                print(error.localizedDescription)
-            }
-            DispatchQueue.main.async {
-                self.indicator.hideIndicatorView(self.view)
             }
         }
     }
