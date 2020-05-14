@@ -94,7 +94,7 @@ class RecipesTableViewDetails: UIViewController {
 }
 
 extension RecipesTableViewDetails: RecipesTVDetailsSelectActionDelegate {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String]) {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
         
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
@@ -108,6 +108,7 @@ extension RecipesTableViewDetails: RecipesTVDetailsSelectActionDelegate {
         vc.ingredientsAmount = ingredientsAmount
         vc.instructionsNumber = instructionsNumber
         vc.instructionsSteps = instructionsSteps
+        vc.recipeID = recipeID
         self.show(vc, sender: nil)
     }
 }

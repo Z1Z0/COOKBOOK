@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 import Kingfisher
+import Firebase
 
 protocol HomeViewDidSelectActionDelegate: class {
     func homeView(
@@ -32,7 +33,8 @@ protocol PopularRecipesSelectActionDelegate: class {
         ingredientsWeight: [Double],
         ingredientsAmount: [String],
         instructionsNumber: String,
-        instructionsSteps: [String]
+        instructionsSteps: [String],
+        recipeID: String
     )
 }
 
@@ -48,7 +50,8 @@ protocol RecipesDetailsSelectActionDelegate: class {
         ingredientsWeight: [Double],
         ingredientsAmount: [String],
         instructionsNumber: String,
-        instructionsSteps: [String]
+        instructionsSteps: [String],
+        recipeID: String
     )
 }
 
@@ -61,6 +64,7 @@ class HomeView: UIView {
     weak var homeViewDidSelectActionDelegate: HomeViewDidSelectActionDelegate?
     weak var recipeDetailsViewSelectActionDelegate: RecipesDetailsSelectActionDelegate?
     weak var popularRecipesDidselectActionDelegate: PopularRecipesSelectActionDelegate?
+    let db = Firestore.firestore()
     
     override init( frame: CGRect) {
         super.init(frame: frame)
@@ -134,7 +138,7 @@ class HomeView: UIView {
     
 }
 
-extension HomeView: UITableViewDelegate, UITableViewDataSource {
+extension HomeView: UITableViewDelegate, UITableViewDataSource, FavouriteActionDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -181,8 +185,53 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             if let serving = recipesDetails[indexPath.row].servings {
                 cell.servesInfoLabel.text = "\(serving)"
             }
+            cell.homeView = self
+            if recipesDetails[indexPath.row].checked == true {
+                let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+                cell.favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+                cell.favouriteButton.tintColor = .CustomGreen()
+                cell.favouriteButton.backgroundColor = .clear
+                cell.favouriteButton.isSelected = false
+
+            } else {
+                let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+                cell.favouriteButton.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+                cell.favouriteButton.tintColor = .CustomGreen()
+                cell.favouriteButton.backgroundColor = .clear
+                cell.favouriteButton.isSelected = true
+            }
             
+            cell.delegate = self
+            cell.favouriteButton.tag = indexPath.row
             return cell
+        }
+        
+    }
+    
+    func favouriteButtonTapped(_ tag: Int) {
+        recipesDetails[tag].checked = !(recipesDetails[tag].checked ?? false)
+        let recipeID = "\(recipesDetails[tag].id ?? 0)"
+        let uid = Auth.auth().currentUser!.uid
+        let data = [
+            "FavRecipes": recipeID
+        ]
+        
+        switch recipesDetails[tag].checked {
+        case true:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            DispatchQueue.main.async {
+                self.foodTableView.reloadData()
+            }
+        case false:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
+            DispatchQueue.main.async {
+                self.foodTableView.reloadData()
+            }
+        default:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            DispatchQueue.main.async {
+                self.foodTableView.reloadData()
+            }
         }
         
     }
@@ -200,7 +249,8 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
                 ingredientsWeight: recipesDetails[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
                 ingredientsAmount: recipesDetails[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
                 instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count ?? 5)",
-                instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({($0.step ?? "Error")}) ?? ["Error"])
+                instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({($0.step ?? "Error")}) ?? ["Error"]),
+                recipeID: "\(recipesDetails[indexPath.row].id ?? 0)"
             )
         }
     }
@@ -241,9 +291,7 @@ extension HomeView: RecipesDidselectActionDelegate {
 }
 
 extension HomeView: PopularRecipesDidselectActionDelegate {
-    
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double],
-    ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String]) {
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
         
         popularRecipesDidselectActionDelegate?.popularRecipes(
             self,
@@ -257,9 +305,9 @@ extension HomeView: PopularRecipesDidselectActionDelegate {
             ingredientsWeight: ingredientsWeight,
             ingredientsAmount: ingredientsAmount,
             instructionsNumber: instructionsNumber,
-            instructionsSteps: instructionsSteps
+            instructionsSteps: instructionsSteps,
+            recipeID: recipeID
         )
-        
     }
 
 }

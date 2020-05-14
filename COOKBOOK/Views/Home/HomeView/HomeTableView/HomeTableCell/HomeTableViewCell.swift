@@ -12,11 +12,18 @@ protocol FavouriteActionDelegate: class {
     func favouriteButtonTapped(_ tag: Int)
 }
 
+@objc protocol FavouriteButtonDelegate: class {
+    func favouriteBtnTapped(_ sender: UIButton)
+}
+
 class HomeTableViewCell: UITableViewCell {
+
     
     let titlesStackView = UIStackView()
     let titlesInformationStackView = UIStackView()
     weak var delegate: FavouriteActionDelegate?
+    weak var buttonTapped: FavouriteButtonDelegate?
+    var homeView = HomeView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -48,19 +55,18 @@ class HomeTableViewCell: UITableViewCell {
     
     lazy var favouriteButton: UIButton = {
         var favouriteButton = UIButton()
-        let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-        favouriteButton.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
-        favouriteButton.contentMode = .scaleAspectFill
-        favouriteButton.tintColor = .CustomGreen()
+//        let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+//        favouriteButton.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+//        favouriteButton.contentMode = .scaleAspectFill
+//        favouriteButton.tintColor = .CustomGreen()
         favouriteButton.backgroundColor = .clear
         favouriteButton.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
         favouriteButton.translatesAutoresizingMaskIntoConstraints = false
         return favouriteButton
     }()
-    
+
     @objc func favoriteButtonTapped(_ sender: UIButton) {
         delegate?.favouriteButtonTapped(sender.tag)
-        let button = sender
         
         UIView.animate(withDuration: 0.2,
         animations: {
@@ -71,21 +77,6 @@ class HomeTableViewCell: UITableViewCell {
                 self.favouriteButton.transform = CGAffineTransform.identity
             }
         })
-
-        
-        if button.isSelected == true {
-            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-            sender.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
-            sender.tintColor = .CustomGreen()
-            sender.backgroundColor = .clear
-            sender.isSelected = false
-        } else {
-            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
-            sender.tintColor = .CustomGreen()
-            sender.backgroundColor = .clear
-            sender.isSelected = true
-        }
     }
     
     lazy var foodTitle: UILabel = {

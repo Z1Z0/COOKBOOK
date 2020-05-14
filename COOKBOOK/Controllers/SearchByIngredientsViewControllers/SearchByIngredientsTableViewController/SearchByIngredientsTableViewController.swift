@@ -46,14 +46,12 @@ class SearchByIngredientsTableViewController: UIViewController {
     func fetchData() {
 
         indicator.setupIndicatorView(self.view, containerColor: .customDarkGray(), indicatorColor: .white)
-        AF.request("https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(ingredientsString ?? "Error")&number=5&apiKey=bbb927604e1d4f0195e6e22a92fc9d5f").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(ingredientsString ?? "Error")&number=5&apiKey=8f39671a836440e38af6f6dbd8507b1c").responseJSON { (response) in
             if let error = response.error {
                 print(error.localizedDescription)
             }
             do {
                 if let data = response.data {
-                    print("Data => \(data)")
-                    print("response.result => \(response.result)")
                     self.recipes = try JSONDecoder().decode([SearchWithIngredient].self, from: data)
                     DispatchQueue.main.async {
                         self.mainView.searchTableView.reloadData()

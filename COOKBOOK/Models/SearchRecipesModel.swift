@@ -8,12 +8,13 @@
 
 import Foundation
 
-struct SearchRecipesModel: Codable {
-    let results: [Result]?
-    let baseURI: String?
-    let offset, number, totalResults, processingTimeMS: Int?
-    let expires: Int?
-    let isStale: Bool?
+class SearchRecipesModel: Codable {
+    var results: [Result]?
+    var baseURI: String?
+    var offset, number, totalResults, processingTimeMS: Int?
+    var expires: Int?
+    var isStale: Bool?
+    
     
     enum CodingKeys: String, CodingKey {
         case results
@@ -25,10 +26,15 @@ struct SearchRecipesModel: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
-    let id: Int?
-    let title: String?
-    let readyInMinutes, servings: Int?
-    let image: String?
-    let imageUrls: [String]?
+class Result: Codable {
+    var id: Int?
+    var title: String?
+    var readyInMinutes, servings: Int?
+    var image: String?
+    var imageUrls: [String]?
+    var checked: Bool?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, title, readyInMinutes, servings, image, imageUrls, checked
+    }
 }

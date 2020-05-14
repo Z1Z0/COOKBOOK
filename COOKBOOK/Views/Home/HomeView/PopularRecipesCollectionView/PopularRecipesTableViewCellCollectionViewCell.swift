@@ -23,7 +23,8 @@ protocol PopularRecipesDidselectActionDelegate: class {
         ingredientsWeight: [Double],
         ingredientsAmount: [String],
         instructionsNumber: String,
-        instructionsSteps: [String]
+        instructionsSteps: [String],
+        recipeID: String
     )
 }
 
@@ -172,7 +173,8 @@ extension PopularRecipesTableViewCellCollectionViewCell: UICollectionViewDelegat
             ingredientsWeight: recipesDetails[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
             ingredientsAmount: recipesDetails[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
             instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count ?? 0)",
-            instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"])
+            instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"]),
+            recipeID: "\(recipesDetails[indexPath.row].id ?? 0)"
         )
     }
     

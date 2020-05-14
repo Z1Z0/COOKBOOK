@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SearchWithIngredient: Codable {
+class SearchWithIngredient: Codable {
     let id: Int?
     let title: String?
     let image: String?
@@ -17,10 +17,11 @@ struct SearchWithIngredient: Codable {
     let missedIngredients, usedIngredients: [SedIngredient]?
     let unusedIngredients: [JSONAny]?
     let likes: Int?
+    var checked: Bool?
 }
 
 // MARK: - SedIngredient
-struct SedIngredient: Codable {
+class SedIngredient: Codable {
     let id: Int?
     let amount: Double?
     let unit, unitLong, unitShort, aisle: String?

@@ -24,7 +24,8 @@ protocol RecipesTVDetailsSelectActionDelegate: class {
         ingredientsWeight: [Double],
         ingredientsAmount: [String],
         instructionsNumber: String,
-        instructionsSteps: [String]
+        instructionsSteps: [String],
+        recipeID: String
     )
 }
 
@@ -112,6 +113,21 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
             cell.servesInfoLabel.text = "\(serving)"
         }
         
+        if recipesTableVC.recipesDetails[indexPath.row].checked == true {
+            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+            cell.favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+            cell.favouriteButton.tintColor = .CustomGreen()
+            cell.favouriteButton.backgroundColor = .clear
+            cell.favouriteButton.isSelected = false
+
+        } else {
+            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+            cell.favouriteButton.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+            cell.favouriteButton.tintColor = .CustomGreen()
+            cell.favouriteButton.backgroundColor = .clear
+            cell.favouriteButton.isSelected = true
+        }
+        
         cell.delegate = self
         cell.favouriteButton.tag = indexPath.row
         
@@ -131,7 +147,8 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
             ingredientsWeight: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
             ingredientsAmount: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
             instructionsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?.count ?? 0)",
-            instructionsSteps: recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"]
+            instructionsSteps: recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"],
+            recipeID: "\(recipesTableVC.recipesDetails[indexPath.row].id ?? 0)"
         )
     }
     
@@ -140,13 +157,30 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
     }
     
     func favouriteButtonTapped(_ tag: Int) {
-        print("RecipeDetailsView => \(tag)")
+        recipesTableVC.recipesDetails[tag].checked = !(recipesTableVC.recipesDetails[tag].checked ?? false)
         let recipeID = "\(recipesTableVC.recipesDetails[tag].id ?? 0)"
         let uid = Auth.auth().currentUser!.uid
         let data = [
             "FavRecipes": recipeID
         ]
-        db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+        
+        switch recipesTableVC.recipesDetails[tag].checked {
+        case true:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            DispatchQueue.main.async {
+                self.foodTableView.reloadData()
+            }
+        case false:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
+            DispatchQueue.main.async {
+                self.foodTableView.reloadData()
+            }
+        default:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            DispatchQueue.main.async {
+                self.foodTableView.reloadData()
+            }
+        }
     }
     
 }

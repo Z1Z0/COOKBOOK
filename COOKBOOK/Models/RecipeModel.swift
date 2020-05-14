@@ -38,6 +38,7 @@ struct Recipe: Codable {
     let originalID: Int?
     let author: String?
     let preparationMinutes, cookingMinutes: Int?
+    var checked: Bool?
 
     enum CodingKeys: String, CodingKey {
         case vegetarian, vegan, glutenFree, dairyFree, veryHealthy, cheap, veryPopular, sustainable, weightWatcherSmartPoints, gaps, lowFodmap
@@ -45,7 +46,7 @@ struct Recipe: Codable {
         case spoonacularSourceURL = "spoonacularSourceUrl"
         case aggregateLikes, spoonacularScore, healthScore, creditsText, license, sourceName, pricePerServing, extendedIngredients, id, title, readyInMinutes, servings, image, imageType, summary, cuisines, dishTypes, diets, occasions, winePairing, instructions, analyzedInstructions
         case originalID = "originalId"
-        case author, preparationMinutes, cookingMinutes
+        case author, preparationMinutes, cookingMinutes, checked
     }
 }
 

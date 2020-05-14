@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import Firebase
 
 protocol SearchDelegate: class {
     func searchRecipeDelegate(recipeID: Int, recipeTitle: String, recipeImage: String)
@@ -18,6 +19,7 @@ class SearchView: UIView {
     
     var vc = SearchViewController()
     weak var delegate: SearchDelegate?
+    let db = Firestore.firestore()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,7 +65,7 @@ class SearchView: UIView {
     
 }
 
-extension SearchView: UITableViewDelegate, UITableViewDataSource {
+extension SearchView: UITableViewDelegate, UITableViewDataSource, FavouriteActionDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if vc.recipes?.totalResults ?? 0 == 0 {
@@ -89,7 +91,53 @@ extension SearchView: UITableViewDelegate, UITableViewDataSource {
             cell.foodImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
             cell.cookingTimeInfoLabel.text = "\(vc.recipes?.results?[indexPath.row].readyInMinutes ?? 0) Mins"
             cell.servesInfoLabel.text = "\(vc.recipes?.results?[indexPath.row].servings ?? 0) People"
+            
+            if vc.recipes?.results?[indexPath.row].checked == true {
+                let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+                cell.favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+                cell.favouriteButton.tintColor = .CustomGreen()
+                cell.favouriteButton.backgroundColor = .clear
+                cell.favouriteButton.isSelected = false
+
+            } else {
+                let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+                cell.favouriteButton.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+                cell.favouriteButton.tintColor = .CustomGreen()
+                cell.favouriteButton.backgroundColor = .clear
+                cell.favouriteButton.isSelected = true
+            }
+            
+            cell.delegate = self
+            cell.favouriteButton.tag = indexPath.row
+            
             return cell
+        }
+    }
+    
+    func favouriteButtonTapped(_ tag: Int) {
+        vc.recipes?.results?[tag].checked = !(vc.recipes?.results?[tag].checked ?? false)
+        let recipeID = "\(vc.recipes?.results?[tag].id ?? 0)"
+        let uid = Auth.auth().currentUser!.uid
+        let data = [
+            "FavRecipes": recipeID
+        ]
+        
+        switch vc.recipes?.results?[tag].checked {
+        case true:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            DispatchQueue.main.async {
+                self.searchTableView.reloadData()
+            }
+        case false:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
+            DispatchQueue.main.async {
+                self.searchTableView.reloadData()
+            }
+        default:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            DispatchQueue.main.async {
+                self.searchTableView.reloadData()
+            }
         }
     }
     

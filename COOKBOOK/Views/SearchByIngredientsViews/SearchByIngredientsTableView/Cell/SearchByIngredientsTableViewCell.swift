@@ -18,6 +18,8 @@ class SearchByIngredientsTableViewCell: UITableViewCell {
         self.backgroundColor = .customVeryLightGray()
     }
     
+    weak var delegate: FavouriteActionDelegate?
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -41,12 +43,27 @@ class SearchByIngredientsTableViewCell: UITableViewCell {
     }()
     
     lazy var favouriteButton: UIButton = {
-        var favouriteButton = UIButton(type: .system)
+        var favouriteButton = UIButton()
         favouriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
         favouriteButton.tintColor = .CustomGreen()
+        favouriteButton.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
         favouriteButton.translatesAutoresizingMaskIntoConstraints = false
         return favouriteButton
     }()
+    
+    @objc func favoriteButtonTapped(_ sender: UIButton) {
+        delegate?.favouriteButtonTapped(sender.tag)
+        
+        UIView.animate(withDuration: 0.2,
+        animations: {
+            self.favouriteButton.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        },
+        completion: { _ in
+            UIView.animate(withDuration: 0.2) {
+                self.favouriteButton.transform = CGAffineTransform.identity
+            }
+        })
+    }
     
     lazy var foodTitle: UILabel = {
         let foodTitle = UILabel()

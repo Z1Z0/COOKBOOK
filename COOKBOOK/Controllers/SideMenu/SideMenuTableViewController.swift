@@ -49,6 +49,12 @@ extension SideMenuTableViewController: SideMenuDelegate {
         self.sideMenuViewController!.hideMenuViewController()
     }
     
+    func goToFavouriteRecipes() {
+        let vc = UINavigationController(rootViewController: SavedRecipesViewController())
+        self.sideMenuViewController?.setContentViewController(vc, animated: true)
+        self.sideMenuViewController!.hideMenuViewController()
+    }
+    
     func goToContactUs() {
         let vc = UINavigationController(rootViewController: ContactUsViewController())
         self.sideMenuViewController?.setContentViewController(vc, animated: true)

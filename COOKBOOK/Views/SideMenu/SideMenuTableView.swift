@@ -14,6 +14,7 @@ import Kingfisher
 protocol SideMenuDelegate: class {
     func goToHome()
     func goToSearchByIngredients()
+    func goToFavouriteRecipes()
     func goToContactUs()
     func goToAboutUs()
     func logoutTapped()
@@ -78,7 +79,7 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return 6
+            return 7
         }
     }
     
@@ -135,22 +136,28 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
             case 2:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Rate our app"
+                cell.titleLabel.text = "Favourite recipes"
                 return cell
                 
             case 3:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "About us"
+                cell.titleLabel.text = "Rate our app"
                 return cell
                 
             case 4:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
-                cell.titleLabel.text = "Contact us"
+                cell.titleLabel.text = "About us"
                 return cell
                 
             case 5:
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
+                cell.titleLabel.text = "Contact us"
+                return cell
+                
+            case 6:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
                 cell.titleLabel.text = "Logout"
@@ -172,11 +179,13 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
                 delegate?.goToHome()
             case 1:
                 delegate?.goToSearchByIngredients()
-            case 3:
-                delegate?.goToAboutUs()
+            case 2:
+                delegate?.goToFavouriteRecipes()
             case 4:
-                delegate?.goToContactUs()
+                delegate?.goToAboutUs()
             case 5:
+                delegate?.goToContactUs()
+            case 6:
                 delegate?.logoutTapped()
             default:
                 print("default")

@@ -95,7 +95,7 @@ extension HomeViewController: HomeViewDidSelectActionDelegate {
 }
 
 extension HomeViewController: RecipesDetailsSelectActionDelegate {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String]) {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
         
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
@@ -109,14 +109,13 @@ extension HomeViewController: RecipesDetailsSelectActionDelegate {
         vc.ingredientsAmount = ingredientsAmount
         vc.instructionsNumber = instructionsNumber
         vc.instructionsSteps = instructionsSteps
+        vc.recipeID = recipeID
         self.show(vc, sender: nil)
-        
     }
 }
 
 extension HomeViewController: PopularRecipesSelectActionDelegate {
-    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double],
-    ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String]) {
+    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
         
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
@@ -130,7 +129,7 @@ extension HomeViewController: PopularRecipesSelectActionDelegate {
         vc.ingredientsAmount = ingredientsAmount
         vc.ingredientsNumber = ingredientsNumber
         vc.instructionsSteps = instructionsSteps
+        vc.recipeID = recipeID
         self.show(vc, sender: nil)
-        
     }
 }

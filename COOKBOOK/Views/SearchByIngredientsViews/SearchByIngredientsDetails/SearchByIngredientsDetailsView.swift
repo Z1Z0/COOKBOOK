@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class SearchByIngredientsDetailsView: UIView {
     
@@ -23,6 +24,8 @@ class SearchByIngredientsDetailsView: UIView {
     var recipeVC = RecipesDetailsViewController()
     weak var delegate: SearchedRecipesDetailsDelegateAction!
     var vc = SearchByIngredientsDetailsViewController()
+    weak var saveDelegate: FavouriteActionDelegate?
+    let db = Firestore.firestore()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -59,7 +62,7 @@ class SearchByIngredientsDetailsView: UIView {
     }()
     
     lazy var saveButton: UIButton = {
-        let saveButton = UIButton(type: .system)
+        let saveButton = UIButton()
         saveButton.setTitleColor(.customDarkGray(), for: .normal)
         saveButton.setTitle("Save", for: .normal)
         saveButton.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -68,9 +71,56 @@ class SearchByIngredientsDetailsView: UIView {
         saveButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 14)
         saveButton.tintColor = .customDarkGray()
         saveButton.backgroundColor = .clear
+        saveButton.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         return saveButton
     }()
+    
+    @objc func favoriteButtonTapped(_ sender: UIButton) {
+        saveDelegate?.favouriteButtonTapped(sender.tag)
+        let button = sender
+        
+        UIView.animate(withDuration: 0.2,
+        animations: {
+            self.saveButton.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        },
+        completion: { _ in
+            UIView.animate(withDuration: 0.2) {
+                self.saveButton.transform = CGAffineTransform.identity
+            }
+        })
+
+        
+        if button.isSelected == true {
+            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+            sender.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+            sender.tintColor = .CustomGreen()
+            sender.backgroundColor = .clear
+            sender.isSelected = false
+            let recipeID = vc.recipeID
+            let uid = Auth.auth().currentUser!.uid
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
+                if error != nil {
+                    print("Can't delete the recipe")
+                } else {
+                    print("Delete recipe")
+                }
+            }
+        } else {
+            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+            sender.tintColor = .CustomGreen()
+            sender.backgroundColor = .clear
+            sender.isSelected = true
+            print("RecipeDetailsView => \(tag)")
+            let recipeID = String("\(vc.recipeID ?? 0)")
+            let uid = Auth.auth().currentUser!.uid
+            let data = [
+                "FavRecipes": recipeID
+            ]
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+        }
+    }
     
     func setupTableViewConstraints() {
         NSLayoutConstraint.activate([

@@ -45,12 +45,13 @@ class SavedRecipesViewController: UIViewController {
         self.title = "Favourite recipes"
         preferedLargeTitle()
         setupNavigation()
+        setupSideMenu()
         getFirebaseDocuments()
     }
     
     func fetchData() {
         
-        AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(recipesIDs ?? "0")&apiKey=bbb927604e1d4f0195e6e22a92fc9d5f").responseJSON { (response) in
+        AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(recipesIDs ?? "0")&apiKey=8f39671a836440e38af6f6dbd8507b1c").responseJSON { (response) in
             if let error = response.error {
                 print(error.localizedDescription)
             }
@@ -82,7 +83,7 @@ class SavedRecipesViewController: UIViewController {
                 if let data = response.data {
                     self.favRecipes = try JSONDecoder().decode(FavouriteRecipes.self, from: data)
                     self.document = self.favRecipes?.documents ?? []
-                    let recipesID = self.document.map({($0.fields?.favRecipes?.stringValue)!}).joined(separator: ",")
+                    let recipesID = self.document.map({($0.fields?.favRecipes?.stringValue ?? "Error")}).joined(separator: ",")
                     self.recipesIDs = recipesID
                     self.fetchData()
                     self.indicator.hideIndicatorView(self.view)
@@ -97,8 +98,7 @@ class SavedRecipesViewController: UIViewController {
 }
 
 extension SavedRecipesViewController: RecipesTVDetailsSelectActionDelegate {
-    
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String]) {
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
         vc.recipeImage = recipeImage
@@ -111,6 +111,7 @@ extension SavedRecipesViewController: RecipesTVDetailsSelectActionDelegate {
         vc.ingredientsAmount = ingredientsAmount
         vc.instructionsNumber = instructionsNumber
         vc.instructionsSteps = instructionsSteps
+        vc.recipeID = recipeID
         self.show(vc, sender: nil)
     }
 }

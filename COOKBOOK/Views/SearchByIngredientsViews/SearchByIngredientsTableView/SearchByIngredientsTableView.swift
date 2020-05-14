@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 import Kingfisher
+import Firebase
 
 class SearchByIngredientsTableView: UIView {
     
     var vc = SearchByIngredientsTableViewController()
     weak var delegate: SearchDelegate?
+    let db = Firestore.firestore()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,7 +61,8 @@ class SearchByIngredientsTableView: UIView {
     
 }
 
-extension SearchByIngredientsTableView: UITableViewDelegate, UITableViewDataSource {
+extension SearchByIngredientsTableView: UITableViewDelegate, UITableViewDataSource, FavouriteActionDelegate {
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if vc.recipes?.count != 0 {
@@ -76,12 +79,57 @@ extension SearchByIngredientsTableView: UITableViewDelegate, UITableViewDataSour
             cell.foodTitle.text = vc.recipes?[indexPath.row].title
             let url = URL(string: vc.recipes?[indexPath.row].image ?? "Error")
             cell.foodImage.kf.setImage(with: url)
+            cell.delegate = self
+            cell.favouriteButton.tag = indexPath.row
+            
+            if vc.recipes?[indexPath.row].checked == true {
+                let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+                cell.favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+                cell.favouriteButton.tintColor = .CustomGreen()
+                cell.favouriteButton.backgroundColor = .clear
+                cell.favouriteButton.isSelected = false
+
+            } else {
+                let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+                cell.favouriteButton.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+                cell.favouriteButton.tintColor = .CustomGreen()
+                cell.favouriteButton.backgroundColor = .clear
+                cell.favouriteButton.isSelected = true
+            }
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Error404TableViewCell", for: indexPath) as! Error404TableViewCell
             return cell
         }
         
+    }
+    
+    func favouriteButtonTapped(_ tag: Int) {
+        vc.recipes?[tag].checked = !(vc.recipes?[tag].checked ?? false)
+        let recipeID = "\(vc.recipes?[tag].id ?? 0)"
+        let uid = Auth.auth().currentUser!.uid
+        let data = [
+            "FavRecipes": recipeID
+        ]
+        
+        switch vc.recipes?[tag].checked {
+        case true:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            DispatchQueue.main.async {
+                self.searchTableView.reloadData()
+            }
+        case false:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
+            DispatchQueue.main.async {
+                self.searchTableView.reloadData()
+            }
+        default:
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            DispatchQueue.main.async {
+                self.searchTableView.reloadData()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
