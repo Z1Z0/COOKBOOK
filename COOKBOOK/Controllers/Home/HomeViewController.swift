@@ -9,8 +9,10 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import GoogleMobileAds
 
 class HomeViewController: UIViewController {
+    
 
     let searchController = UISearchController(searchResultsController: nil)
         
@@ -30,7 +32,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        mainView.banner.rootViewController = self
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -44,6 +46,7 @@ class HomeViewController: UIViewController {
         setupNavigationWithLargeTitle()
         setupNavigation()
         setupSideMenu()
+        
     }
     
 }

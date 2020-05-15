@@ -50,13 +50,34 @@ class SavedRecipesView: UIView {
         ])
     }
     
+    lazy var banner: GADBannerView = {
+        var banner = GADBannerView()
+        banner = GADBannerView(adSize: kGADAdSizeBanner)
+        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.load(GADRequest())
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        return banner
+    }()
+    
+    func setupBannerConstraints() {
+        
+        NSLayoutConstraint.activate([
+            banner.centerXAnchor.constraint(equalTo: centerXAnchor),
+            banner.heightAnchor.constraint(equalToConstant: 50),
+            banner.widthAnchor.constraint(equalToConstant: 350),
+            banner.bottomAnchor.constraint(equalTo: recipesTableView.bottomAnchor, constant: -16)
+        ])
+    }
+    
     func addSubviews() {
         addSubview(recipesTableView)
+        addSubview(banner)
     }
     
     func layoutUI() {
         addSubviews()
         setupRecipesTableViewConstraints()
+        setupBannerConstraints()
     }
     
 }

@@ -35,7 +35,7 @@ class SavedRecipesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        mainView.banner.rootViewController = self
         // Do any additional setup after loading the view.
         
     }

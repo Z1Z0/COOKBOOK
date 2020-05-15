@@ -45,7 +45,7 @@ class RecipesTableViewDetails: UIViewController {
         if let categoryTitle = categoryTitle {
             fetchData(categoryTitle)
         }
-        
+        mainView.banner.rootViewController = self
     }
     
     override func viewWillAppear(_ animated: Bool) {

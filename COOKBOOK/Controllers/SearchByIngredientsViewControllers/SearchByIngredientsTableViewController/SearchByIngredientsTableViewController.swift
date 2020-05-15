@@ -35,6 +35,7 @@ class SearchByIngredientsTableViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         fetchData()
+        mainView.banner.rootViewController = self
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -21,4 +21,5 @@ target 'COOKBOOK' do
   pod 'BEMCheckBox'
   pod 'AlignedCollectionViewFlowLayout'
   pod 'AKSideMenu'
+  pod 'Google-Mobile-Ads-SDK'
 end
