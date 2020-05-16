@@ -37,7 +37,7 @@ class SavedRecipesViewController: UIViewController {
         super.viewDidLoad()
         mainView.banner.rootViewController = self
         // Do any additional setup after loading the view.
-        
+        setupSideMenu()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,19 +45,19 @@ class SavedRecipesViewController: UIViewController {
         self.title = "Favourite recipes"
         preferedLargeTitle()
         setupNavigation()
-        setupSideMenu()
+        
         getFirebaseDocuments()
     }
     
     func fetchData() {
         db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                print(error?.localizedDescription)
+                Alert.showAlert(title: "Sorry", subtitle: "There is no favourite recipes", leftView: UIImageView(image: #imageLiteral(resourceName: "isInfoIcon")), style: .warning)
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(self.recipesIDs ?? "0")&apiKey=\(apiKey)").responseJSON { (response) in
                         if let error = response.error {
-                            print(error.localizedDescription)
+                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         do {
                             if let data = response.data {
@@ -66,13 +66,10 @@ class SavedRecipesViewController: UIViewController {
                                 DispatchQueue.main.async {
                                     self.mainView.recipesTableView.reloadData()
                                 }
-                                
                             }
-                            
                         } catch {
-                            print(error.localizedDescription)
+                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
-                        
                     }
                 }
             }
@@ -84,7 +81,7 @@ class SavedRecipesViewController: UIViewController {
         let uid = Auth.auth().currentUser!.uid
         AF.request("https://firestore.googleapis.com/v1/projects/cookbook-5a8f7/databases/(default)/documents/Users/\(uid)/FavouriteRecipes").responseJSON { (response) in
             if let error = response.error {
-                print(error.localizedDescription)
+                Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             }
             do {
                 if let data = response.data {
@@ -97,7 +94,7 @@ class SavedRecipesViewController: UIViewController {
                 }
                 
             } catch {
-                print(error.localizedDescription)
+                Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             }
         }
         

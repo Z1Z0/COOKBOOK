@@ -64,29 +64,6 @@ class SearchViewTableViewCell: UITableViewCell {
                     self.favouriteButton.transform = CGAffineTransform.identity
                 }
             })
-            
-    //        if homeView.recipesDetails[sender.tag].checked ?? false {
-    //            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-    //            favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
-    //            favouriteButton.tintColor = .CustomGreen()
-    //            favouriteButton.backgroundColor = .clear
-    //            favouriteButton.isSelected = true
-    //        }
-    //
-    //        if sender.isSelected == true {
-    //            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-    //            sender.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
-    //            sender.tintColor = .CustomGreen()
-    //            sender.backgroundColor = .clear
-    //            sender.isSelected = false
-    //        }
-    //        else {
-    //            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-    //            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
-    //            sender.tintColor = .CustomGreen()
-    //            sender.backgroundColor = .clear
-    //            sender.isSelected = true
-    //        }
         }
     
     lazy var foodTitle: UILabel = {

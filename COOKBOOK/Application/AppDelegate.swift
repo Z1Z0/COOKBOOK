@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import IQKeyboardManager
-import FBSDKCoreKit
 import GoogleMobileAds
 
 @UIApplicationMain
@@ -18,14 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         IQKeyboardManager.shared().isEnabled = true
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
-    }
-    
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     // MARK: UISceneSession Lifecycle

@@ -45,7 +45,7 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
             mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
             present(mail, animated: true)
         } else {
-            print("Application is not able to send an email")
+            Alert.showAlert(title: "Error", subtitle: "Check your internet connectivity", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
         }
     }
     

@@ -63,8 +63,6 @@ class Error404TableViewCell: UITableViewCell {
     
     func setupStackViewConstraints() {
         NSLayoutConstraint.activate([
-//            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            stackView.centerYAnchor.constraint(equalTo: centerYAnchor)
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
@@ -89,7 +87,6 @@ class Error404TableViewCell: UITableViewCell {
         addSubviews()
         setupStackView()
         setupStackViewConstraints()
-//        setupErrorImageConstraints()
     }
     
     override func awakeFromNib() {

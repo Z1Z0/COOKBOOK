@@ -8,8 +8,6 @@
 
 import UIKit
 import Firebase
-import FacebookLogin
-import FacebookCore
 
 class SignInViewController: UIViewController, SignInDelegate {
     
@@ -37,8 +35,6 @@ class SignInViewController: UIViewController, SignInDelegate {
                 if Auth.auth().currentUser?.isEmailVerified == true {
                     self.view.alpha = 1.0
                     self.indicator.hideIndicatorView(self.view)
-                    print("Logined")
-                    
                     let homeVC = HomeViewController()
                     self.show(homeVC, sender: nil)
                     
@@ -69,47 +65,8 @@ class SignInViewController: UIViewController, SignInDelegate {
     }
     
     func forgetPasswordButtonTapped() {
-        print("HIIIII")
         let forgetPasswordVC = ForgetPasswordViewController()
         self.show(forgetPasswordVC, sender: nil)
-    }
-    
-    func facebookButtonTapped() {
-        indicator.setupIndicatorView(view, containerColor: .white, indicatorColor: .CustomGreen())
-        view.alpha = 0.7
-        let loginManager = LoginManager()
-        loginManager.logIn(permissions: [.publicProfile, .email], viewController: self) { (result) in
-            switch result {
-            case .success(granted: _, declined: _, token: _):
-                self.signIntoFirebaseWithFacebook()
-            case .failed(let error):
-                print(error)
-                self.indicator.hideIndicatorView(self.view)
-                self.view.alpha = 1.0
-            case .cancelled:
-                print("cancelled")
-                self.indicator.hideIndicatorView(self.view)
-                self.view.alpha = 1.0
-            }
-        }
-    }
-    
-    fileprivate func signIntoFirebaseWithFacebook() {
-        let authenticationToken = AccessToken.current?.tokenString
-        let credential = FacebookAuthProvider.credential(withAccessToken: authenticationToken!)
-        Auth.auth().signIn(with: credential) { (user, error) in
-            if let err = error {
-                print(err)
-                return
-            }
-            
-            self.view.alpha = 1.0
-            self.indicator.hideIndicatorView(self.view)
-        }
-    }
-    
-    func twitterButtonTapped() {
-        
     }
     
     override func viewDidLoad() {

@@ -50,12 +50,12 @@ class SearchByIngredientsDetailsViewController: UIViewController {
         indicator.setupIndicatorView(self.view, containerColor: .customDarkGray(), indicatorColor: .white)
         db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                print(error?.localizedDescription)
+                Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     AF.request("https://api.spoonacular.com/recipes/\(self.recipeID ?? 0)/information?apiKey=\(apiKey)").responseJSON { (response) in
                         if let error = response.error {
-                            print(error.localizedDescription)
+                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         do {
                             if let data = response.data {
@@ -67,7 +67,7 @@ class SearchByIngredientsDetailsViewController: UIViewController {
                             }
                             
                         } catch {
-                            print(error.localizedDescription)
+                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         DispatchQueue.main.async {
                             self.indicator.hideIndicatorView(self.view)

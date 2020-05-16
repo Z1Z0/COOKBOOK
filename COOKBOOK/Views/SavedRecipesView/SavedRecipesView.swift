@@ -120,12 +120,11 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
     }
     
     func favouriteButtonTapped(_ tag: Int) {
-        print("tag => \(tag)")
         let recipeID = vc.recipes?[tag].id
         let uid = Auth.auth().currentUser!.uid
         db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
             if error != nil {
-                print("There is an error")
+                Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 self.vc.recipes?.remove(at: tag)
                 self.recipesTableView.deleteRows(at: [IndexPath.init(row: tag, section: 0)], with: .fade)

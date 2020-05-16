@@ -89,10 +89,6 @@ class CategoriesTableViewCellCollectionViewCell: UITableViewCell, UICollectionVi
         return categoriesNameLabel
     }()
 
-    @objc func test() {
-        print("Test worked")
-    }
-
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal

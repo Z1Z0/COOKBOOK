@@ -14,8 +14,6 @@ import Material
     @objc func loginButtonTapped()
     @objc func registerButtonTapped()
     @objc func forgetPasswordButtonTapped()
-    @objc func facebookButtonTapped()
-    @objc func twitterButtonTapped()
 }
 
 class SignInView: UIView {
@@ -142,7 +140,6 @@ class SignInView: UIView {
         facebookButton.setImage(UIImage(named: "facebook"), for: .normal)
         facebookButton.backgroundColor = #colorLiteral(red: 0.1803921569, green: 0.2705882353, blue: 0.5294117647, alpha: 1)
         facebookButton.layer.cornerRadius = 8.0
-        facebookButton.addTarget(delegate, action: #selector(delegate.facebookButtonTapped), for: .touchUpInside)
         facebookButton.translatesAutoresizingMaskIntoConstraints = false
         return facebookButton
     }()

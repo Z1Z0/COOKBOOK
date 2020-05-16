@@ -62,12 +62,11 @@ class SignUpViewController: UIViewController, SignupDelegate {
                                 
                                 storageProfileRef.putData(imageData, metadata: metadata) { (storage, error) in
                                     if error != nil {
-                                        print(error!.localizedDescription)
+                                        Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                                         return
                                     }
                                     storageProfileRef.downloadURL { (url, error) in
                                         if let metaImageUrl = url?.absoluteString {
-                                            print(metaImageUrl)
                                             data["ProfileImage"] = metaImageUrl
                                             self.db.collection("Users").document(uid).setData(data)
                                         }

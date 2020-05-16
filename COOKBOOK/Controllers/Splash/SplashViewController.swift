@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import NotificationBannerSwift
 
 class SplashViewController: UIViewController, SplashViewDelegate {
     
@@ -50,7 +51,7 @@ class SplashViewController: UIViewController, SplashViewDelegate {
     func getAboutUsData() {
         db.collection("AppInfo").document("splash").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                print(error?.localizedDescription)
+                Alert.showAlert(title: "Ops", subtitle: "There is error in your connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 if let description = snapshot?["splash"] as? String {
                     self.mainView.appDescription.text = description

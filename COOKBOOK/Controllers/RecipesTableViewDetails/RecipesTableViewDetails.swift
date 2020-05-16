@@ -22,7 +22,6 @@ class RecipesTableViewDetails: UIViewController {
     var recipeID: [String]?
     var recipeIDs: String?
     var recipesID: [String] = []
-    let defaults = UserDefaults.standard
     let db = Firestore.firestore()
     
     lazy var mainView: RecipesTableViewDetailsView = {
@@ -40,8 +39,6 @@ class RecipesTableViewDetails: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        defaults.set(recipesID, forKey: "array")
-        print(recipesID)
         if let categoryTitle = categoryTitle {
             fetchData(categoryTitle)
         }
@@ -73,13 +70,13 @@ class RecipesTableViewDetails: UIViewController {
         indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
         db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                print(error?.localizedDescription)
+                Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     let urlString = "https://api.spoonacular.com/recipes/random?number=25&apiKey=\(apiKey)&tags=\(category)"
                     AF.request(urlString).responseJSON { (response) in
                         if let error = response.error {
-                            print(error)
+                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription , leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         do {
                             if let data = response.data {
@@ -91,7 +88,7 @@ class RecipesTableViewDetails: UIViewController {
                             }
                             
                         } catch {
-                            print(error)
+                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         self.indicator.hideIndicatorView(self.view)
                     }

@@ -26,7 +26,6 @@ class SearchedRecipesDetails: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    var recipeVC = RecipesDetailsViewController()
     weak var delegate: SearchedRecipesDetailsDelegateAction!
     var vc = SearchedRecipesDetailsViewController()
     weak var saveDelegate: FavouriteActionDelegate?
@@ -104,20 +103,13 @@ class SearchedRecipesDetails: UIView {
             sender.isSelected = false
             let recipeID = "\(vc.recipeID ?? 0)"
             let uid = Auth.auth().currentUser!.uid
-            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete { (error) in
-                if error != nil {
-                    print("Can't delete the recipe")
-                } else {
-                    print("Delete recipe")
-                }
-            }
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
         } else {
             let configrations = UIImage.SymbolConfiguration(pointSize: 24)
             sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
             sender.tintColor = .CustomGreen()
             sender.backgroundColor = .clear
             sender.isSelected = true
-            print("RecipeDetailsView => \(tag)")
             let recipeID = "\(vc.recipeID ?? 0)"
             let uid = Auth.auth().currentUser!.uid
             let data = [

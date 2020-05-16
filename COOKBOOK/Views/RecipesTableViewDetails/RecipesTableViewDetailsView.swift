@@ -38,7 +38,6 @@ class RecipesTableViewDetailsView: UIView {
     let indicator = ActivityIndicator()
     var recipesTableVC = RecipesTableViewDetails()
     let db = Firestore.firestore()
-//    weak var delegate: PassingFavouriteRecipesDelegate?
     
     weak var recipesTVDetailsSelectActionDelegate: RecipesTVDetailsSelectActionDelegate?
     

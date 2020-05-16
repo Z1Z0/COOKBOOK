@@ -104,20 +104,13 @@ class RecipesDetailsView: UIView {
             sender.isSelected = false
             let recipeID = recipeVC.recipeID
             let uid = Auth.auth().currentUser!.uid
-            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID ?? "Error").delete { (error) in
-                if error != nil {
-                    print("Can't delete the recipe")
-                } else {
-                    print("Delete recipe")
-                }
-            }
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID ?? "Error").delete()
         } else {
             let configrations = UIImage.SymbolConfiguration(pointSize: 24)
             sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
             sender.tintColor = .CustomGreen()
             sender.backgroundColor = .clear
             sender.isSelected = true
-            print("RecipeDetailsView => \(tag)")
             let recipeID = recipeVC.recipeID
             let uid = Auth.auth().currentUser!.uid
             let data = [

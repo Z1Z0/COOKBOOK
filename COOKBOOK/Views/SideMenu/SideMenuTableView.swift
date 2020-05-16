@@ -95,7 +95,7 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
                 if let uid = uid {
                     db.collection("Users").document(uid).addSnapshotListener { (snapshot, error) in
                         if error != nil {
-                            print(error?.localizedDescription)
+                            Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         } else {
                             if let dbUsername = snapshot?["Username"] as? String {
                                 cell.username.text = dbUsername
