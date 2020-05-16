@@ -53,10 +53,10 @@ class SignInView: UIView {
         loginStackView.addArrangedSubview(loginButton)
         loginStackView.addArrangedSubview(registerBtn)
         loginStackView.addArrangedSubview(socialLoginStackView)
-        socialLoginStackView.addArrangedSubview(facebookBtnContainer)
-        facebookBtnContainer.addSubview(facebookBtn)
-        socialLoginStackView.addArrangedSubview(appleBtnContainer)
-        appleBtnContainer.addSubview(appleBtn)
+//        socialLoginStackView.addArrangedSubview(facebookBtnContainer)
+//        facebookBtnContainer.addSubview(facebookBtn)
+//        socialLoginStackView.addArrangedSubview(appleBtnContainer)
+//        appleBtnContainer.addSubview(appleBtn)
         loginStackView.addArrangedSubview(forgetPasswordBtn)
         
     }
@@ -280,6 +280,7 @@ class SignInView: UIView {
         NSLayoutConstraint.activate([
             forgetPasswordBtn.leadingAnchor.constraint(equalTo: loginStackView.leadingAnchor),
             forgetPasswordBtn.trailingAnchor.constraint(equalTo: loginStackView.trailingAnchor)
+//            forgetPasswordBtn.topAnchor.constraint(equalTo: loginStackView.bottomAnchor, constant: 32)
         ])
     }
     
@@ -324,11 +325,11 @@ class SignInView: UIView {
         setupEmailConstraints()
         setupPasswordConstraints()
         dismissKeyboard()
-        setupSocialLoginStackView()
-        setupFacebookButtonContainerConstraints()
-        setupFacebookButtonConstraints()
-        setupAppleButtonContainerConstraints()
-        setupAppleButtonConstraints()
+//        setupSocialLoginStackView()
+//        setupFacebookButtonContainerConstraints()
+//        setupFacebookButtonConstraints()
+//        setupAppleButtonContainerConstraints()
+//        setupAppleButtonConstraints()
         setupForgetPasswordButtonConstraints()
         checkTxtFields()
     }

@@ -97,7 +97,7 @@ class SignupView: UIView {
         userImageButton.translatesAutoresizingMaskIntoConstraints = false
         userImageButton.backgroundColor = .clear
         userImageButton.addTarget(imageDelegate, action: #selector(imageDelegate?.userImageTapped), for: .touchUpInside)
-        userImageButton.layer.cornerRadius = frame.width / 6
+        userImageButton.layer.cornerRadius = frame.width / 7
         userImageButton.layer.masksToBounds = true
         return userImageButton
     }()
@@ -108,7 +108,7 @@ class SignupView: UIView {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 0, weight: .thin, scale: .small)
         userImage.image = UIImage(systemName: "plus.circle", withConfiguration: imageConfig)
         userImage.tintColor = .customDarkGray()
-        userImage.layer.cornerRadius = frame.width / 6
+        userImage.layer.cornerRadius = frame.width / 7
         userImage.layer.masksToBounds = true
         userImage.translatesAutoresizingMaskIntoConstraints = false
         return userImage
@@ -116,14 +116,14 @@ class SignupView: UIView {
     
     func setupUserImageContainerViewConstraints() {
         NSLayoutConstraint.activate([
-            userImageContainerView.heightAnchor.constraint(equalToConstant: frame.width / 3)
+            userImageContainerView.heightAnchor.constraint(equalToConstant: frame.width / 3.5)
         ])
     }
     
     func setupUserImageButton() {
         NSLayoutConstraint.activate([
-            userImageButton.heightAnchor.constraint(equalToConstant: frame.width / 3),
-            userImageButton.widthAnchor.constraint(equalToConstant: frame.width / 3),
+            userImageButton.heightAnchor.constraint(equalToConstant: frame.width / 3.5),
+            userImageButton.widthAnchor.constraint(equalToConstant: frame.width / 3.5),
             userImageButton.centerXAnchor.constraint(equalTo: userImage.centerXAnchor),
             userImageButton.centerYAnchor.constraint(equalTo: userImage.centerYAnchor)
         ])
@@ -133,8 +133,8 @@ class SignupView: UIView {
         NSLayoutConstraint.activate([
             userImage.centerXAnchor.constraint(equalTo: userImageContainerView.centerXAnchor),
             userImage.centerYAnchor.constraint(equalTo: userImageContainerView.centerYAnchor),
-            userImage.heightAnchor.constraint(equalToConstant: frame.width / 3),
-            userImage.widthAnchor.constraint(equalToConstant: frame.width / 3)
+            userImage.heightAnchor.constraint(equalToConstant: frame.width / 3.5),
+            userImage.widthAnchor.constraint(equalToConstant: frame.width / 3.5)
         ])
     }
     

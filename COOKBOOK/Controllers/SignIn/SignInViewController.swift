@@ -69,6 +69,7 @@ class SignInViewController: UIViewController, SignInDelegate {
     }
     
     func forgetPasswordButtonTapped() {
+        print("HIIIII")
         let forgetPasswordVC = ForgetPasswordViewController()
         self.show(forgetPasswordVC, sender: nil)
     }
@@ -101,33 +102,14 @@ class SignInViewController: UIViewController, SignInDelegate {
                 print(err)
                 return
             }
+            
             self.view.alpha = 1.0
             self.indicator.hideIndicatorView(self.view)
         }
     }
     
     func twitterButtonTapped() {
-        let provider = OAuthProvider(providerID: "twitter.com")
-        provider.getCredentialWith(_: nil) { credential, error in
-            if error != nil {
-                print(error?.localizedDescription ?? "Error")
-            }
-            if credential != nil {
-                Auth.auth().signIn(with: credential!) { authResult, error in
-                    if error != nil {
-                        print(error?.localizedDescription ?? "Error")
-                    }
-                }
-            }
-            if let credential = credential {
-                Auth.auth().signIn(with: credential) { (result, error) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                        return
-                    }
-                }
-            }
-        }
+        
     }
     
     override func viewDidLoad() {
