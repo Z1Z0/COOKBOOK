@@ -40,9 +40,9 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients(["you@yoursite.com"])
-            mail.setSubject("Email Subject Here")
-            mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+            mail.setToRecipients(["ahmedabdelaziz500@icloud.com"])
+            mail.setSubject(mainView.subjectTextField.text ?? "Subject")
+            mail.setMessageBody(mainView.emailBodyTextView.text, isHTML: false)
             present(mail, animated: true)
         } else {
             Alert.showAlert(title: "Error", subtitle: "Check your internet connectivity", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)

@@ -30,7 +30,7 @@ class ContactUsView: UIView, UITextViewDelegate {
         let subjectTextField = UITextField()
         subjectTextField.textColor = .customDarkGray()
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.customLightGray()]
-        subjectTextField.attributedPlaceholder = NSAttributedString(string: "Subject", attributes: attributes)
+        subjectTextField.attributedPlaceholder = NSAttributedString(string: "Email subject", attributes: attributes)
         subjectTextField.font = UIFont(name: "AvenirNext-DemiBold", size: 14)
         subjectTextField.layer.cornerRadius = 8.0
         let bordColor = UIColor(red: 28/255, green: 158/255, blue: 11/255, alpha: 1)
@@ -54,7 +54,7 @@ class ContactUsView: UIView, UITextViewDelegate {
     
     lazy var emailBodyTextView: UITextView = {
         let emailBodyTextView = UITextView()
-        emailBodyTextView.text = "Placeholder"
+        emailBodyTextView.text = "Tell us a litte more about your issue or request"
         emailBodyTextView.font = UIFont(name: "AvenirNext-DemiBold", size: 14)
         emailBodyTextView.textColor = UIColor.customLightGray()
         let bordColor = UIColor(red: 28/255, green: 158/255, blue: 11/255, alpha: 1)
@@ -86,7 +86,7 @@ class ContactUsView: UIView, UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Placeholder"
+            textView.text = "Tell us a litte more about your issue or request"
             textView.textColor = UIColor.customLightGray()
         }
     }
@@ -112,6 +112,12 @@ class ContactUsView: UIView, UITextViewDelegate {
         ])
     }
     
+    private func dismissKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        addGestureRecognizer(tap)
+    }
+    
     func addSubviews() {
         addSubview(subjectTextField)
         addSubview(emailBodyTextView)
@@ -123,6 +129,7 @@ class ContactUsView: UIView, UITextViewDelegate {
         setupSubjectLabelConstraints()
         setupEmailBodyTextView()
         setupSendEmailButtonConstraints()
+        dismissKeyboard()
     }
     
 }

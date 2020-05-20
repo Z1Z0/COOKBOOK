@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 @objc protocol GoToAboutUsDelegate: class {
     @objc func goToAboutUs()
@@ -129,27 +130,50 @@ class AboutUsView: UIView {
             sendEmailButton.heightAnchor.constraint(equalToConstant: 55),
             sendEmailButton.widthAnchor.constraint(equalToConstant: frame.width / widthConstant),
             sendEmailButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            sendEmailButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16)
+            sendEmailButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -80)
+        ])
+    }
+    
+    lazy var banner: GADBannerView = {
+        var banner = GADBannerView()
+        banner = GADBannerView(adSize: kGADAdSizeBanner)
+        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.load(GADRequest())
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        return banner
+    }()
+    
+    func setupBannerConstraints() {
+        
+        NSLayoutConstraint.activate([
+            banner.centerXAnchor.constraint(equalTo: centerXAnchor),
+            banner.heightAnchor.constraint(equalToConstant: 50),
+            banner.widthAnchor.constraint(equalToConstant: 350),
+            banner.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
     
     func addSubviews() {
         addSubview(scrollView)
+        addSubview(banner)
         scrollView.addSubview(cookbookLabel)
         scrollView.addSubview(cookingImage)
         scrollView.addSubview(aboutCookbookLabel)
         scrollView.addSubview(informationLabel)
         scrollView.addSubview(sendEmailButton)
+        
     }
     
     func layoutUI() {
         addSubviews()
+        setupBannerConstraints()
         setupScrollViewConstraints()
         setupCookbookLabelConstraints()
         setupCookingImageConstraints()
         setupAboutCookbookLabelConstraints()
         setupInformationLabelConstraints()
         setupSendEmailButtonConstraints()
+        
     }
     
 }

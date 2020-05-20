@@ -44,7 +44,6 @@ class SearchByIngredientsTableViewController: UIViewController {
         preferedLargeTitle()
         setupNavigation()
     }
-    
 
     func fetchData() {
 

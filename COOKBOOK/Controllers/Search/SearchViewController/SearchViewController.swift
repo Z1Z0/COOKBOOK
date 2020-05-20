@@ -21,6 +21,7 @@ class SearchViewController: UIViewController {
         let view = SearchView(frame: self.view.frame)
         view.vc = self
         view.delegate = self
+        view.backgroundColor = .white
         return view
     }()
     
@@ -54,7 +55,7 @@ class SearchViewController: UIViewController {
                 Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
-                    AF.request("https://api.spoonacular.com/recipes/search?apiKey=\(apiKey)&query=\(newRecipe ?? "Burger")&number=5").responseJSON { (response) in
+                    AF.request("https://api.spoonacular.com/recipes/search?apiKey=\(apiKey)&query=\(newRecipe ?? "Burger")&number=25").responseJSON { (response) in
                         if let error = response.error {
                             Alert.showAlert(title: "Error", subtitle: error.localizedDescription , leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }

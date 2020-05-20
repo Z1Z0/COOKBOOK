@@ -44,7 +44,7 @@ class SearchByIngredientsTableView: UIView {
     func setupSearchTableViewConstraints() {
         NSLayoutConstraint.activate([
             searchTableView.topAnchor.constraint(equalTo: topAnchor),
-            searchTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            searchTableView.bottomAnchor.constraint(equalTo: banner.topAnchor, constant: -16),
             searchTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             searchTableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
@@ -65,7 +65,7 @@ class SearchByIngredientsTableView: UIView {
             banner.centerXAnchor.constraint(equalTo: centerXAnchor),
             banner.heightAnchor.constraint(equalToConstant: 50),
             banner.widthAnchor.constraint(equalToConstant: 350),
-            banner.bottomAnchor.constraint(equalTo: searchTableView.bottomAnchor, constant: -16)
+            banner.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
     

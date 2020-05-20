@@ -45,7 +45,6 @@ class SavedRecipesViewController: UIViewController {
         self.title = "Favourite recipes"
         preferedLargeTitle()
         setupNavigation()
-        
         getFirebaseDocuments()
     }
     

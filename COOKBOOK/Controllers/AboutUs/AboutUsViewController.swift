@@ -16,6 +16,7 @@ class AboutUsViewController: UIViewController {
     lazy var mainView: AboutUsView = {
         let view = AboutUsView(frame: self.view.frame)
         view.backgroundColor = .white
+        view.banner.rootViewController = self
         return view
     }()
     

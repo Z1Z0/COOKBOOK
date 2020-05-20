@@ -44,7 +44,7 @@ class SavedRecipesView: UIView {
     func setupRecipesTableViewConstraints() {
         NSLayoutConstraint.activate([
             recipesTableView.topAnchor.constraint(equalTo: topAnchor),
-            recipesTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            recipesTableView.bottomAnchor.constraint(equalTo: banner.topAnchor, constant: -16),
             recipesTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             recipesTableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
@@ -65,7 +65,7 @@ class SavedRecipesView: UIView {
             banner.centerXAnchor.constraint(equalTo: centerXAnchor),
             banner.heightAnchor.constraint(equalToConstant: 50),
             banner.widthAnchor.constraint(equalToConstant: 350),
-            banner.bottomAnchor.constraint(equalTo: recipesTableView.bottomAnchor, constant: -16)
+            banner.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
     

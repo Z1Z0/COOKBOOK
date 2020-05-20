@@ -9,12 +9,13 @@
 import UIKit
 import Alamofire
 import Kingfisher
-import GoogleMobileAds
+import Firebase
 
 class HomeViewController: UIViewController {
     
 
     let searchController = UISearchController(searchResultsController: nil)
+    let db = Firestore.firestore()
         
     lazy var mainView: HomeView = {
         let view = HomeView(frame: self.view.frame)

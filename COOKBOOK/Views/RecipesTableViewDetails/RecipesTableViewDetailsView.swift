@@ -68,7 +68,7 @@ class RecipesTableViewDetailsView: UIView {
         
         NSLayoutConstraint.activate([
             foodTableView.topAnchor.constraint(equalTo: topAnchor),
-            foodTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            foodTableView.bottomAnchor.constraint(equalTo: banner.topAnchor, constant: -16),
             foodTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             foodTableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
@@ -89,7 +89,7 @@ class RecipesTableViewDetailsView: UIView {
             banner.centerXAnchor.constraint(equalTo: centerXAnchor),
             banner.heightAnchor.constraint(equalToConstant: 50),
             banner.widthAnchor.constraint(equalToConstant: 350),
-            banner.bottomAnchor.constraint(equalTo: foodTableView.bottomAnchor, constant: -16)
+            banner.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
     
