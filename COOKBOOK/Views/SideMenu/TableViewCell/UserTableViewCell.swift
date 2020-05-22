@@ -49,7 +49,6 @@ class UserTableViewCell: UITableViewCell {
     lazy var username: UILabel = {
         let username = UILabel()
         username.textColor = .white
-        username.text = "Ahmed Abd Elaziz"
         username.font = UIFont(name: "AvenirNext-DemiBold", size: 20)
         username.translatesAutoresizingMaskIntoConstraints = false
         return username

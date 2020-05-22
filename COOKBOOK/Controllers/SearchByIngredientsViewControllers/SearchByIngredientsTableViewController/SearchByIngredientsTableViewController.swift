@@ -53,7 +53,7 @@ class SearchByIngredientsTableViewController: UIViewController {
                 Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
-                    AF.request("https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(self.ingredientsString ?? "Error")&number=5&apiKey=\(apiKey)").responseJSON { (response) in
+                    AF.request("https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(self.ingredientsString ?? "Error")&number=25&apiKey=\(apiKey)").responseJSON { (response) in
                         if let error = response.error {
                             Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }

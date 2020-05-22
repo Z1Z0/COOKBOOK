@@ -158,7 +158,7 @@ class HomeView: UIView {
                             }
                             
                         } catch {
-                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         self.indicator.hideIndicatorView(self)
                     }

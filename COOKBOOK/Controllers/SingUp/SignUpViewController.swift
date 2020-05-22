@@ -83,6 +83,8 @@ class SignUpViewController: UIViewController, SignupDelegate {
                             self.view.alpha = 1.0
                             self.indicator.hideIndicatorView(self.view)
                             Alert.showAlert(title: "Email created", subtitle: "You have created your account. Please check your email and activate the account", leftView: UIImageView(image: #imageLiteral(resourceName: "isSuccessIcon")), style: .success)
+                            let signinVC = SignInViewController()
+                            self.show(signinVC, sender: nil)
                         } else {
                             self.view.alpha = 1.0
                             self.indicator.hideIndicatorView(self.view)
