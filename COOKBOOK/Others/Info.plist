@@ -24,7 +24,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb1079119205765418</string>
-				<string>twitterkit-TBcNjIFrCD30LDbCIBq5nrEtr</string>
 			</array>
 		</dict>
 		<dict>
@@ -42,10 +41,10 @@
 	<string>1079119205765418</string>
 	<key>FacebookDisplayName</key>
 	<string>COOKBOOK</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<true/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>twitter</string>
-		<string>twitterauth</string>
 		<string>fbapi</string>
 		<string>fbapi20130214</string>
 		<string>fbapi20130410</string>

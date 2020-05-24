@@ -19,4 +19,5 @@ target 'COOKBOOK' do
   pod 'BEMCheckBox'
   pod 'AKSideMenu'
   pod 'Google-Mobile-Ads-SDK'
+  pod 'FBSDKLoginKit'
 end
