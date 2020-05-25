@@ -50,12 +50,14 @@ class SearchByIngredientsTableViewController: UIViewController {
         indicator.setupIndicatorView(self.view, containerColor: .customDarkGray(), indicatorColor: .white)
         db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                self.indicator.hideIndicatorView(self.view)
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     AF.request("https://api.spoonacular.com/recipes/findByIngredients?ingredients=\(self.ingredientsString ?? "Error")&number=25&apiKey=\(apiKey)").responseJSON { (response) in
                         if let error = response.error {
-                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            self.indicator.hideIndicatorView(self.view)
                         }
                         do {
                             if let data = response.data {
@@ -66,7 +68,8 @@ class SearchByIngredientsTableViewController: UIViewController {
                             }
 
                         } catch {
-                            Alert.showAlert(title: "Error", subtitle: error.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            self.indicator.hideIndicatorView(self.view)
                         }
                         DispatchQueue.main.async {
                             self.indicator.hideIndicatorView(self.view)

@@ -89,7 +89,7 @@ class SearchView: UIView {
 extension SearchView: UITableViewDelegate, UITableViewDataSource, FavouriteActionDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if vc.recipes?.totalResults ?? 0 == 0 {
+        if vc.recipes?.results?.count == 0 {
             return 1
         } else if vc.recipes?.totalResults ?? 0 < vc.recipes?.number ?? 0 {
             return vc.recipes?.totalResults ?? 0
@@ -100,7 +100,7 @@ extension SearchView: UITableViewDelegate, UITableViewDataSource, FavouriteActio
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if vc.recipes?.totalResults == 0 {
+        if vc.recipes?.results?.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Error404TableViewCell", for: indexPath) as! Error404TableViewCell
             return cell
         } else {
@@ -163,7 +163,7 @@ extension SearchView: UITableViewDelegate, UITableViewDataSource, FavouriteActio
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if vc.recipes?.totalResults != 0 {
+        if vc.recipes?.results?.count != 0 {
             delegate?.searchRecipeDelegate(
                 recipeID: vc.recipes?.results?[indexPath.row].id ?? 0,
                 recipeTitle: vc.recipes?.results?[indexPath.row].title ?? "Error",
