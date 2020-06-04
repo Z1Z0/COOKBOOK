@@ -12,12 +12,10 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-3727927641788977~7601429631</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -36,13 +34,15 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>1079119205765418</string>
-	<key>FacebookDisplayName</key>
-	<string>COOKBOOK</string>
 	<key>FacebookAutoLogAppEventsEnabled</key>
 	<true/>
+	<key>FacebookDisplayName</key>
+	<string>COOKBOOK</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3727927641788977~7601429631</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -62,6 +62,12 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>COOKBOOK wants to use your camera to take profile photo.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>COOKBOOK wants to save photos to your photo library.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>COOKBOOK wants to use your photo library to take profile photo.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -100,15 +106,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>NSCameraUsageDescription</key>
-	<string>COOKBOOK wants to use your camera to take profile photo.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>COOKBOOK wants to save photos to your photo library.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>COOKBOOK wants to use your photo library to take profile photo.</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

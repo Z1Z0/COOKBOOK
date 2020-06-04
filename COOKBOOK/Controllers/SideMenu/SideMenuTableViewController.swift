@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 
 class SideMenuTableViewController: UIViewController {
+    
+    var uid = Auth.auth().currentUser?.uid
         
     lazy var mainView: SideMenuTableView = {
         let view = SideMenuTableView(frame: self.view.frame)
@@ -20,11 +22,13 @@ class SideMenuTableViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        mainView.vc = self
         view = mainView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +91,4 @@ extension SideMenuTableViewController: SideMenuDelegate {
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
-    
-    
 }

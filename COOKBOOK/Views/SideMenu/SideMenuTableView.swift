@@ -30,6 +30,7 @@ class SideMenuTableView: UIView {
     weak var delegate: SideMenuDelegate?
     let db = Firestore.firestore()
     let uid = Auth.auth().currentUser?.uid
+    var vc = SideMenuTableViewController()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -92,6 +93,26 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
                 
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as! UserTableViewCell
+                let uid = vc.uid ?? "Error"
+                
+                db.collection("Users").document(uid).addSnapshotListener { (snapshot, error) in
+                    if error != nil {
+                        Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                    } else {
+                        if let dbUsername = snapshot?["Username"] as? String {
+                            cell.username.text = dbUsername
+                        }
+                        
+                        if let dbImage = snapshot?["ProfileImage"] as? String {
+                            let url = URL(string: dbImage)
+                            cell.userPhoto.kf.setImage(with: url)
+                        }
+                    }
+                }
+                return cell
+                
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as! UserTableViewCell
                 if let uid = uid {
                     db.collection("Users").document(uid).addSnapshotListener { (snapshot, error) in
                         if error != nil {
@@ -103,18 +124,13 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
                             
                             if let dbImage = snapshot?["ProfileImage"] as? String {
                                 let url = URL(string: dbImage)
-                                let processor = DownsamplingImageProcessor(size: cell.userPhoto.bounds.size)
-                                cell.userPhoto.kf.indicatorType = .activity
-                                cell.userPhoto.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"), options: [.processor(processor), .scaleFactor(UIScreen.main.scale), .transition(.fade(1)), .cacheOriginalImage])
+                                cell.userPhoto.kf.setImage(with: url)
                             }
                         }
                     }
                 }
                 
                 return cell
-                
-            default:
-                return UITableViewCell()
             }
             
         case 1:

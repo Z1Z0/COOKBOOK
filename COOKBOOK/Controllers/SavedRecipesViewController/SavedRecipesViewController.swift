@@ -67,7 +67,7 @@ class SavedRecipesViewController: UIViewController {
                                 }
                             }
                         } catch {
-                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            Alert.showAlert(title: "Sorry", subtitle: "There is no favourite recipes", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .warning)
                         }
                     }
                 }
