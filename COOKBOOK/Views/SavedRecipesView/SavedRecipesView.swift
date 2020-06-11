@@ -53,7 +53,7 @@ class SavedRecipesView: UIView {
     lazy var banner: GADBannerView = {
         var banner = GADBannerView()
         banner = GADBannerView(adSize: kGADAdSizeBanner)
-        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.adUnitID = "ca-app-pub-3727927641788977/2917288980"
         banner.load(GADRequest())
         banner.translatesAutoresizingMaskIntoConstraints = false
         return banner
@@ -121,14 +121,15 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
     
     func favouriteButtonTapped(_ tag: Int) {
         let recipeID = vc.recipes?[tag].id
-        let uid = Auth.auth().currentUser!.uid
-        db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
-            if error != nil {
-                Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
-            } else {
-                self.vc.recipes?.remove(at: tag)
-                self.recipesTableView.deleteRows(at: [IndexPath.init(row: tag, section: 0)], with: .fade)
-                self.recipesTableView.reloadData()
+        if let uid = Auth.auth().currentUser?.uid {
+            db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
+                if error != nil {
+                    Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                } else {
+                    self.vc.recipes?.remove(at: tag)
+                    self.recipesTableView.deleteRows(at: [IndexPath.init(row: tag, section: 0)], with: .fade)
+                    self.recipesTableView.reloadData()
+                }
             }
         }
     }

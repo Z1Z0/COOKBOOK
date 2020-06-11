@@ -55,8 +55,9 @@ class SavedRecipesViewController: UIViewController {
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(self.recipesIDs ?? "0")&apiKey=\(apiKey)").responseJSON { (response) in
-                        if let error = response.error {
+                        if response.error == nil {
                             Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            self.indicator.hideIndicatorView(self.view)
                         }
                         do {
                             if let data = response.data {
@@ -65,9 +66,11 @@ class SavedRecipesViewController: UIViewController {
                                 DispatchQueue.main.async {
                                     self.mainView.recipesTableView.reloadData()
                                 }
+                                self.indicator.hideIndicatorView(self.view)
                             }
                         } catch {
                             Alert.showAlert(title: "Sorry", subtitle: "There is no favourite recipes", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .warning)
+                            self.indicator.hideIndicatorView(self.view)
                         }
                     }
                 }
@@ -76,29 +79,30 @@ class SavedRecipesViewController: UIViewController {
     }
     
     func getFirebaseDocuments() {
-        indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
-        let uid = Auth.auth().currentUser!.uid
-        AF.request("https://firestore.googleapis.com/v1/projects/cookbook-5a8f7/databases/(default)/documents/Users/\(uid)/FavouriteRecipes").responseJSON { (response) in
-            if let error = response.error {
-                Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
-                self.indicator.hideIndicatorView(self.view)
-            }
-            do {
-                if let data = response.data {
-                    self.favRecipes = try JSONDecoder().decode(FavouriteRecipes.self, from: data)
-                    self.document = self.favRecipes?.documents ?? []
-                    let recipesID = self.document.map({($0.fields?.favRecipes?.stringValue ?? "Error")}).joined(separator: ",")
-                    self.recipesIDs = recipesID
-                    self.fetchData()
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
+            AF.request("https://firestore.googleapis.com/v1/projects/cookbook-5a8f7/databases/(default)/documents/Users/\(uid)/FavouriteRecipes").responseJSON { (response) in
+                if response.error == nil {
+                    Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                     self.indicator.hideIndicatorView(self.view)
                 }
-                
-            } catch {
-                Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
-                self.indicator.hideIndicatorView(self.view)
+                do {
+                    if let data = response.data {
+                        self.favRecipes = try JSONDecoder().decode(FavouriteRecipes.self, from: data)
+                        self.document = self.favRecipes?.documents ?? []
+                        let recipesID = self.document.map({($0.fields?.favRecipes?.stringValue ?? "Error")}).joined(separator: ",")
+                        self.recipesIDs = recipesID
+                        self.fetchData()
+                        self.indicator.hideIndicatorView(self.view)
+                    }
+                    
+                } catch {
+                    Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                    self.indicator.hideIndicatorView(self.view)
+                }
             }
         }
-        
     }
 }
 

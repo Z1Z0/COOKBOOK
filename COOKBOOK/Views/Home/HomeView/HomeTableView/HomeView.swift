@@ -104,7 +104,7 @@ class HomeView: UIView {
     lazy var banner: GADBannerView = {
         var banner = GADBannerView()
         banner = GADBannerView(adSize: kGADAdSizeBanner)
-        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.adUnitID = "ca-app-pub-3727927641788977/2917288980"
         banner.load(GADRequest())
         banner.translatesAutoresizingMaskIntoConstraints = false
         return banner
@@ -238,29 +238,33 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource, FavouriteActionD
     }
     
     func favouriteButtonTapped(_ tag: Int) {
-        recipesDetails[tag].checked = !(recipesDetails[tag].checked ?? false)
-        let recipeID = "\(recipesDetails[tag].id ?? 0)"
-        let uid = Auth.auth().currentUser!.uid
-        let data = [
-            "FavRecipes": recipeID
-        ]
-        
-        switch recipesDetails[tag].checked {
-        case true:
-            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
-            DispatchQueue.main.async {
-                self.foodTableView.reloadData()
+        if Auth.auth().currentUser?.uid != nil {
+            recipesDetails[tag].checked = !(recipesDetails[tag].checked ?? false)
+            let recipeID = "\(recipesDetails[tag].id ?? 0)"
+            let uid = Auth.auth().currentUser!.uid
+            let data = [
+                "FavRecipes": recipeID
+            ]
+            
+            switch recipesDetails[tag].checked {
+            case true:
+                db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+                DispatchQueue.main.async {
+                    self.foodTableView.reloadData()
+                }
+            case false:
+                db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
+                DispatchQueue.main.async {
+                    self.foodTableView.reloadData()
+                }
+            default:
+                db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+                DispatchQueue.main.async {
+                    self.foodTableView.reloadData()
+                }
             }
-        case false:
-            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
-            DispatchQueue.main.async {
-                self.foodTableView.reloadData()
-            }
-        default:
-            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
-            DispatchQueue.main.async {
-                self.foodTableView.reloadData()
-            }
+        } else {
+            Alert.showAlert(title: "Error", subtitle: "Please login to save your favorite recipes", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
         }
         
     }

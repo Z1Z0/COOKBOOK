@@ -94,28 +94,31 @@ class SearchedRecipesDetails: UIView {
             }
         })
 
-        
-        if button.isSelected == true {
-            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-            sender.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
-            sender.tintColor = .CustomGreen()
-            sender.backgroundColor = .clear
-            sender.isSelected = false
-            let recipeID = "\(vc.recipeID ?? 0)"
-            let uid = Auth.auth().currentUser!.uid
-            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
+        if Auth.auth().currentUser?.uid != nil {
+            if button.isSelected == true {
+                let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+                sender.setImage(UIImage(systemName: "heart", withConfiguration: configrations), for: .normal)
+                sender.tintColor = .CustomGreen()
+                sender.backgroundColor = .clear
+                sender.isSelected = false
+                let recipeID = "\(vc.recipeID ?? 0)"
+                let uid = Auth.auth().currentUser!.uid
+                db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).delete()
+            } else {
+                let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+                sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+                sender.tintColor = .CustomGreen()
+                sender.backgroundColor = .clear
+                sender.isSelected = true
+                let recipeID = "\(vc.recipeID ?? 0)"
+                let uid = Auth.auth().currentUser!.uid
+                let data = [
+                    "FavRecipes": recipeID
+                ]
+                db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            }
         } else {
-            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
-            sender.tintColor = .CustomGreen()
-            sender.backgroundColor = .clear
-            sender.isSelected = true
-            let recipeID = "\(vc.recipeID ?? 0)"
-            let uid = Auth.auth().currentUser!.uid
-            let data = [
-                "FavRecipes": recipeID
-            ]
-            db.collection("Users").document(uid).collection("FavouriteRecipes").document(recipeID).setData(data)
+            Alert.showAlert(title: "Error", subtitle: "Please login to save your favorite recipes", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
         }
     }
     

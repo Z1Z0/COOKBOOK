@@ -40,11 +40,16 @@ class SideMenuTableViewController: UIViewController {
 
 extension SideMenuTableViewController: SideMenuDelegate {
     
+    func goToSignin() {
+        let vc = UINavigationController(rootViewController: SignInViewController())
+        self.sideMenuViewController?.setContentViewController(vc, animated: true)
+        self.sideMenuViewController!.hideMenuViewController()
+    }
+    
     func goToHome() {
         let vc = UINavigationController(rootViewController: HomeViewController())
         self.sideMenuViewController?.setContentViewController(vc, animated: true)
         self.sideMenuViewController!.hideMenuViewController()
-        
     }
     
     func goToSearchByIngredients() {
@@ -57,6 +62,16 @@ extension SideMenuTableViewController: SideMenuDelegate {
         let vc = UINavigationController(rootViewController: SavedRecipesViewController())
         self.sideMenuViewController?.setContentViewController(vc, animated: true)
         self.sideMenuViewController!.hideMenuViewController()
+    }
+    
+    func goToAppStore() {
+        if let url = URL(string: "https://apps.apple.com/app/id1516564360") {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
     
     func goToContactUs() {

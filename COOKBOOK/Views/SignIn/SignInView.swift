@@ -14,6 +14,7 @@ import Material
     @objc func loginButtonTapped()
     @objc func registerButtonTapped()
     @objc func forgetPasswordButtonTapped()
+    @objc func skipButtonTapped()
 }
 
 class SignInView: UIView {
@@ -45,18 +46,19 @@ class SignInView: UIView {
     
     private func addSubviews() {
         addSubview(loginStackView)
+        
         loginStackView.addArrangedSubview(viewName)
         loginStackView.addArrangedSubview(emailTxtField)
         loginStackView.addArrangedSubview(passwordTxtField)
         loginStackView.addArrangedSubview(loginButton)
         loginStackView.addArrangedSubview(registerBtn)
-        loginStackView.addArrangedSubview(socialLoginStackView)
+//        loginStackView.addArrangedSubview(socialLoginStackView)
 //        socialLoginStackView.addArrangedSubview(facebookBtnContainer)
 //        facebookBtnContainer.addSubview(facebookBtn)
 //        socialLoginStackView.addArrangedSubview(appleBtnContainer)
 //        appleBtnContainer.addSubview(appleBtn)
         loginStackView.addArrangedSubview(forgetPasswordBtn)
-        
+        addSubview(skipBtn)
     }
     
     private lazy var viewName: UILabel = {
@@ -108,7 +110,7 @@ class SignInView: UIView {
     
     private lazy var loginButton: UIButton = {
         let loginButton = UIButton(type: .system)
-        loginButton.setTitle("Sign In", for: .normal)
+        loginButton.setTitle("Sign in", for: .normal)
         loginButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 14)
         loginButton.backgroundColor = .CustomGreen()
         loginButton.setTitleColor(.white, for: .normal)
@@ -119,7 +121,7 @@ class SignInView: UIView {
     
     private lazy var registerBtn: UIButton = {
         let registerButton = UIButton(type: .system)
-        registerButton.setTitle("Creat account", for: .normal)
+        registerButton.setTitle("Create account", for: .normal)
         registerButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 14)
         registerButton.backgroundColor = .customDarkGray()
         registerButton.setTitleColor(.white, for: .normal)
@@ -169,7 +171,15 @@ class SignInView: UIView {
         return forgetPasswordButton
     }()
     
-    
+    private lazy var skipBtn: UIButton = {
+        let skipBtn = UIButton()
+        skipBtn.setTitle("Skip to try cookbook without registration", for: .normal)
+        skipBtn.setTitleColor(.customDarkGray(), for: .normal)
+        skipBtn.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 12)
+        skipBtn.addTarget(delegate, action: #selector(delegate.skipButtonTapped), for: .touchUpInside)
+        skipBtn.translatesAutoresizingMaskIntoConstraints = false
+        return skipBtn
+    }()
     
     private func setupViewName() {
         NSLayoutConstraint.activate([
@@ -277,7 +287,16 @@ class SignInView: UIView {
         NSLayoutConstraint.activate([
             forgetPasswordBtn.leadingAnchor.constraint(equalTo: loginStackView.leadingAnchor),
             forgetPasswordBtn.trailingAnchor.constraint(equalTo: loginStackView.trailingAnchor)
-//            forgetPasswordBtn.topAnchor.constraint(equalTo: loginStackView.bottomAnchor, constant: 32)
+        ])
+    }
+    
+    private func setupSkipButtonConstraints() {
+        NSLayoutConstraint.activate([
+//            skipBtn.leadingAnchor.constraint(equalTo: forgetPasswordBtn.leadingAnchor),
+//            skipBtn.trailingAnchor.constraint(equalTo: forgetPasswordBtn.trailingAnchor)
+            skipBtn.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            skipBtn.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            skipBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32)
         ])
     }
     
@@ -328,6 +347,7 @@ class SignInView: UIView {
 //        setupAppleButtonContainerConstraints()
 //        setupAppleButtonConstraints()
         setupForgetPasswordButtonConstraints()
+        setupSkipButtonConstraints()
         checkTxtFields()
     }
 }

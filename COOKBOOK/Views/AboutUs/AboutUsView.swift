@@ -137,7 +137,7 @@ class AboutUsView: UIView {
     lazy var banner: GADBannerView = {
         var banner = GADBannerView()
         banner = GADBannerView(adSize: kGADAdSizeBanner)
-        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.adUnitID = "ca-app-pub-3727927641788977/2917288980"
         banner.load(GADRequest())
         banner.translatesAutoresizingMaskIntoConstraints = false
         return banner

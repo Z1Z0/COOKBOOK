@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import Firebase
 
 class ContactUsViewController: UIViewController, MFMailComposeViewControllerDelegate, SendEmailDelegate {
     
@@ -37,15 +38,19 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
     }
     
     func sendEmail() {
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients(["ahmedabdelaziz500@icloud.com"])
-            mail.setSubject(mainView.subjectTextField.text ?? "Subject")
-            mail.setMessageBody(mainView.emailBodyTextView.text, isHTML: false)
-            present(mail, animated: true)
+        if Auth.auth().currentUser?.uid != nil {
+            if MFMailComposeViewController.canSendMail() {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients(["ahmedabdelaziz500@icloud.com"])
+                mail.setSubject(mainView.subjectTextField.text ?? "Subject")
+                mail.setMessageBody(mainView.emailBodyTextView.text, isHTML: false)
+                present(mail, animated: true)
+            } else {
+                Alert.showAlert(title: "Error", subtitle: "Check your internet connectivity", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+            }
         } else {
-            Alert.showAlert(title: "Error", subtitle: "Check your internet connectivity", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+            Alert.showAlert(title: "Error", subtitle: "Please login so you can send us email", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
         }
     }
     

@@ -12,9 +12,11 @@ import Firebase
 import Kingfisher
 
 protocol SideMenuDelegate: class {
+    func goToSignin()
     func goToHome()
     func goToSearchByIngredients()
     func goToFavouriteRecipes()
+    func goToAppStore()
     func goToContactUs()
     func goToAboutUs()
     func logoutTapped()
@@ -174,11 +176,9 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
                 return cell
                 
             case 6:
-                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell", for: indexPath) as! SideMenuTableViewCell
                 cell.titleLabel.text = "Logout"
                 return cell
-                
             default:
                 return UITableViewCell()
             }
@@ -189,6 +189,17 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                if Auth.auth().currentUser?.uid == nil {
+                    delegate?.goToSignin()
+                }
+            default:
+                if Auth.auth().currentUser?.uid == nil {
+                    delegate?.goToSignin()
+                }
+            }
         case 1:
             switch indexPath.row {
             case 0:
@@ -197,6 +208,8 @@ extension SideMenuTableView: UITableViewDelegate, UITableViewDataSource {
                 delegate?.goToSearchByIngredients()
             case 2:
                 delegate?.goToFavouriteRecipes()
+            case 3:
+                delegate?.goToAppStore()
             case 4:
                 delegate?.goToAboutUs()
             case 5:

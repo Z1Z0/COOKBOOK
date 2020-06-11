@@ -11,7 +11,6 @@ import Firebase
 
 class SignInViewController: UIViewController, SignInDelegate {
     
-    
     let indicator = ActivityIndicator()
         
     lazy var mainView: SignInView = {
@@ -67,6 +66,11 @@ class SignInViewController: UIViewController, SignInDelegate {
     func forgetPasswordButtonTapped() {
         let forgetPasswordVC = ForgetPasswordViewController()
         self.show(forgetPasswordVC, sender: nil)
+    }
+    
+    func skipButtonTapped() {
+        let homeVC = HomeViewController()
+        self.show(homeVC, sender: nil)
     }
     
     override func viewDidLoad() {
