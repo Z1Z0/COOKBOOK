@@ -34,17 +34,15 @@ class SideMenuTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigation()
+        DispatchQueue.main.async {
+            self.mainView.tableView.reloadData()
+        }
+        
     }
 
 }
 
 extension SideMenuTableViewController: SideMenuDelegate {
-    
-    func goToSignin() {
-        let vc = UINavigationController(rootViewController: SignInViewController())
-        self.sideMenuViewController?.setContentViewController(vc, animated: true)
-        self.sideMenuViewController!.hideMenuViewController()
-    }
     
     func goToHome() {
         let vc = UINavigationController(rootViewController: HomeViewController())
@@ -87,23 +85,38 @@ extension SideMenuTableViewController: SideMenuDelegate {
     }
     
     func logoutTapped() {
-        let alert = UIAlertController(title: "Logout", message: "Are you sure you want to logout?", preferredStyle: .alert)
-        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action: UIAlertAction) in
-            
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-                let vc = UINavigationController(rootViewController: SignInViewController())
-                self.sideMenuViewController?.setContentViewController(vc, animated: true)
-                self.sideMenuViewController!.hideMenuViewController()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
+        if Auth.auth().currentUser?.uid != nil {
+            let alert = UIAlertController(title: "Logout", message: "Are you sure you want to logout?", preferredStyle: .alert)
+            let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action: UIAlertAction) in
                 
+                let firebaseAuth = Auth.auth()
+                do {
+                    try firebaseAuth.signOut()
+                    let vc = UINavigationController(rootViewController: SignInViewController())
+                    self.sideMenuViewController?.setContentViewController(vc, animated: true)
+                    self.sideMenuViewController!.hideMenuViewController()
+                } catch let signOutError as NSError {
+                    print ("Error signing out: %@", signOutError)
+                    
+                }
             }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(logoutAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
+        } else {
+//            let vc = UINavigationController(rootViewController: SignInViewController())
+//            self.sideMenuViewController?.setContentViewController(vc, animated: true)
+//            self.sideMenuViewController!.hideMenuViewController()
+            let vc = AlertViewController()
+            vc.modalPresentationStyle = .overFullScreen
+            let transition = CATransition()
+            transition.duration = 0.3
+            transition.type = CATransitionType.fade
+            transition.subtype = CATransitionSubtype.fromBottom
+            transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+            view.window!.layer.add(transition, forKey: kCATransition)
+            self.present(vc, animated: false, completion: nil)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(logoutAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
     }
 }

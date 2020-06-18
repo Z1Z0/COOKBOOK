@@ -55,7 +55,7 @@ class SavedRecipesViewController: UIViewController {
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(self.recipesIDs ?? "0")&apiKey=\(apiKey)").responseJSON { (response) in
-                        if response.error == nil {
+                        if response.error != nil {
                             Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                             self.indicator.hideIndicatorView(self.view)
                         }
@@ -83,7 +83,7 @@ class SavedRecipesViewController: UIViewController {
         if let uid = Auth.auth().currentUser?.uid {
             indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
             AF.request("https://firestore.googleapis.com/v1/projects/cookbook-5a8f7/databases/(default)/documents/Users/\(uid)/FavouriteRecipes").responseJSON { (response) in
-                if response.error == nil {
+                if response.error != nil {
                     Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                     self.indicator.hideIndicatorView(self.view)
                 }
