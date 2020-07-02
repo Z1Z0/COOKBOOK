@@ -42,7 +42,7 @@ class AboutUsViewController: UIViewController {
     func getAboutUsData() {
         db.collection("AppInfo").document("AboutUs").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 if let aboutUs = snapshot?["AboutUs"] as? String {
                     self.mainView.aboutCookbookLabel.text = aboutUs
@@ -52,7 +52,7 @@ class AboutUsViewController: UIViewController {
         
         db.collection("AppInfo").document("inquiry").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 
                 if let inquiry = snapshot?["inquiry"] as? String {

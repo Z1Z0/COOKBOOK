@@ -124,7 +124,7 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
         if let uid = Auth.auth().currentUser?.uid {
             db.collection("Users").document(uid).collection("FavouriteRecipes").document("\(recipeID ?? 0)").delete { (error) in
                 if error != nil {
-                    Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                    Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                 } else {
                     self.vc.recipes?.remove(at: tag)
                     self.recipesTableView.deleteRows(at: [IndexPath.init(row: tag, section: 0)], with: .fade)

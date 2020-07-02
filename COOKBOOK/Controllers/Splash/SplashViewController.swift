@@ -51,7 +51,7 @@ class SplashViewController: UIViewController, SplashViewDelegate {
     func getAboutUsData() {
         db.collection("AppInfo").document("splash").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                Alert.showAlert(title: "Ops", subtitle: "There is error in your connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 if let description = snapshot?["splash"] as? String {
                     self.mainView.appDescription.text = description

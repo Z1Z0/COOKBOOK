@@ -144,8 +144,8 @@ class HomeView: UIView {
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     AF.request("https://api.spoonacular.com/recipes/random?apiKey=\(apiKey)&number=25").responseJSON { (response) in
-                        if error != nil {
-                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                        if response.error != nil {
+                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         do {
                             if let data = response.data {
@@ -157,7 +157,7 @@ class HomeView: UIView {
                             }
                             
                         } catch {
-                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         self.indicator.hideIndicatorView(self)
                     }

@@ -70,6 +70,9 @@ class SignUpViewController: UIViewController, SignupDelegate {
                                             data["ProfileImage"] = metaImageUrl
                                             self.db.collection("Users").document(uid).setData(data)
                                         }
+                                        if error != nil {
+                                            Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                                        }
                                     }
                                 }
                             }
@@ -77,7 +80,9 @@ class SignUpViewController: UIViewController, SignupDelegate {
                             self.view.alpha = 1.0
                             self.indicator.hideIndicatorView(self.view)
                             Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
-                                
+                                if error != nil {
+                                    Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                                }
                             })
                             
                             self.view.alpha = 1.0

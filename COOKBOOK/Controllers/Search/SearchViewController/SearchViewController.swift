@@ -52,12 +52,12 @@ class SearchViewController: UIViewController {
         indicator.setupIndicatorView(self.view, containerColor: .customDarkGray(), indicatorColor: .white)
         db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     AF.request("https://api.spoonacular.com/recipes/search?apiKey=\(apiKey)&query=\(newRecipe ?? "Burger")&number=25").responseJSON { (response) in
-                        if let error = response.error {
-                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                        if response.error != nil {
+                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         do {
                             if let data = response.data {
@@ -68,7 +68,7 @@ class SearchViewController: UIViewController {
                             }
                             
                         } catch {
-                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                         DispatchQueue.main.async {
                             self.indicator.hideIndicatorView(self.view)

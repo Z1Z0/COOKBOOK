@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import Firebase
 
 class RecipesDetailsViewController: UIViewController {
     
@@ -28,6 +29,7 @@ class RecipesDetailsViewController: UIViewController {
     
     var similarRecipes = [SimilarRecipesModel]()
     var bulkRecipes = [Recipe]()
+    let db = Firestore.firestore()
 
     lazy var mainView: RecipesDetailsView = {
         let view = RecipesDetailsView(frame: self.view.frame)
@@ -57,40 +59,38 @@ class RecipesDetailsViewController: UIViewController {
     }
     
     func fetchData() {
-        AF.request("https://api.spoonacular.com/recipes/\(recipeID ?? "")/similar?apiKey=2a0167cdf100453e8cd68300f5704a91&number=10").responseJSON { (response) in
-            if response.error != nil {
-                print(response.error)
-            } else {
-                do {
-                    
-                    if let data = response.data {
-                        self.similarRecipes = try JSONDecoder().decode([SimilarRecipesModel].self, from: data)
-                        let ids = self.similarRecipes.compactMap({$0.id ?? 0})
-                        let stringArrayCleaned = ids.description.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: " ", with: "")
-                        AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(stringArrayCleaned)&apiKey=2a0167cdf100453e8cd68300f5704a91").responseJSON { (response) in
-                            if response.error != nil {
-                                print("Error =>> \(response.error)")
-                            } else {
-                                do {
-                                    print("result \(response.result)")
-                                    print("response \(response.response)")
-                                    if let data = response.data {
-                                        self.bulkRecipes = try JSONDecoder().decode([Recipe].self, from: data)
-                                        print(self.bulkRecipes)
-//                                        DispatchQueue.main.async {
-//                                            self.collectionView.reloadData()
-//                                        }
+        db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
+            if let apiKey = snapshot?["apiKey"] as? String {
+                AF.request("https://api.spoonacular.com/recipes/\(self.recipeID ?? "")/similar?apiKey=\(apiKey)&number=10").responseJSON { (response) in
+                    if response.error != nil {
+                        Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                    } else {
+                        do {
+                            
+                            if let data = response.data {
+                                self.similarRecipes = try JSONDecoder().decode([SimilarRecipesModel].self, from: data)
+                                let ids = self.similarRecipes.compactMap({$0.id ?? 0})
+                                let stringArrayCleaned = ids.description.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: " ", with: "")
+                                AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(stringArrayCleaned)&apiKey=\(apiKey)").responseJSON { (response) in
+                                    if response.error != nil {
+                                        Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                                    } else {
+                                        do {
+                                            if let data = response.data {
+                                                self.bulkRecipes = try JSONDecoder().decode([Recipe].self, from: data)
+                                            }
+                                        }
+                                        catch {
+                                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                                        }
                                     }
-                                }
-                                catch {
-                                    print("Error =>> \(response.error)")
                                 }
                             }
                         }
+                        catch {
+                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                        }
                     }
-                }
-                catch {
-                    print(response.error)
                 }
             }
         }

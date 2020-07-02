@@ -51,12 +51,12 @@ class SavedRecipesViewController: UIViewController {
     func fetchData() {
         db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
             if error != nil {
-                Alert.showAlert(title: "Sorry", subtitle: "There is no favourite recipes", leftView: UIImageView(image: #imageLiteral(resourceName: "isInfoIcon")), style: .warning)
+                Alert.showAlert(title: "Sorry", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isInfoIcon")), style: .warning)
             } else {
                 if let apiKey = snapshot?["apiKey"] as? String {
                     AF.request("https://api.spoonacular.com/recipes/informationBulk?ids=\(self.recipesIDs ?? "0")&apiKey=\(apiKey)").responseJSON { (response) in
                         if response.error != nil {
-                            Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                             self.indicator.hideIndicatorView(self.view)
                         }
                         do {
@@ -69,7 +69,7 @@ class SavedRecipesViewController: UIViewController {
                                 self.indicator.hideIndicatorView(self.view)
                             }
                         } catch {
-                            Alert.showAlert(title: "Sorry", subtitle: "There is no favourite recipes", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .warning)
+                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                             self.indicator.hideIndicatorView(self.view)
                         }
                     }
@@ -84,7 +84,7 @@ class SavedRecipesViewController: UIViewController {
             indicator.setupIndicatorView(view, containerColor: .customDarkGray(), indicatorColor: .white)
             AF.request("https://firestore.googleapis.com/v1/projects/cookbook-5a8f7/databases/(default)/documents/Users/\(uid)/FavouriteRecipes").responseJSON { (response) in
                 if response.error != nil {
-                    Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                    Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                     self.indicator.hideIndicatorView(self.view)
                 }
                 do {
@@ -98,7 +98,7 @@ class SavedRecipesViewController: UIViewController {
                     }
                     
                 } catch {
-                    Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                    Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                     self.indicator.hideIndicatorView(self.view)
                 }
             }
