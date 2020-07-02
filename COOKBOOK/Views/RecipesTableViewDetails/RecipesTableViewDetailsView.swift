@@ -162,10 +162,10 @@ extension RecipesTableViewDetailsView: UITableViewDelegate, UITableViewDataSourc
             ingredientsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count ?? 0)",
             ingredientsNumbersInt: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.count ?? 0,
             ingredientsName: (recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
-            ingredientsWeight: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
-            ingredientsAmount: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
+            ingredientsWeight: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.compactMap({($0.amount ?? 0.0)}) ?? [0.0],
+            ingredientsAmount: recipesTableVC.recipesDetails[indexPath.row].extendedIngredients?.compactMap({($0.unit ?? "Error")}) ?? ["Error"],
             instructionsNumber: "\(recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?.count ?? 0)",
-            instructionsSteps: recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"],
+            instructionsSteps: recipesTableVC.recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.compactMap({$0.step ?? "Error"}) ?? ["Error"],
             recipeID: "\(recipesTableVC.recipesDetails[indexPath.row].id ?? 0)"
         )
     }

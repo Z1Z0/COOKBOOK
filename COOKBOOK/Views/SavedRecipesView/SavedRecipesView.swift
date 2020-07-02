@@ -143,10 +143,10 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
             ingredientsNumber: "\(vc.recipes?[indexPath.row].extendedIngredients?.count ?? 0)",
             ingredientsNumbersInt: vc.recipes?[indexPath.row].extendedIngredients?.count ?? 0,
             ingredientsName: (vc.recipes?[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),
-            ingredientsWeight: vc.recipes?[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
-            ingredientsAmount: vc.recipes?[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
+            ingredientsWeight: vc.recipes?[indexPath.row].extendedIngredients?.compactMap({($0.amount ?? 0.0)}) ?? [0.0],
+            ingredientsAmount: vc.recipes?[indexPath.row].extendedIngredients?.compactMap({($0.unit ?? "Error")}) ?? ["Error"],
             instructionsNumber: "\(vc.recipes?[indexPath.row].analyzedInstructions?.count ?? 0)",
-            instructionsSteps: vc.recipes?[indexPath.row].analyzedInstructions?[0].steps?.map({$0.step ?? "Error"}) ?? ["Error"],
+            instructionsSteps: vc.recipes?[indexPath.row].analyzedInstructions?[0].steps?.compactMap({$0.step ?? "Error"}) ?? ["Error"],
             recipeID: "\(vc.recipes?[indexPath.row].id ?? 0)"
         )
     }

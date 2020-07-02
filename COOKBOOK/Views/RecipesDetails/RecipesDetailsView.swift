@@ -15,6 +15,10 @@ import Firebase
     @objc func startCookingButtonTapped()
 }
 
+protocol TransferSilimarDataDelegate: class {
+    func transferData(for indexPath: Int)
+}
+
 class RecipesDetailsView: UIView {
     
     override init(frame: CGRect) {
@@ -30,6 +34,7 @@ class RecipesDetailsView: UIView {
     weak var delegate: RecipesDetailsDelegateAction!
     weak var saveDelegate: FavouriteActionDelegate?
     let db = Firestore.firestore()
+    weak var transferData: TransferSilimarDataDelegate?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -43,6 +48,7 @@ class RecipesDetailsView: UIView {
         tableView.backgroundColor = .white
         tableView.register(IngredientsTableViewCell.self, forCellReuseIdentifier: "IngredientsTableViewCell")
         tableView.register(NumberOfIngredientsTableViewCell.self, forCellReuseIdentifier: "NumberOfIngredientsTableViewCell")
+        tableView.register(SimilarRecipesTableViewCell.self, forCellReuseIdentifier: "SimilarRecipesTableViewCell")
         return tableView
     }()
     
@@ -122,7 +128,7 @@ class RecipesDetailsView: UIView {
             Alert.showAlert(title: "Error", subtitle: "Please login to save your favorite recipes", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
         }
     }
-    
+        
     func setupTableViewConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
@@ -179,15 +185,18 @@ class RecipesDetailsView: UIView {
 extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         }
-        else {
+        else if section == 1 {
             return recipeVC.ingredientsName.count
+        }
+        else {
+            return 1
         }
     }
     
@@ -204,7 +213,7 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             
             return cell
             
-        } else {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NumberOfIngredientsTableViewCell", for: indexPath) as! NumberOfIngredientsTableViewCell
             cell.theNumberOfIngredient.text = recipeVC.sequence[indexPath.row]
             cell.theNameOfIngredient.text = recipeVC.ingredientsName[indexPath.row]
@@ -213,11 +222,26 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             }
             
             return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SimilarRecipesTableViewCell", for: indexPath) as! SimilarRecipesTableViewCell
+            cell.recipesDetailsView = self
+            cell.delegate = self
+            cell.collectionView.reloadData()
+            return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        if indexPath.section == 2 {
+            return 200
+        } else {
+            return UITableView.automaticDimension
+        }
     }
-    
+}
+
+extension RecipesDetailsView: SimilarRecipesDelegate {
+    func similarRecipesData(indexPath: Int) {
+        transferData?.transferData(for: indexPath)
+    }
 }

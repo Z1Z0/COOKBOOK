@@ -87,7 +87,7 @@ extension SearchByIngredientsDetailsViewController: SearchedRecipesDetailsDelega
         vc.recipeTitle = recipeTitle
         vc.recipeImage = recipeImage
         vc.recipeTime = "\(recipes?.readyInMinutes ?? 0) Mins"
-        vc.instructionsSteps = recipes?.analyzedInstructions?[0].steps?.map({($0.step ?? "Error")})
+        vc.instructionsSteps = recipes?.analyzedInstructions?[0].steps?.compactMap({($0.step ?? "Error")})
         self.present(vc, animated: true, completion: nil)
     }
 }
@@ -96,9 +96,9 @@ extension SearchByIngredientsDetailsViewController: BuyingIngredientsButtonDeleg
     func buyingIngredientsButtonTapped() {
         let vc = StartBuyingByIngredientsViewController()
         vc.modalPresentationStyle = .popover
-        vc.ingredientsName = recipes?.extendedIngredients?.map({$0.name ?? "Error"})
-        vc.ingredientsAmount = recipes?.extendedIngredients?.map({$0.unit ?? "Error"})
-        vc.ingredientsWeight = recipes?.extendedIngredients?.map({$0.amount ?? 0.0})
+        vc.ingredientsName = recipes?.extendedIngredients?.compactMap({$0.name ?? "Error"})
+        vc.ingredientsAmount = recipes?.extendedIngredients?.compactMap({$0.unit ?? "Error"})
+        vc.ingredientsWeight = recipes?.extendedIngredients?.compactMap({$0.amount ?? 0.0})
         vc.ingredientsNumber = recipes?.extendedIngredients?.count
         self.present(vc, animated: true, completion: nil)
     }

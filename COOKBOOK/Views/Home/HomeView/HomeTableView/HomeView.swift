@@ -127,18 +127,17 @@ class HomeView: UIView {
     }
     
     func layoutUI() {
-        indicator.setupIndicatorView(self, containerColor: .customDarkGray(), indicatorColor: .white)
+        
         addSubview()
         
         setupFoodTableView()
         setupBannerConstraints()
-        DispatchQueue.main.async {
-            self.fetchData()
-        }
+        fetchData()
         
     }
     
     func fetchData() {
+        indicator.setupIndicatorView(self, containerColor: .customDarkGray(), indicatorColor: .white)
         db.collection("AppInfo").document("apiKey").addSnapshotListener { (snapshot, error) in
             if error != nil {
                 Alert.showAlert(title: "Error", subtitle: "Check your internet connection", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
@@ -278,11 +277,11 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource, FavouriteActionD
                 recipeInstructions: recipesDetails[indexPath.row].instructions ?? "Error",
                 ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients?.count ?? 5)",
                 ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients?.count ?? 0,
-                ingredientsName: (recipesDetails[indexPath.row].extendedIngredients?.map({($0.name ?? "Error")}) ?? ["Error"]),
-                ingredientsWeight: recipesDetails[indexPath.row].extendedIngredients?.map({($0.amount ?? 0.0)}) ?? [0.0],
-                ingredientsAmount: recipesDetails[indexPath.row].extendedIngredients?.map({($0.unit ?? "Error")}) ?? ["Error"],
+                ingredientsName: (recipesDetails[indexPath.row].extendedIngredients?.compactMap({($0.name ?? "Error")}) ?? ["Error"]),
+                ingredientsWeight: recipesDetails[indexPath.row].extendedIngredients?.compactMap({($0.amount ?? 0.0)}) ?? [0.0],
+                ingredientsAmount: recipesDetails[indexPath.row].extendedIngredients?.compactMap({($0.unit ?? "Error")}) ?? ["Error"],
                 instructionsNumber: "\(recipesDetails[indexPath.row].analyzedInstructions?.count ?? 5)",
-                instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.map({($0.step ?? "Error")}) ?? ["Error"]),
+                instructionsSteps: (recipesDetails[indexPath.row].analyzedInstructions?[0].steps?.compactMap({($0.step ?? "Error")}) ?? ["Error"]),
                 recipeID: "\(recipesDetails[indexPath.row].id ?? 0)"
             )
         }

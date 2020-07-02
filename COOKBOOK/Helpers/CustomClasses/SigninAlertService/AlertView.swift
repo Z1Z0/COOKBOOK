@@ -53,10 +53,12 @@ class AlertView: UIView {
     func setupContainerView() {
         NSLayoutConstraint.activate([
             containerView.widthAnchor.constraint(equalToConstant: self.frame.width - 100),
-            containerView.heightAnchor.constraint(equalToConstant: self.frame.height / 3 + 40),
+            containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 250),
             containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+        containerView.setContentHuggingPriority(.init(240.0), for: .horizontal)
+        containerView.setContentCompressionResistancePriority(.init(740.0), for: .horizontal)
     }
     
     lazy var loginLabel: UILabel = {
@@ -174,6 +176,7 @@ class AlertView: UIView {
             cancelButton.topAnchor.constraint(equalTo: signinButton.bottomAnchor, constant: 16),
             cancelButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             cancelButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            cancelButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
             cancelButton.heightAnchor.constraint(equalToConstant: 45)
         ])
     }

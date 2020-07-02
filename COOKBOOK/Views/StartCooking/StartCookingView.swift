@@ -121,7 +121,7 @@ extension StartCookingView: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return vc.instructionsSteps?.count ?? 1
+            return vc.instructionsSteps?.count ?? 0
         }
     }
     

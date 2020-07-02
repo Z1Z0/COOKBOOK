@@ -91,7 +91,7 @@ class SavedRecipesViewController: UIViewController {
                     if let data = response.data {
                         self.favRecipes = try JSONDecoder().decode(FavouriteRecipes.self, from: data)
                         self.document = self.favRecipes?.documents ?? []
-                        let recipesID = self.document.map({($0.fields?.favRecipes?.stringValue ?? "Error")}).joined(separator: ",")
+                        let recipesID = self.document.compactMap({($0.fields?.favRecipes?.stringValue ?? "Error")}).joined(separator: ",")
                         self.recipesIDs = recipesID
                         self.fetchData()
                         self.indicator.hideIndicatorView(self.view)

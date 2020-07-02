@@ -20,4 +20,5 @@ target 'COOKBOOK' do
   pod 'AKSideMenu'
   pod 'Google-Mobile-Ads-SDK'
   pod 'FBSDKLoginKit'
+  pod 'Firebase/Crashlytics'
 end
