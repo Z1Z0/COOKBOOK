@@ -101,10 +101,6 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
         if vc.recipes?.count == nil || Auth.auth().currentUser == nil {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Error404TableViewCell", for: indexPath) as! Error404TableViewCell
             cell.errorTitleDescription.text = "Sorry there is no recipes to show"
-            let delay = 0.55 + Double(indexPath.row) * 0.5
-            UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseIn, animations: {
-                cell.alpha = 1.0
-            }, completion: nil)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
