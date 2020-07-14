@@ -69,7 +69,7 @@ class SavedRecipesViewController: UIViewController {
                                 self.indicator.hideIndicatorView(self.view)
                             }
                         } catch {
-                            Alert.showAlert(title: "Error", subtitle: "There is something wrong with connecting to our database, we are currently trying to work to solve this problem.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                            Alert.showAlert(title: "Error", subtitle: "You should save at least one recipe to show it to you.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                             self.indicator.hideIndicatorView(self.view)
                         }
                     }

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AKSideMenuDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        if Auth.auth().currentUser != nil {
+        if Auth.auth().currentUser != nil && Auth.auth().currentUser?.isEmailVerified == true {
           // User is signed in.
             window = UIWindow(frame: windowScene.coordinateSpace.bounds)
             window?.windowScene = windowScene

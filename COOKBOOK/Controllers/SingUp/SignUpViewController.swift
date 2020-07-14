@@ -35,71 +35,72 @@ class SignUpViewController: UIViewController, SignupDelegate {
         let email = mainView.userEmail
         let password = mainView.userPassword
         let confirmPassword = mainView.userConfirmPassword
-        guard let imageSelected = self.image else { return }
-        guard let imageData = imageSelected.jpegData(compressionQuality: 0.4) else { return }
-        
+        image = mainView.userImage.image
+        let imageSelected: UIImage = self.image!
+        print("image selected \(imageSelected)")
+        let imageData = (imageSelected.jpegData(compressionQuality: 0.4))!
+
         let validateEmail = isValidEmail(emailStr: email)
-        
         var data = [
             "Username": name,
             "Email": email,
             "ProfileImage": ""
-        ]
-        
+            ]
+
         if validateEmail == true {
+            
             if isValidPassword(testStr: password) == true {
                 if confirmPassword == password {
                     Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                        if error == nil {
+                        if error != nil {
+                            self.view.alpha = 1.0
+                            self.indicator.hideIndicatorView(self.view)
+                            Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                        } else {
                             if let uid = Auth.auth().currentUser?.uid {
                                 let storageRef = Storage.storage().reference(forURL: "gs://cookbook-5a8f7.appspot.com")
-                                
                                 let storageProfileRef = storageRef.child("profile").child(uid).child(uid)
-                                
                                 let metadata = StorageMetadata()
-                                
                                 metadata.contentType = "image/jpg"
-                                
                                 storageProfileRef.putData(imageData, metadata: metadata) { (storage, error) in
                                     if error != nil {
+                                        
                                         Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                                         return
-                                    }
-                                    storageProfileRef.downloadURL { (url, error) in
-                                        if let metaImageUrl = url?.absoluteString {
-                                            data["ProfileImage"] = metaImageUrl
-                                            self.db.collection("Users").document(uid).setData(data)
+                                    } else {
+                                        storageProfileRef.downloadURL { (url, error) in
+                                            if error != nil {
+                                                Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                                            } else {
+                                                if let metaImageUrl = url?.absoluteString {
+                                                    data["ProfileImage"] = metaImageUrl
+                                                    self.db.collection("Users").document(uid).setData(data)
+                                                }
+                                            }
                                         }
-                                        if error != nil {
-                                            Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
-                                        }
+                                        
+                                        Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
+                                            if error != nil {
+                                                self.view.alpha = 1.0
+                                                self.indicator.hideIndicatorView(self.view)
+                                                Alert.showAlert(title: "Error", subtitle: "Sorry, we can't send a verification email now.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                                            } else {
+                                                self.view.alpha = 1.0
+                                                self.indicator.hideIndicatorView(self.view)
+                                                Alert.showAlert(title: "Success", subtitle: "Your account has been successfully created. You will now receive an email to verify your account", leftView: UIImageView(image: #imageLiteral(resourceName: "isSuccessIcon")), style: .success)
+                                                let vc = SignInViewController()
+                                                self.show(vc, sender: nil)
+                                            }
+                                        })
                                     }
                                 }
                             }
-                            
-                            self.view.alpha = 1.0
-                            self.indicator.hideIndicatorView(self.view)
-                            Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
-                                if error != nil {
-                                    Alert.showAlert(title: "Error", subtitle: error?.localizedDescription ?? "Error", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
-                                }
-                            })
-                            
-                            self.view.alpha = 1.0
-                            self.indicator.hideIndicatorView(self.view)
-                            Alert.showAlert(title: "Email created", subtitle: "You have created your account. Please check your email and activate the account", leftView: UIImageView(image: #imageLiteral(resourceName: "isSuccessIcon")), style: .success)
-                            let signinVC = SignInViewController()
-                            self.show(signinVC, sender: nil)
-                        } else {
-                            self.view.alpha = 1.0
-                            self.indicator.hideIndicatorView(self.view)
-                            Alert.showAlert(title: "Error", subtitle: error!.localizedDescription, leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                         }
                     }
                 } else {
                     self.view.alpha = 1.0
                     self.indicator.hideIndicatorView(self.view)
-                    Alert.showAlert(title: "Error", subtitle: "Password doesn't match", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+                    Alert.showAlert(title: "Error", subtitle: "Password doesn't match.", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
                 }
             } else {
                 self.view.alpha = 1.0
@@ -109,7 +110,7 @@ class SignUpViewController: UIViewController, SignupDelegate {
         } else {
             self.view.alpha = 1.0
             self.indicator.hideIndicatorView(self.view)
-            Alert.showAlert(title: "Error", subtitle: "Please enter a valid email", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
+            Alert.showAlert(title: "Error", subtitle: "Please enter valid email", leftView: UIImageView(image: #imageLiteral(resourceName: "isErrorIcon")), style: .danger)
         }
     }
     

@@ -35,6 +35,11 @@ class SavedRecipesView: UIView {
         recipesTableView.showsVerticalScrollIndicator = false
         recipesTableView.separatorStyle = .none
         recipesTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "HomeTableViewCell")
+//        if Auth.auth().currentUser == nil || vc.recipes?.count == nil {
+            recipesTableView.register(Error404TableViewCell.self, forCellReuseIdentifier: "Error404TableViewCell")
+//        }
+        recipesTableView.rowHeight = UITableView.automaticDimension
+        recipesTableView.estimatedRowHeight = 100
         recipesTableView.delegate = self
         recipesTableView.dataSource = self
         recipesTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -85,34 +90,49 @@ class SavedRecipesView: UIView {
 extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, FavouriteActionDelegate {
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vc.recipes?.count ?? 0
+        if vc.recipes?.count == nil || Auth.auth().currentUser == nil {
+            return 1
+        } else {
+            return vc.recipes?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
-        let url = URL(string: vc.recipes?[indexPath.row].image ?? "Error")
-        cell.foodImage.kf.setImage(with: url)
-        cell.foodTitle.text = vc.recipes?[indexPath.row].title
-        
-        if let readyInMin = vc.recipes?[indexPath.row].readyInMinutes {
-            cell.cookingTimeInfoLabel.text = "\(readyInMin) Minutes"
+        if vc.recipes?.count == nil || Auth.auth().currentUser == nil {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Error404TableViewCell", for: indexPath) as! Error404TableViewCell
+            cell.errorTitleDescription.text = "Sorry there is no recipes to show"
+            let delay = 0.55 + Double(indexPath.row) * 0.5
+            UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseIn, animations: {
+                cell.alpha = 1.0
+            }, completion: nil)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
+            let url = URL(string: vc.recipes?[indexPath.row].image ?? "Error")
+            cell.foodImage.kf.setImage(with: url)
+            cell.foodTitle.text = vc.recipes?[indexPath.row].title
+            
+            if let readyInMin = vc.recipes?[indexPath.row].readyInMinutes {
+                cell.cookingTimeInfoLabel.text = "\(readyInMin) Minutes"
+            }
+            
+            if let pricePerServing = vc.recipes?[indexPath.row].pricePerServing {
+                cell.priceInfoLabel.text = "$" + String(format: "%.2f", pricePerServing / 100)
+            }
+            
+            if let serving = vc.recipes?[indexPath.row].servings {
+                cell.servesInfoLabel.text = "\(serving)"
+            }
+            
+            let configrations = UIImage.SymbolConfiguration(pointSize: 24)
+            cell.favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
+            cell.favouriteButton.tintColor = .CustomGreen()
+            cell.delegate = self
+            cell.favouriteButton.tag = indexPath.row
+            cell.favouriteButton.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
+            return cell
         }
         
-        if let pricePerServing = vc.recipes?[indexPath.row].pricePerServing {
-            cell.priceInfoLabel.text = "$" + String(format: "%.2f", pricePerServing / 100)
-        }
-        
-        if let serving = vc.recipes?[indexPath.row].servings {
-            cell.servesInfoLabel.text = "\(serving)"
-        }
-        
-        let configrations = UIImage.SymbolConfiguration(pointSize: 24)
-        cell.favouriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: configrations), for: .normal)
-        cell.favouriteButton.tintColor = .CustomGreen()
-        cell.delegate = self
-        cell.favouriteButton.tag = indexPath.row
-        cell.favouriteButton.addTarget(self, action: #selector(favoriteButtonTapped(_:)), for: .touchUpInside)
-        return cell
     }
     
     @objc func favoriteButtonTapped(_ sender: UIButton) {
@@ -149,6 +169,10 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
             instructionsSteps: vc.recipes?[indexPath.row].analyzedInstructions?[0].steps?.compactMap({$0.step ?? "Error"}) ?? ["Error"],
             recipeID: "\(vc.recipes?[indexPath.row].id ?? 0)"
         )
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 
 }
