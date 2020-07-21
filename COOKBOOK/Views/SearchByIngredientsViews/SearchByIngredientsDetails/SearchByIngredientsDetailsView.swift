@@ -192,7 +192,27 @@ extension SearchByIngredientsDetailsView: UITableViewDelegate, UITableViewDataSo
             cell.recipeTitleLabel.text = vc.recipeTitle
             let url = URL(string: vc.recipeImage ?? "Error")
             cell.recipeImage.kf.setImage(with: url)
-            cell.instructionsTextView.text = vc.recipes?.instructions
+            
+            //Calories
+            let calories = vc.recipes?.summary?.match("[0-9]+ calories")
+            let newCalories = calories?.joined()
+            let usedCalories = newCalories?.joined().replacingOccurrences(of: " calories", with: "")
+            cell.caloriesNumberLabel.text = usedCalories
+            
+            //Protein
+            let protein = vc.recipes?.summary?.match("[0-9]+g of protein")
+            let newProtein = protein?.joined()
+            let usedProtein = newProtein?.joined().replacingOccurrences(of: " of protein", with: "")
+            cell.proteinNumberLabel.text = usedProtein
+            
+            //Fat
+            let fat = vc.recipes?.summary?.match("[0-9]+g of fat")
+            let newFat = fat?.joined()
+            let usedFat = newFat?.joined().replacingOccurrences(of: " of fat", with: "")
+            cell.fatNumberLabel.text = usedFat
+
+            let instructions = vc.recipes?.instructions?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+            cell.instructionsTextView.text = instructions
             cell.numberOfGredientsLabel.text = "\(vc.recipes?.extendedIngredients?.count ?? 0) Ingredients"
             return cell
         } else {

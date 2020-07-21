@@ -11,6 +11,7 @@ import UIKit
 class SimilarRecipesViewController: UIViewController {
     
     var recipeTitle: String?
+    var recipeSummary: String?
     var recipeDescription: String?
     var recipeImage: String?
     var recipeIngredients: [String]?

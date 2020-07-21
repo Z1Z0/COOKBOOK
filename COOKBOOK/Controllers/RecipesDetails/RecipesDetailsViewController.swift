@@ -17,6 +17,7 @@ class RecipesDetailsViewController: UIViewController {
     var recipeImage: String?
     var recipeTime: String?
     var recipeInstructions: String?
+    var recipeSummary: String?
     var ingredientsNumber: String?
     var ingredientsNumberInt: Int?
     var ingredientsName: [String] = []
@@ -132,7 +133,8 @@ extension RecipesDetailsViewController: TransferSilimarDataDelegate {
         let vc = SimilarRecipesViewController()
         vc.recipeTitle = bulkRecipes[indexPath].title
         vc.recipeImage = bulkRecipes[indexPath].image
-        vc.recipeDescription = bulkRecipes[indexPath].summary
+        vc.recipeSummary = bulkRecipes[indexPath].summary
+        vc.recipeDescription = bulkRecipes[indexPath].instructions
         vc.recipeIngredients = bulkRecipes[indexPath].extendedIngredients?.compactMap({$0.name})
         vc.ingredientsWeight = bulkRecipes[indexPath].extendedIngredients?.compactMap({$0.amount})
         vc.ingredientsUnit = bulkRecipes[indexPath].extendedIngredients?.compactMap({$0.unit})

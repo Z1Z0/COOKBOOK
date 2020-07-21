@@ -156,6 +156,7 @@ extension SavedRecipesView: UITableViewDelegate, UITableViewDataSource, Favourit
             recipeImage: vc.recipes?[indexPath.row].image ?? "Error",
             recipeTime: "\(vc.recipes?[indexPath.row].readyInMinutes ?? 0) Min",
             recipeInstructions: vc.recipes?[indexPath.row].instructions ?? "Error",
+            recipeSummary: vc.recipes?[indexPath.row].summary ?? "Error",
             ingredientsNumber: "\(vc.recipes?[indexPath.row].extendedIngredients?.count ?? 0)",
             ingredientsNumbersInt: vc.recipes?[indexPath.row].extendedIngredients?.count ?? 0,
             ingredientsName: (vc.recipes?[indexPath.row].extendedIngredients?.compactMap({$0.name}) ?? ["Error"]),

@@ -195,6 +195,25 @@ extension SearchedRecipesDetails: UITableViewDelegate, UITableViewDataSource {
             cell.recipeTitleLabel.text = vc.recipeTitle
             let url = URL(string: vc.recipeImage ?? "Error")
             cell.recipeImage.kf.setImage(with: url)
+            
+            //Calories
+            let calories = vc.recipes?.summary?.match("[0-9]+ calories")
+            let newCalories = calories?.joined()
+            let usedCalories = newCalories?.joined().replacingOccurrences(of: " calories", with: "")
+            cell.caloriesNumberLabel.text = usedCalories
+            
+            //Protein
+            let protein = vc.recipes?.summary?.match("[0-9]+g of protein")
+            let newProtein = protein?.joined()
+            let usedProtein = newProtein?.joined().replacingOccurrences(of: " of protein", with: "")
+            cell.proteinNumberLabel.text = usedProtein
+            
+            //Fat
+            let fat = vc.recipes?.summary?.match("[0-9]+g of fat")
+            let newFat = fat?.joined()
+            let usedFat = newFat?.joined().replacingOccurrences(of: " of fat", with: "")
+            cell.fatNumberLabel.text = usedFat
+            
             cell.instructionsTextView.text = vc.recipes?.instructions
             cell.numberOfGredientsLabel.text = "\(vc.recipes?.extendedIngredients?.count ?? 0) Ingredients"
             return cell

@@ -26,6 +26,7 @@ protocol PopularRecipesSelectActionDelegate: class {
         recipeTitle: String,
         recipeImage: String,
         recipeTime: String,
+        recipeSummary: String,
         recipeInstructions: String,
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
@@ -43,6 +44,7 @@ protocol RecipesDetailsSelectActionDelegate: class {
         recipeTitle: String,
         recipeImage: String,
         recipeTime: String,
+        recipeSummary: String,
         recipeInstructions: String,
         ingredientsNumber: String,
         ingredientsNumbersInt: Int,
@@ -274,6 +276,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource, FavouriteActionD
                 recipeTitle: recipesDetails[indexPath.row].title ?? "Error",
                 recipeImage: recipesDetails[indexPath.row].image ?? "Error",
                 recipeTime: "\(recipesDetails[indexPath.row].readyInMinutes ?? 0) Min",
+                recipeSummary: recipesDetails[indexPath.row].summary ?? "Error",
                 recipeInstructions: recipesDetails[indexPath.row].instructions ?? "Error",
                 ingredientsNumber: "\(recipesDetails[indexPath.row].extendedIngredients?.count ?? 5)",
                 ingredientsNumbersInt: recipesDetails[indexPath.row].extendedIngredients?.count ?? 0,
@@ -323,13 +326,13 @@ extension HomeView: RecipesDidselectActionDelegate {
 }
 
 extension HomeView: PopularRecipesDidselectActionDelegate {
-    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
-        
+    func categoriesTableViewCell(_ cell: UICollectionView, didSelectTitle title: String, image: String, recipeTime: String, summary: String, instructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
         popularRecipesDidselectActionDelegate?.popularRecipes(
             self,
             recipeTitle: title,
             recipeImage: image,
             recipeTime: recipeTime,
+            recipeSummary: summary,
             recipeInstructions: instructions,
             ingredientsNumber: ingredientsNumber,
             ingredientsNumbersInt: ingredientsNumbersInt,

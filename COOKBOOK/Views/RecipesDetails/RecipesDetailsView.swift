@@ -207,6 +207,23 @@ extension RecipesDetailsView: UITableViewDelegate, UITableViewDataSource {
             cell.recipeTitleLabel.text = recipeVC.recipeTitle
             let url = URL(string: recipeVC.recipeImage ?? "Error")
             cell.recipeImage.kf.setImage(with: url)
+            //Calories
+            let calories = recipeVC.recipeSummary?.match("[0-9]+ calories")
+            let newCalories = calories?.joined()
+            let usedCalories = newCalories?.joined().replacingOccurrences(of: " calories", with: "")
+            cell.caloriesNumberLabel.text = usedCalories
+            
+            //Protein
+            let protein = recipeVC.recipeSummary?.match("[0-9]+g of protein")
+            let newProtein = protein?.joined()
+            let usedProtein = newProtein?.joined().replacingOccurrences(of: " of protein", with: "")
+            cell.proteinNumberLabel.text = usedProtein
+            
+            //Fat
+            let fat = recipeVC.recipeSummary?.match("[0-9]+g of fat")
+            let newFat = fat?.joined()
+            let usedFat = newFat?.joined().replacingOccurrences(of: " of fat", with: "")
+            cell.fatNumberLabel.text = usedFat
             let recipeInstruction = recipeVC.recipeInstructions?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
             cell.instructionsTextView.text = recipeInstruction
             cell.numberOfGredientsLabel.text = "\(recipeVC.ingredientsName.count) Ingredients"

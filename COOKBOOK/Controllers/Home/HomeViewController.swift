@@ -99,13 +99,13 @@ extension HomeViewController: HomeViewDidSelectActionDelegate {
 }
 
 extension HomeViewController: RecipesDetailsSelectActionDelegate {
-    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
-        
+    func recipeDetails(recipeTitle: String, recipeImage: String, recipeTime: String, recipeSummary: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
         vc.recipeImage = recipeImage
         vc.recipeTime = recipeTime
         vc.recipeInstructions = recipeInstructions
+        vc.recipeSummary = recipeSummary
         vc.ingredientsNumber = ingredientsNumber
         vc.ingredientsNumberInt = ingredientsNumbersInt
         vc.ingredientsName = ingredientsName
@@ -119,12 +119,12 @@ extension HomeViewController: RecipesDetailsSelectActionDelegate {
 }
 
 extension HomeViewController: PopularRecipesSelectActionDelegate {
-    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeTime: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
-        
+    func popularRecipes(_ view: HomeView, recipeTitle: String, recipeImage: String, recipeTime: String, recipeSummary: String, recipeInstructions: String, ingredientsNumber: String, ingredientsNumbersInt: Int, ingredientsName: [String], ingredientsWeight: [Double], ingredientsAmount: [String], instructionsNumber: String, instructionsSteps: [String], recipeID: String) {
         let vc = RecipesDetailsViewController()
         vc.recipeTitle = recipeTitle
         vc.recipeImage = recipeImage
         vc.recipeTime = recipeTime
+        vc.recipeSummary = recipeSummary
         vc.recipeInstructions = recipeInstructions
         vc.ingredientsNumber = ingredientsNumber
         vc.ingredientsNumberInt = ingredientsNumbersInt

@@ -36,6 +36,7 @@
 		E10D43F624533DD800FDFC2B /* StartCookingByIngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D43F524533DD800FDFC2B /* StartCookingByIngredientsViewController.swift */; };
 		E10D43F824533DE000FDFC2B /* StartBuyingByIngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D43F724533DE000FDFC2B /* StartBuyingByIngredientsViewController.swift */; };
 		E111617924089FCA00865872 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111617824089FCA00865872 /* UserTableViewCell.swift */; };
+		E11F4C3024C6EF2A00B68420 /* String + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F4C2F24C6EF2A00B68420 /* String + Ext.swift */; };
 		E124F3AC244E2C5200BA4C65 /* UINavigationController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124F3AB244E2C5200BA4C65 /* UINavigationController + Ext.swift */; };
 		E124F3B0244E4C8900BA4C65 /* SearchByIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124F3AF244E4C8900BA4C65 /* SearchByIngredientsView.swift */; };
 		E124F3B2244E4CA400BA4C65 /* SearchByIngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124F3B1244E4CA400BA4C65 /* SearchByIngredientsViewController.swift */; };
@@ -128,6 +129,7 @@
 		E10D43F524533DD800FDFC2B /* StartCookingByIngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCookingByIngredientsViewController.swift; sourceTree = "<group>"; };
 		E10D43F724533DE000FDFC2B /* StartBuyingByIngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartBuyingByIngredientsViewController.swift; sourceTree = "<group>"; };
 		E111617824089FCA00865872 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		E11F4C2F24C6EF2A00B68420 /* String + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Ext.swift"; sourceTree = "<group>"; };
 		E124F3AB244E2C5200BA4C65 /* UINavigationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Ext.swift"; sourceTree = "<group>"; };
 		E124F3AF244E4C8900BA4C65 /* SearchByIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchByIngredientsView.swift; sourceTree = "<group>"; };
 		E124F3B1244E4CA400BA4C65 /* SearchByIngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchByIngredientsViewController.swift; sourceTree = "<group>"; };
@@ -843,6 +845,7 @@
 				CCF790042401BE6C006FC3A6 /* ImageView + Ext.swift */,
 				E124F3AB244E2C5200BA4C65 /* UINavigationController + Ext.swift */,
 				E124F3B3244E8C9900BA4C65 /* UITextField + Ext.swift */,
+				E11F4C2F24C6EF2A00B68420 /* String + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1150,6 +1153,7 @@
 				CC1A390723FC54ED000AAF3A /* SignInView.swift in Sources */,
 				E1066A9724536E3800C426B3 /* ContactUsViewController.swift in Sources */,
 				E1C49D89242BAA2000446CDE /* StartCookingViewController.swift in Sources */,
+				E11F4C3024C6EF2A00B68420 /* String + Ext.swift in Sources */,
 				E124F3B0244E4C8900BA4C65 /* SearchByIngredientsView.swift in Sources */,
 				E10D43E924532EAB00FDFC2B /* SearchByIngredientsDetailsView.swift in Sources */,
 				CC33256E23FCF88D00F8A6F2 /* SignupView.swift in Sources */,
@@ -1313,7 +1317,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57RA7SGH3Y;
 				INFOPLIST_FILE = COOKBOOK/Others/Info.plist;
@@ -1321,7 +1325,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.101techie.COOKBOOK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1337,7 +1341,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57RA7SGH3Y;
 				INFOPLIST_FILE = COOKBOOK/Others/Info.plist;
@@ -1345,7 +1349,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.101techie.COOKBOOK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
